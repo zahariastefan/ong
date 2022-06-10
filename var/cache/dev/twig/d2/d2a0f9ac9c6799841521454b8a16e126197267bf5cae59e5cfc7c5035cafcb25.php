@@ -76,8 +76,11 @@ class __TwigTemplate_ef886ddc2af527677ec04e18954bbc0efc0ac61b3b8729af70594bcb598
         // line 54
         echo "
 ";
-        // line 59
-        echo "                <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
+        // line 58
+        echo "                <a class=\"nav-link text-black-50\" href=\"";
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+        echo "\">Log In</a>
+                <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
 ";
         // line 61
         echo "        </div>
@@ -103,7 +106,7 @@ class __TwigTemplate_ef886ddc2af527677ec04e18954bbc0efc0ac61b3b8729af70594bcb598
 
     public function getDebugInfo()
     {
-        return array (  83 => 61,  80 => 59,  77 => 54,  74 => 42,  72 => 27,  69 => 25,  66 => 19,  51 => 6,  47 => 4,  43 => 1,);
+        return array (  86 => 61,  80 => 58,  77 => 54,  74 => 42,  72 => 27,  69 => 25,  66 => 19,  51 => 6,  47 => 4,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -165,7 +168,7 @@ class __TwigTemplate_ef886ddc2af527677ec04e18954bbc0efc0ac61b3b8729af70594bcb598
 {#                    </ul>#}
 {#                </div>#}
 {#            {% else %}#}
-{#                <a class=\"nav-link text-black-50\" href=\"{{ path('app_login') }}\">Log In</a>#}
+                <a class=\"nav-link text-black-50\" href=\"{{ path('app_login') }}\">Log In</a>
                 <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
 {#            {% endif %}#}
         </div>
