@@ -16,6 +16,6 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerEMFDiwl\App_KernelDevDebugContainer([
     'container.build_hash' => 'EMFDiwl',
-    'container.build_id' => '6d0a3c32',
-    'container.build_time' => 1654883374,
+    'container.build_id' => '25fc7087',
+    'container.build_time' => 1654883650,
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerEMFDiwl');

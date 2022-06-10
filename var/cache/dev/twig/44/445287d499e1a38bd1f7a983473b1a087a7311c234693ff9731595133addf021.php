@@ -60,30 +60,39 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
         <div class=\"collapse navbar-collapse\" id=\"navbar-collapsable\">
             <ul class=\"navbar-nav me-auto mb-2 mb-lg-0\">
-                <li class=\"nav-item\">
-";
-        // line 19
-        echo "                </li>
-";
-        // line 25
+            ";
+        // line 17
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
+            // line 18
+            echo "                <li class=\"nav-item\">
+                    <a class=\"nav-link\" href=\"";
+            // line 19
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("admin_dashboard");
+            echo "\">Admin</a>
+                </li>
+            ";
+        }
+        // line 22
         echo "            </ul>
             ";
-        // line 27
-        echo "            ";
-        // line 42
-        echo "
-";
-        // line 54
-        echo "
-";
-        // line 58
-        echo "                <a class=\"nav-link text-black-50\" href=\"";
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
-        echo "\">Log In</a>
+        // line 23
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
+            // line 24
+            echo "            <a class=\"nav-link text-black-50\" href=\"";
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
+            echo "\">Log Out</a>
+            ";
+        } else {
+            // line 26
+            echo "                <a class=\"nav-link text-black-50\" href=\"";
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+            echo "\">Log In</a>
                 <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
-";
-        // line 61
-        echo "        </div>
+            ";
+        }
+        // line 29
+        echo "
+        </div>
     </div>
 </nav>";
         
@@ -106,7 +115,7 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
     public function getDebugInfo()
     {
-        return array (  86 => 61,  80 => 58,  77 => 54,  74 => 42,  72 => 27,  69 => 25,  66 => 19,  51 => 6,  47 => 4,  43 => 1,);
+        return array (  94 => 29,  87 => 26,  81 => 24,  79 => 23,  76 => 22,  70 => 19,  67 => 18,  65 => 17,  51 => 6,  47 => 4,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -127,50 +136,19 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
         <div class=\"collapse navbar-collapse\" id=\"navbar-collapsable\">
             <ul class=\"navbar-nav me-auto mb-2 mb-lg-0\">
+            {% if is_granted('ROLE_ADMIN') %}
                 <li class=\"nav-item\">
-{#                    <a class=\"nav-link\" href=\"{{ path('app_popular_answers') }}\">Answers</a>#}
+                    <a class=\"nav-link\" href=\"{{ path('admin_dashboard') }}\">Admin</a>
                 </li>
-{#                {% if is_granted('ROLE_ADMIN') %}#}
-{#                    <li class=\"nav-item\">#}
-{#                        <a class=\"nav-link\" href=\"{{ path('admin_dashboard') }}\">Admin</a>#}
-{#                    </li>#}
-{#                {% endif %}#}
+            {% endif %}
             </ul>
-            {#                    {% if is_granted('ROLE_USER') %}  FIRST WAY TO DO AUTH #}
-            {#                    {% if is_granted('IS_AUTHENTICATED_FULLY') %}#}
-{#            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}#}
-{#                <div class=\"dropdown\">#}
-{#                    <button#}
-{#                            class=\"dropdown-toggle btn\"#}
-{#                            type=\"button\"#}
-{#                            id=\"user-dropdown\"#}
-{#                            data-bs-toggle=\"dropdown\"#}
-{#                            aria-expanded=\"false\"#}
-{#                    >#}
-{#                        <img#}
-{#                                src=\"{{ app.user.avatarUri }}\"#}
-{#                                alt=\"{{ app.user.displayName }} Avatar\">#}
-{#                    </button>#}
-{#                    <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"user-dropdown\">#}
-
-{#                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}#}
-{#                            <li>#}
-{#                                <a class=\"dropdown-item\" href=\"{{ path('app_homepage' , {#}
-{#                                    '_switch_user':'_exit'#}
-{#                                }) }}\">Exit Impersonation</a>#}
-{#                            </li>#}
-{#                        {% else %}#}
-{#                            <li>#}
-{#                                <a class=\"dropdown-item\" href=\"{{ path('app_logout') }}\">Log Out</a>#}
-{#                            </li>#}
-{#                        {% endif %}#}
-
-{#                    </ul>#}
-{#                </div>#}
-{#            {% else %}#}
+            {% if is_granted('ROLE_ADMIN') %}
+            <a class=\"nav-link text-black-50\" href=\"{{ path('app_logout') }}\">Log Out</a>
+            {% else %}
                 <a class=\"nav-link text-black-50\" href=\"{{ path('app_login') }}\">Log In</a>
                 <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
-{#            {% endif %}#}
+            {% endif %}
+
         </div>
     </div>
 </nav>", "navbar.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\navbar.html.twig");
