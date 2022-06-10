@@ -23,4 +23,5 @@ return array(
     '53c7be3308b5aa229d03a4dfcf6ca18d' => $vendorDir . '/symfony/intl/Resources/functions.php',
     '92c8763cd6170fce6fcfe7e26b4e8c10' => $vendorDir . '/symfony/phpunit-bridge/bootstrap.php',
     'a1105708a18b76903365ca1c4aa61b02' => $vendorDir . '/symfony/translation/Resources/functions.php',
+    '4f9a1929b39ff2a6c1016427077d16f5' => $vendorDir . '/zenstruck/foundry/src/functions.php',
 );
