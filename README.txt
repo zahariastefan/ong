@@ -11,3 +11,6 @@ yarn add bootstrap --dev
 yarn add @fontsource/roboto-condensed --dev
 
 yarn add @fortawesome/fontawesome-free --dev
+
+composer require security
+
