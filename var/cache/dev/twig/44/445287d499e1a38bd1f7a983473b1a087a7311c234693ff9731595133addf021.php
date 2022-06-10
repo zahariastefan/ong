@@ -76,7 +76,7 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
         echo "            </ul>
             ";
         // line 23
-        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_USER")) {
             // line 24
             echo "            <a class=\"nav-link text-black-50\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
@@ -142,7 +142,7 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
                 </li>
             {% endif %}
             </ul>
-            {% if is_granted('ROLE_ADMIN') %}
+            {% if is_granted('ROLE_USER') %}
             <a class=\"nav-link text-black-50\" href=\"{{ path('app_logout') }}\">Log Out</a>
             {% else %}
                 <a class=\"nav-link text-black-50\" href=\"{{ path('app_login') }}\">Log In</a>
