@@ -100,11 +100,11 @@ class __TwigTemplate_194ea919c13a96e671238957952962dafe02c5970b09998baf7520dfd58
     <ul>
         <li>Your controller at <code><a href=\"";
         // line 16
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("C:/good projects/ONG with stripe/Current Project OK/src/Controller/SecurityController.php", 0), "html", null, true);
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("C:/good projects/ONG with stripe/ONG symfony 5 new/ong5/src/Controller/SecurityController.php", 0), "html", null, true);
         echo "\">src/Controller/SecurityController.php</a></code></li>
         <li>Your template at <code><a href=\"";
         // line 17
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("C:/good projects/ONG with stripe/Current Project OK/templates/security/index.html.twig", 0), "html", null, true);
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\CodeExtension']->getFileLink("C:/good projects/ONG with stripe/ONG symfony 5 new/ong5/templates/security/index.html.twig", 0), "html", null, true);
         echo "\">templates/security/index.html.twig</a></code></li>
     </ul>
 </div>
@@ -149,8 +149,8 @@ class __TwigTemplate_194ea919c13a96e671238957952962dafe02c5970b09998baf7520dfd58
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href=\"{{ 'C:/good projects/ONG with stripe/Current Project OK/src/Controller/SecurityController.php'|file_link(0) }}\">src/Controller/SecurityController.php</a></code></li>
-        <li>Your template at <code><a href=\"{{ 'C:/good projects/ONG with stripe/Current Project OK/templates/security/index.html.twig'|file_link(0) }}\">templates/security/index.html.twig</a></code></li>
+        <li>Your controller at <code><a href=\"{{ 'C:/good projects/ONG with stripe/ONG symfony 5 new/ong5/src/Controller/SecurityController.php'|file_link(0) }}\">src/Controller/SecurityController.php</a></code></li>
+        <li>Your template at <code><a href=\"{{ 'C:/good projects/ONG with stripe/ONG symfony 5 new/ong5/templates/security/index.html.twig'|file_link(0) }}\">templates/security/index.html.twig</a></code></li>
     </ul>
 </div>
 {% endblock %}

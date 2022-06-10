@@ -90,7 +90,17 @@ class __TwigTemplate_56e7b27f9b9870993e4382b2824f9e1ec223d8fdae47fe61d542e54cab8
             <div class=\"login-form bg-light mt-4 p-4\">
                 <form method=\"post\" class=\"row g-3\">
                     <h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>
-
+                    ";
+        // line 11
+        if ((isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 11, $this->source); })())) {
+            // line 12
+            echo "                        <div class=\"alert alert-danger\">";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["error"]) || array_key_exists("error", $context) ? $context["error"] : (function () { throw new RuntimeError('Variable "error" does not exist.', 12, $this->source); })()), "messageKey", [], "any", false, false, false, 12), "html", null, true);
+            echo "</div>
+                    ";
+        }
+        // line 14
+        echo "
                     <div class=\"col-12\">
                         <label for=\"inputEmail\">Email</label>
                         <input type=\"email\" name=\"email\" id=\"inputEmail\" class=\"form-control\" required autofocus>
@@ -130,7 +140,7 @@ class __TwigTemplate_56e7b27f9b9870993e4382b2824f9e1ec223d8fdae47fe61d542e54cab8
 
     public function getDebugInfo()
     {
-        return array (  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  103 => 14,  97 => 12,  95 => 11,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -145,6 +155,9 @@ class __TwigTemplate_56e7b27f9b9870993e4382b2824f9e1ec223d8fdae47fe61d542e54cab8
             <div class=\"login-form bg-light mt-4 p-4\">
                 <form method=\"post\" class=\"row g-3\">
                     <h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>
+                    {% if error %}
+                        <div class=\"alert alert-danger\">{{ error.messageKey }}</div>
+                    {% endif %}
 
                     <div class=\"col-12\">
                         <label for=\"inputEmail\">Email</label>
