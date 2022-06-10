@@ -58,10 +58,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
 
                 return $user;
             }),
-            new CustomCredentials(function($credentials, User $user) { //this identify the proof that is the user
-                return $credentials === 'tada'; // here is the password we put for LOGIN
-                // if you type tada on password field you will be logged in
-            }, $password)
+            new PasswordCredentials($password)
         );
     }
 
