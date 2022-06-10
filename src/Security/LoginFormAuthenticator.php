@@ -21,8 +21,9 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CustomCre
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordCredentials;
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
+use Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface;
 
-class LoginFormAuthenticator extends AbstractAuthenticator
+class LoginFormAuthenticator extends AbstractAuthenticator implements AuthenticationEntryPointInterface
 {
 
 
@@ -55,7 +56,6 @@ class LoginFormAuthenticator extends AbstractAuthenticator
                 if(!$user){
                     throw new UserNotFoundException();
                 }
-
                 return $user;
             }),
             new PasswordCredentials($password),
@@ -65,7 +65,7 @@ class LoginFormAuthenticator extends AbstractAuthenticator
                     $request->request->get('_csrf_token')
                 ),
                 // new RememberMeBadge(), //there is no mandatory to specify _remember_me because the RememberMeBadge know to look for an input with that name automatically
-                (new RememberMeBadge())->enable() //always remember me
+                (new RememberMeBadge())->enable(),//always remember me
             ]
         );
     }
@@ -85,14 +85,10 @@ class LoginFormAuthenticator extends AbstractAuthenticator
         );
     }
 
-//    public function start(Request $request, AuthenticationException $authException = null): Response
-//    {
-//        /*
-//         * If you would like this class to control what happens when an anonymous user accesses a
-//         * protected page (e.g. redirect to /login), uncomment this method and make this class
-//         * implement Symfony\Component\Security\Http\EntryPoint\AuthenticationEntryPointInterface.
-//         *
-//         * For more details, see https://symfony.com/doc/current/security/experimental_authenticators.html#configuring-the-authentication-entry-point
-//         */
-//    }
+    public function start(Request $request, AuthenticationException $authException = null): Response
+    {
+        return new RedirectResponse(
+            $this->router->generate('app_login')
+        );
+    }
 }

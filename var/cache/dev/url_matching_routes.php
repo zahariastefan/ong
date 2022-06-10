@@ -8,12 +8,16 @@
 return [
     false, // $matchHost
     [ // $staticRoutes
+        '/admin' => [[['_route' => 'admin_dashboard', '_controller' => 'App\\Controller\\AdminController::dashboard'], null, null, null, false, false, null]],
+        '/admin/login' => [[['_route' => 'app_admin_adminlogin', '_controller' => 'App\\Controller\\AdminController::adminLogin'], null, null, null, false, false, null]],
+        '/admin/answers' => [[['_route' => 'app_admin_adminanswers', '_controller' => 'App\\Controller\\AdminController::adminAnswers'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_homepage', '_controller' => 'App\\Controller\\Homepage::homepage'], null, null, null, false, false, null]],
         '/checkout' => [[['_route' => 'app_checkout', '_controller' => 'App\\Controller\\Homepage::payment'], null, null, null, false, false, null]],
         '/success' => [[['_route' => 'app_homepage_success', '_controller' => 'App\\Controller\\Homepage::success'], null, null, null, false, false, null]],
         '/cancel' => [[['_route' => 'app_homepage_cancel', '_controller' => 'App\\Controller\\Homepage::cancel'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
+        '/api/me' => [[['_route' => 'app_user_apime', '_controller' => 'App\\Controller\\UserController::apiMe'], null, null, null, false, false, null]],
         '/_profiler' => [[['_route' => '_profiler_home', '_controller' => 'web_profiler.controller.profiler::homeAction'], null, null, null, true, false, null]],
         '/_profiler/search' => [[['_route' => '_profiler_search', '_controller' => 'web_profiler.controller.profiler::searchAction'], null, null, null, false, false, null]],
         '/_profiler/search_bar' => [[['_route' => '_profiler_search_bar', '_controller' => 'web_profiler.controller.profiler::searchBarAction'], null, null, null, false, false, null]],
