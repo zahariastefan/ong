@@ -109,6 +109,10 @@ class __TwigTemplate_56e7b27f9b9870993e4382b2824f9e1ec223d8fdae47fe61d542e54cab8
                         <label for=\"inputPassword\">Password</label>
                         <input type=\"password\" name=\"password\" id=\"inputPassword\" class=\"form-control\" required>
                     </div>
+                    <input type=\"hidden\" name=\"_csrf_token\" value=\"";
+        // line 23
+        echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
+        echo "\">
 
                     <div class=\"col-12\">
                         <button class=\"btn btn-lg btn-primary float-end\" type=\"submit\">
@@ -140,7 +144,7 @@ class __TwigTemplate_56e7b27f9b9870993e4382b2824f9e1ec223d8fdae47fe61d542e54cab8
 
     public function getDebugInfo()
     {
-        return array (  103 => 14,  97 => 12,  95 => 11,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  114 => 23,  103 => 14,  97 => 12,  95 => 11,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -167,6 +171,7 @@ class __TwigTemplate_56e7b27f9b9870993e4382b2824f9e1ec223d8fdae47fe61d542e54cab8
                         <label for=\"inputPassword\">Password</label>
                         <input type=\"password\" name=\"password\" id=\"inputPassword\" class=\"form-control\" required>
                     </div>
+                    <input type=\"hidden\" name=\"_csrf_token\" value=\"{{ csrf_token('authenticate') }}\">
 
                     <div class=\"col-12\">
                         <button class=\"btn btn-lg btn-primary float-end\" type=\"submit\">
