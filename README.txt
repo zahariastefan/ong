@@ -14,3 +14,4 @@ yarn add @fortawesome/fontawesome-free --dev
 
 composer require security
 
+composer require symfony/ux-chartjs

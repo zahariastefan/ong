@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '97ed83758f44fbae361992724aec1ba08ba73052',
+        'reference' => 'b2e246915044da4d0960397af3115f300c2cf2fb',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '97ed83758f44fbae361992724aec1ba08ba73052',
+            'reference' => 'b2e246915044da4d0960397af3115f300c2cf2fb',
             'dev_requirement' => false,
         ),
         'doctrine/annotations' => array(
@@ -1278,6 +1278,15 @@
             'install_path' => __DIR__ . '/../symfony/twig-bundle',
             'aliases' => array(),
             'reference' => 'c992b4474c3a31f3c40a1ca593d213833f91b818',
+            'dev_requirement' => false,
+        ),
+        'symfony/ux-chartjs' => array(
+            'pretty_version' => 'v2.1.1',
+            'version' => '2.1.1.0',
+            'type' => 'symfony-bundle',
+            'install_path' => __DIR__ . '/../symfony/ux-chartjs',
+            'aliases' => array(),
+            'reference' => '8fcb3c362c4d9f641bf20d0acfdc43b1bd7206f7',
             'dev_requirement' => false,
         ),
         'symfony/validator' => array(

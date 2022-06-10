@@ -49,6 +49,7 @@ class ComposerStaticInit82d5ce2bdad4c5e8014dbff447dcc273
         'S' => 
         array (
             'Symfony\\WebpackEncoreBundle\\' => 28,
+            'Symfony\\UX\\Chartjs\\' => 19,
             'Symfony\\Runtime\\Symfony\\Component\\' => 34,
             'Symfony\\Polyfill\\Php81\\' => 23,
             'Symfony\\Polyfill\\Php80\\' => 23,
@@ -212,6 +213,10 @@ class ComposerStaticInit82d5ce2bdad4c5e8014dbff447dcc273
         'Symfony\\WebpackEncoreBundle\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src',
+        ),
+        'Symfony\\UX\\Chartjs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/ux-chartjs',
         ),
         'Symfony\\Runtime\\Symfony\\Component\\' => 
         array (
@@ -649,20 +654,29 @@ class ComposerStaticInit82d5ce2bdad4c5e8014dbff447dcc273
     );
 
     public static $classMap = array (
+        'App\\Controller\\AdminController' => __DIR__ . '/../..' . '/src/Controller/AdminController.php',
+        'App\\Controller\\BaseController' => __DIR__ . '/../..' . '/src/Controller/BaseController.php',
         'App\\Controller\\Homepage' => __DIR__ . '/../..' . '/src/Controller/Homepage.php',
+        'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
+        'App\\Controller\\UserController' => __DIR__ . '/../..' . '/src/Controller/UserController.php',
         'App\\DataFixtures\\AppFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/AppFixtures.php',
         'App\\Entity\\Cauze' => __DIR__ . '/../..' . '/src/Entity/Cauze.php',
         'App\\Entity\\Owner' => __DIR__ . '/../..' . '/src/Entity/Owner.php',
         'App\\Entity\\Products' => __DIR__ . '/../..' . '/src/Entity/Products.php',
         'App\\Entity\\UniqueCodes' => __DIR__ . '/../..' . '/src/Entity/UniqueCodes.php',
+        'App\\Entity\\User' => __DIR__ . '/../..' . '/src/Entity/User.php',
         'App\\Factory\\CauzeFactory' => __DIR__ . '/../..' . '/src/Factory/CauzeFactory.php',
         'App\\Factory\\ProductsFactory' => __DIR__ . '/../..' . '/src/Factory/ProductsFactory.php',
         'App\\Factory\\UniqueCodesFactory' => __DIR__ . '/../..' . '/src/Factory/UniqueCodesFactory.php',
+        'App\\Factory\\UserFactory' => __DIR__ . '/../..' . '/src/Factory/UserFactory.php',
         'App\\Kernel' => __DIR__ . '/../..' . '/src/Kernel.php',
         'App\\Repository\\CauzeRepository' => __DIR__ . '/../..' . '/src/Repository/CauzeRepository.php',
         'App\\Repository\\OwnerRepository' => __DIR__ . '/../..' . '/src/Repository/OwnerRepository.php',
         'App\\Repository\\ProductsRepository' => __DIR__ . '/../..' . '/src/Repository/ProductsRepository.php',
         'App\\Repository\\UniqueCodesRepository' => __DIR__ . '/../..' . '/src/Repository/UniqueCodesRepository.php',
+        'App\\Repository\\UserRepository' => __DIR__ . '/../..' . '/src/Repository/UserRepository.php',
+        'App\\Security\\DummyAuthenticator' => __DIR__ . '/../..' . '/src/Security/DummyAuthenticator.php',
+        'App\\Security\\LoginFormAuthenticator' => __DIR__ . '/../..' . '/src/Security/LoginFormAuthenticator.php',
         'Attribute' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/Attribute.php',
         'Collator' => __DIR__ . '/..' . '/symfony/intl/Resources/stubs/Collator.php',
         'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
@@ -7139,6 +7153,12 @@ class ComposerStaticInit82d5ce2bdad4c5e8014dbff447dcc273
         'Symfony\\Runtime\\Symfony\\Component\\HttpFoundation\\RequestRuntime' => __DIR__ . '/..' . '/symfony/runtime/Internal/HttpFoundation/RequestRuntime.php',
         'Symfony\\Runtime\\Symfony\\Component\\HttpFoundation\\ResponseRuntime' => __DIR__ . '/..' . '/symfony/runtime/Internal/HttpFoundation/ResponseRuntime.php',
         'Symfony\\Runtime\\Symfony\\Component\\HttpKernel\\HttpKernelInterfaceRuntime' => __DIR__ . '/..' . '/symfony/runtime/Internal/HttpKernel/HttpKernelInterfaceRuntime.php',
+        'Symfony\\UX\\Chartjs\\Builder\\ChartBuilder' => __DIR__ . '/..' . '/symfony/ux-chartjs/Builder/ChartBuilder.php',
+        'Symfony\\UX\\Chartjs\\Builder\\ChartBuilderInterface' => __DIR__ . '/..' . '/symfony/ux-chartjs/Builder/ChartBuilderInterface.php',
+        'Symfony\\UX\\Chartjs\\ChartjsBundle' => __DIR__ . '/..' . '/symfony/ux-chartjs/ChartjsBundle.php',
+        'Symfony\\UX\\Chartjs\\DependencyInjection\\ChartjsExtension' => __DIR__ . '/..' . '/symfony/ux-chartjs/DependencyInjection/ChartjsExtension.php',
+        'Symfony\\UX\\Chartjs\\Model\\Chart' => __DIR__ . '/..' . '/symfony/ux-chartjs/Model/Chart.php',
+        'Symfony\\UX\\Chartjs\\Twig\\ChartExtension' => __DIR__ . '/..' . '/symfony/ux-chartjs/Twig/ChartExtension.php',
         'Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookup' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/EntrypointLookup.php',
         'Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookupCollection' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/EntrypointLookupCollection.php',
         'Symfony\\WebpackEncoreBundle\\Asset\\EntrypointLookupCollectionInterface' => __DIR__ . '/..' . '/symfony/webpack-encore-bundle/src/Asset/EntrypointLookupCollectionInterface.php',
