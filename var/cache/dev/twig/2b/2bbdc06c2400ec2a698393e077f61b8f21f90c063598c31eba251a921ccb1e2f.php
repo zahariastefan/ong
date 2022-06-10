@@ -103,7 +103,10 @@ class __TwigTemplate_d3eb9b41cb170dcef2eeb16cf0c6ff0de7e3956d809acd28b97cf07db21
         echo "
                     <div class=\"col-12\">
                         <label for=\"inputEmail\">Email</label>
-                        <input type=\"email\" name=\"email\" id=\"inputEmail\" class=\"form-control\" required autofocus>
+                        <input type=\"email\" name=\"email\" id=\"inputEmail\" class=\"form-control\" value=\"";
+        // line 17
+        echo twig_escape_filter($this->env, (isset($context["last_username"]) || array_key_exists("last_username", $context) ? $context["last_username"] : (function () { throw new RuntimeError('Variable "last_username" does not exist.', 17, $this->source); })()), "html", null, true);
+        echo "\" required autofocus>
                     </div>
                     <div class=\"col-12\">
                         <label for=\"inputPassword\">Password</label>
@@ -144,7 +147,7 @@ class __TwigTemplate_d3eb9b41cb170dcef2eeb16cf0c6ff0de7e3956d809acd28b97cf07db21
 
     public function getDebugInfo()
     {
-        return array (  114 => 23,  103 => 14,  97 => 12,  95 => 11,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  117 => 23,  108 => 17,  103 => 14,  97 => 12,  95 => 11,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -165,7 +168,7 @@ class __TwigTemplate_d3eb9b41cb170dcef2eeb16cf0c6ff0de7e3956d809acd28b97cf07db21
 
                     <div class=\"col-12\">
                         <label for=\"inputEmail\">Email</label>
-                        <input type=\"email\" name=\"email\" id=\"inputEmail\" class=\"form-control\" required autofocus>
+                        <input type=\"email\" name=\"email\" id=\"inputEmail\" class=\"form-control\" value=\"{{ last_username }}\" required autofocus>
                     </div>
                     <div class=\"col-12\">
                         <label for=\"inputPassword\">Password</label>
