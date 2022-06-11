@@ -63,21 +63,20 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
         $this->displayBlock('javascripts', $context, $blocks);
         // line 15
         echo "        <title>Buy cool new product</title>
-        <link rel=\"stylesheet\" href=\"style.css\">
         <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
         <script src=\"https://js.stripe.com/v3/\"></script>
     </head>
     <body>
     ";
+        // line 20
+        $this->loadTemplate("navbar.html.twig", "base.html.twig", 20)->display($context);
         // line 21
-        $this->loadTemplate("navbar.html.twig", "base.html.twig", 21)->display($context);
-        // line 22
         echo "    ";
         $this->displayBlock('body', $context, $blocks);
-        // line 24
+        // line 23
         echo "    ";
-        $this->loadTemplate("footer.html.twig", "base.html.twig", 24)->display($context);
-        // line 25
+        $this->loadTemplate("footer.html.twig", "base.html.twig", 23)->display($context);
+        // line 24
         echo "    </body>
 </html>
 ";
@@ -154,7 +153,7 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
 
     }
 
-    // line 22
+    // line 21
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -164,7 +163,7 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 23
+        // line 22
         echo "    ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -186,7 +185,7 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
 
     public function getDebugInfo()
     {
-        return array (  168 => 23,  158 => 22,  145 => 13,  135 => 12,  122 => 9,  112 => 8,  93 => 5,  81 => 25,  78 => 24,  75 => 22,  73 => 21,  65 => 15,  63 => 12,  60 => 11,  57 => 8,  53 => 5,  47 => 1,);
+        return array (  167 => 22,  157 => 21,  144 => 13,  134 => 12,  121 => 9,  111 => 8,  92 => 5,  80 => 24,  77 => 23,  74 => 21,  72 => 20,  65 => 15,  63 => 12,  60 => 11,  57 => 8,  53 => 5,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -206,7 +205,6 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
         <title>Buy cool new product</title>
-        <link rel=\"stylesheet\" href=\"style.css\">
         <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
         <script src=\"https://js.stripe.com/v3/\"></script>
     </head>

@@ -5523,9 +5523,16 @@
     </service>
     <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap">
       <call method="add">
+        <argument type="service" id=".security.request_matcher.9czg417"/>
+        <argument type="collection">
+          <argument>PUBLIC_ACCESS</argument>
+        </argument>
+        <argument>null</argument>
+      </call>
+      <call method="add">
         <argument type="service" id=".security.request_matcher.5dJADCx"/>
         <argument type="collection">
-          <argument>ROLE_USER</argument>
+          <argument>ROLE_ADMIN</argument>
         </argument>
         <argument>null</argument>
       </call>
@@ -6181,6 +6188,7 @@
       <argument type="service" id="request_stack"/>
       <argument type="collection">
         <argument key="secret">%env(APP_SECRET)%</argument>
+        <argument key="always_remember_me">true</argument>
         <argument key="signature_properties" type="collection">
           <argument>password</argument>
         </argument>
@@ -6193,7 +6201,6 @@
         <argument key="secure">null</argument>
         <argument key="httponly">true</argument>
         <argument key="samesite">lax</argument>
-        <argument key="always_remember_me">false</argument>
         <argument key="remember_me_parameter">_remember_me</argument>
       </argument>
       <argument type="service" id="monolog.logger.security" on-invalid="null"/>
@@ -6201,7 +6208,7 @@
     <service id="security.listener.check_remember_me_conditions.main" class="Symfony\Component\Security\Http\EventListener\CheckRememberMeConditionsListener">
       <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
       <argument type="collection">
-        <argument key="always_remember_me">false</argument>
+        <argument key="always_remember_me">true</argument>
         <argument key="remember_me_parameter">_remember_me</argument>
       </argument>
       <argument type="service" id="monolog.logger" on-invalid="null"/>
@@ -6269,6 +6276,9 @@
         <argument key="security.firewall.map.context.dev" type="service_closure" id="security.firewall.map.context.dev"/>
         <argument key="security.firewall.map.context.main" type="service_closure" id="security.firewall.map.context.main"/>
       </argument>
+    </service>
+    <service id=".security.request_matcher.9czg417" class="Symfony\Component\HttpFoundation\RequestMatcher">
+      <argument>^/admin/login</argument>
     </service>
     <service id=".security.request_matcher.5dJADCx" class="Symfony\Component\HttpFoundation\RequestMatcher">
       <argument>^/admin</argument>
