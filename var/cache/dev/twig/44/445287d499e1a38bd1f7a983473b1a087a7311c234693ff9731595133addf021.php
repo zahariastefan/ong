@@ -76,21 +76,45 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
         echo "            </ul>
             ";
         // line 23
-        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_USER")) {
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
             // line 24
-            echo "            <a class=\"nav-link text-black-50\" href=\"";
+            echo "                <div class=\"dropdown\">
+                    <button
+                            class=\"dropdown-toggle btn\"
+                            type=\"button\"
+                            id=\"user-dropdown\"
+                            data-bs-toggle=\"dropdown\"
+                            aria-expanded=\"false\"
+                    >
+                        <img
+                                src=\"https://ui-avatars.com/api/?name=";
+            // line 33
+            echo twig_escape_filter($this->env, twig_urlencode_filter(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 33, $this->source); })()), "user", [], "any", false, false, false, 33), "firstName", [], "any", false, false, false, 33)), "html", null, true);
+            echo "&size=32&background=random\"
+                                alt=\"";
+            // line 34
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 34, $this->source); })()), "user", [], "any", false, false, false, 34), "firstName", [], "any", false, false, false, 34), "html", null, true);
+            echo " Doe Avatar\">
+                    </button>
+                    <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"user-dropdown\">
+                        <li>
+                            <a class=\"dropdown-item\" href=\"";
+            // line 38
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
             echo "\">Log Out</a>
-            ";
+                        </li>
+                    </ul>
+                </div>
+                ";
         } else {
-            // line 26
+            // line 43
             echo "                <a class=\"nav-link text-black-50\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo "\">Log In</a>
                 <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
             ";
         }
-        // line 29
+        // line 46
         echo "
         </div>
     </div>
@@ -115,7 +139,7 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
     public function getDebugInfo()
     {
-        return array (  94 => 29,  87 => 26,  81 => 24,  79 => 23,  76 => 22,  70 => 19,  67 => 18,  65 => 17,  51 => 6,  47 => 4,  43 => 1,);
+        return array (  118 => 46,  111 => 43,  103 => 38,  96 => 34,  92 => 33,  81 => 24,  79 => 23,  76 => 22,  70 => 19,  67 => 18,  65 => 17,  51 => 6,  47 => 4,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -142,9 +166,26 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
                 </li>
             {% endif %}
             </ul>
-            {% if is_granted('ROLE_USER') %}
-            <a class=\"nav-link text-black-50\" href=\"{{ path('app_logout') }}\">Log Out</a>
-            {% else %}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <div class=\"dropdown\">
+                    <button
+                            class=\"dropdown-toggle btn\"
+                            type=\"button\"
+                            id=\"user-dropdown\"
+                            data-bs-toggle=\"dropdown\"
+                            aria-expanded=\"false\"
+                    >
+                        <img
+                                src=\"https://ui-avatars.com/api/?name={{ app.user.firstName|url_encode }}&size=32&background=random\"
+                                alt=\"{{ app.user.firstName }} Doe Avatar\">
+                    </button>
+                    <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"user-dropdown\">
+                        <li>
+                            <a class=\"dropdown-item\" href=\"{{ path('app_logout') }}\">Log Out</a>
+                        </li>
+                    </ul>
+                </div>
+                {%else%}
                 <a class=\"nav-link text-black-50\" href=\"{{ path('app_login') }}\">Log In</a>
                 <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
             {% endif %}
