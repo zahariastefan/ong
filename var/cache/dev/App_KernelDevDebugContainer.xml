@@ -233,6 +233,7 @@
       <parameter key="ROLE_ADMIN" type="collection">
         <parameter>ROLE_COMMENT_ADMIN</parameter>
         <parameter>ROLE_USER_ADMIN</parameter>
+        <parameter>ROLE_ALLOWED_TO_SWITCH</parameter>
       </parameter>
       <parameter key="ROLE_HUMAN_RESOURCES" type="collection">
         <parameter>ROLE_USER_ADMIN</parameter>
@@ -5899,11 +5900,15 @@
       <argument>null</argument>
       <argument>null</argument>
       <argument type="collection">
+        <argument>switch_user</argument>
         <argument>form_login</argument>
         <argument>remember_me</argument>
         <argument>App\Security\DummyAuthenticator</argument>
       </argument>
-      <argument>null</argument>
+      <argument type="collection">
+        <argument key="parameter">_switch_user</argument>
+        <argument key="role">ROLE_ALLOWED_TO_SWITCH</argument>
+      </argument>
     </service>
     <service id="security.listener.main.user_provider" class="Symfony\Component\Security\Http\EventListener\UserProviderListener">
       <tag name="kernel.event_listener" dispatcher="security.event_dispatcher.main" event="Symfony\Component\Security\Http\Event\CheckPassportEvent" priority="2048" method="checkPassport"/>
@@ -6256,6 +6261,18 @@
       <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
       <argument type="service" id="security.user_checker"/>
     </service>
+    <service id="security.authentication.switchuser_listener.main" class="Symfony\Component\Security\Http\Firewall\SwitchUserListener">
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
+      <argument type="service" id="security.user_checker"/>
+      <argument>main</argument>
+      <argument type="service" id="debug.security.access.decision_manager"/>
+      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument>_switch_user</argument>
+      <argument>ROLE_ALLOWED_TO_SWITCH</argument>
+      <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
+      <argument>false</argument>
+    </service>
     <service id="security.exception_listener.main" class="Symfony\Component\Security\Http\Firewall\ExceptionListener">
       <argument type="service" id="security.token_storage"/>
       <argument type="service" id="security.authentication.trust_resolver"/>
@@ -6272,6 +6289,7 @@
         <argument type="service" id="security.channel_listener"/>
         <argument type="service" id="security.context_listener.0"/>
         <argument type="service" id="debug.security.firewall.authenticator.main"/>
+        <argument type="service" id="security.authentication.switchuser_listener.main"/>
         <argument type="service" id="security.access_listener"/>
       </argument>
       <argument type="service" id="security.exception_listener.main"/>

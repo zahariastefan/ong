@@ -42,9 +42,11 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
         // line 1
         echo "<nav
         class=\"navbar navbar-expand-lg navbar-light bg-light px-1\"
-";
-        // line 4
-        echo ">
+        ";
+        // line 3
+        echo (($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PREVIOUS_ADMIN")) ? ("style=\"background-color: red !important\"") : (""));
+        echo "
+>
     <div class=\"container-fluid\">
         <a class=\"navbar-brand\" href=\"";
         // line 6
@@ -97,24 +99,41 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
             echo " Doe Avatar\">
                     </button>
                     <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"user-dropdown\">
-                        <li>
-                            <a class=\"dropdown-item\" href=\"";
-            // line 38
-            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
-            echo "\">Log Out</a>
-                        </li>
-                    </ul>
+                        ";
+            // line 37
+            if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PREVIOUS_ADMIN")) {
+                // line 38
+                echo "                            <li>
+                                <a class=\"dropdown-item\" href=\"";
+                // line 39
+                echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_homepage", ["_switch_user" => "_exit"]);
+                // line 41
+                echo "\">Exit Impersonation</a>
+                            </li>
+                        ";
+            } else {
+                // line 44
+                echo "                            <li>
+                                <a class=\"dropdown-item\" href=\"";
+                // line 45
+                echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
+                echo "\">Log Out</a>
+                            </li>
+                        ";
+            }
+            // line 48
+            echo "                    </ul>
                 </div>
                 ";
         } else {
-            // line 43
+            // line 51
             echo "                <a class=\"nav-link text-black-50\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo "\">Log In</a>
                 <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
             ";
         }
-        // line 46
+        // line 54
         echo "
         </div>
     </div>
@@ -139,14 +158,14 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
     public function getDebugInfo()
     {
-        return array (  118 => 46,  111 => 43,  103 => 38,  96 => 34,  92 => 33,  81 => 24,  79 => 23,  76 => 22,  70 => 19,  67 => 18,  65 => 17,  51 => 6,  47 => 4,  43 => 1,);
+        return array (  137 => 54,  130 => 51,  125 => 48,  119 => 45,  116 => 44,  111 => 41,  109 => 39,  106 => 38,  104 => 37,  98 => 34,  94 => 33,  83 => 24,  81 => 23,  78 => 22,  72 => 19,  69 => 18,  67 => 17,  53 => 6,  47 => 3,  43 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("<nav
         class=\"navbar navbar-expand-lg navbar-light bg-light px-1\"
-{#        {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style=\"background-color: red !important\"' }}#}
+        {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style=\"background-color: red !important\"' }}
 >
     <div class=\"container-fluid\">
         <a class=\"navbar-brand\" href=\"{{ path('app_homepage') }}\">
@@ -180,9 +199,17 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
                                 alt=\"{{ app.user.firstName }} Doe Avatar\">
                     </button>
                     <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"user-dropdown\">
-                        <li>
-                            <a class=\"dropdown-item\" href=\"{{ path('app_logout') }}\">Log Out</a>
-                        </li>
+                        {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
+                            <li>
+                                <a class=\"dropdown-item\" href=\"{{ path('app_homepage' , {
+                                    '_switch_user':'_exit'
+                                }) }}\">Exit Impersonation</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a class=\"dropdown-item\" href=\"{{ path('app_logout') }}\">Log Out</a>
+                            </li>
+                        {% endif %}
                     </ul>
                 </div>
                 {%else%}
