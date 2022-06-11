@@ -9,6 +9,7 @@ return array(
     'App\\Controller\\AdminController' => $baseDir . '/src/Controller/AdminController.php',
     'App\\Controller\\BaseController' => $baseDir . '/src/Controller/BaseController.php',
     'App\\Controller\\Homepage' => $baseDir . '/src/Controller/Homepage.php',
+    'App\\Controller\\OnlyForBestsController' => $baseDir . '/src/Controller/OnlyForBestsController.php',
     'App\\Controller\\SecurityController' => $baseDir . '/src/Controller/SecurityController.php',
     'App\\Controller\\UserController' => $baseDir . '/src/Controller/UserController.php',
     'App\\DataFixtures\\AppFixtures' => $baseDir . '/src/DataFixtures/AppFixtures.php',

@@ -657,6 +657,7 @@ class ComposerStaticInit82d5ce2bdad4c5e8014dbff447dcc273
         'App\\Controller\\AdminController' => __DIR__ . '/../..' . '/src/Controller/AdminController.php',
         'App\\Controller\\BaseController' => __DIR__ . '/../..' . '/src/Controller/BaseController.php',
         'App\\Controller\\Homepage' => __DIR__ . '/../..' . '/src/Controller/Homepage.php',
+        'App\\Controller\\OnlyForBestsController' => __DIR__ . '/../..' . '/src/Controller/OnlyForBestsController.php',
         'App\\Controller\\SecurityController' => __DIR__ . '/../..' . '/src/Controller/SecurityController.php',
         'App\\Controller\\UserController' => __DIR__ . '/../..' . '/src/Controller/UserController.php',
         'App\\DataFixtures\\AppFixtures' => __DIR__ . '/../..' . '/src/DataFixtures/AppFixtures.php',
