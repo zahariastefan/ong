@@ -75,11 +75,17 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
             ";
         }
         // line 22
-        echo "            </ul>
-            ";
+        echo "                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"";
         // line 23
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("user_dashboard");
+        echo "\">Profile</a>
+                    </li>
+            </ul>
+            ";
+        // line 26
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
-            // line 24
+            // line 27
             echo "                <div class=\"dropdown\">
                     <button
                             class=\"dropdown-toggle btn\"
@@ -90,50 +96,50 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
                     >
                         <img
                                 src=\"https://ui-avatars.com/api/?name=";
-            // line 33
-            echo twig_escape_filter($this->env, twig_urlencode_filter(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 33, $this->source); })()), "user", [], "any", false, false, false, 33), "firstName", [], "any", false, false, false, 33)), "html", null, true);
+            // line 36
+            echo twig_escape_filter($this->env, twig_urlencode_filter(twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 36, $this->source); })()), "user", [], "any", false, false, false, 36), "firstName", [], "any", false, false, false, 36)), "html", null, true);
             echo "&size=32&background=random\"
                                 alt=\"";
-            // line 34
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 34, $this->source); })()), "user", [], "any", false, false, false, 34), "firstName", [], "any", false, false, false, 34), "html", null, true);
+            // line 37
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 37, $this->source); })()), "user", [], "any", false, false, false, 37), "firstName", [], "any", false, false, false, 37), "html", null, true);
             echo " Doe Avatar\">
                     </button>
                     <ul class=\"dropdown-menu dropdown-menu-end\" aria-labelledby=\"user-dropdown\">
                         ";
-            // line 37
+            // line 40
             if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_PREVIOUS_ADMIN")) {
-                // line 38
+                // line 41
                 echo "                            <li>
                                 <a class=\"dropdown-item\" href=\"";
-                // line 39
+                // line 42
                 echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_homepage", ["_switch_user" => "_exit"]);
-                // line 41
+                // line 44
                 echo "\">Exit Impersonation</a>
                             </li>
                         ";
             } else {
-                // line 44
+                // line 47
                 echo "                            <li>
                                 <a class=\"dropdown-item\" href=\"";
-                // line 45
+                // line 48
                 echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
                 echo "\">Log Out</a>
                             </li>
                         ";
             }
-            // line 48
+            // line 51
             echo "                    </ul>
                 </div>
                 ";
         } else {
-            // line 51
+            // line 54
             echo "                <a class=\"nav-link text-black-50\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo "\">Log In</a>
                 <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
             ";
         }
-        // line 54
+        // line 57
         echo "
         </div>
     </div>
@@ -158,7 +164,7 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
     public function getDebugInfo()
     {
-        return array (  137 => 54,  130 => 51,  125 => 48,  119 => 45,  116 => 44,  111 => 41,  109 => 39,  106 => 38,  104 => 37,  98 => 34,  94 => 33,  83 => 24,  81 => 23,  78 => 22,  72 => 19,  69 => 18,  67 => 17,  53 => 6,  47 => 3,  43 => 1,);
+        return array (  143 => 57,  136 => 54,  131 => 51,  125 => 48,  122 => 47,  117 => 44,  115 => 42,  112 => 41,  110 => 40,  104 => 37,  100 => 36,  89 => 27,  87 => 26,  81 => 23,  78 => 22,  72 => 19,  69 => 18,  67 => 17,  53 => 6,  47 => 3,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -184,6 +190,9 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
                     <a class=\"nav-link\" href=\"{{ path('admin_dashboard') }}\">Admin</a>
                 </li>
             {% endif %}
+                    <li class=\"nav-item\">
+                        <a class=\"nav-link\" href=\"{{ path('user_dashboard') }}\">Profile</a>
+                    </li>
             </ul>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class=\"dropdown\">

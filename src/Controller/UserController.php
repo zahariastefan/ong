@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class UserController extends BaseController
@@ -19,4 +20,14 @@ class UserController extends BaseController
             'groups' => ['user:read']
         ]);
     }
+
+    /**
+     * @Route("/profile", name="user_dashboard")
+     * @IsGranted("ROLE_USER")
+     */
+    public function profile()
+    {
+        return new Response('hello world');
+    }
+
 }
