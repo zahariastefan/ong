@@ -199,6 +199,6 @@ class __TwigTemplate_8cfd3004ad8c8c1cd28c020b054299248d2c26f2ab25a4f8dea65cbfd37
         </form>
     {% endfor %}
 
-{% endblock %}", "checkout.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\checkout.html.twig");
+{% endblock %}", "checkout.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\checkout.html.twig");
     }
 }

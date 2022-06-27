@@ -96,6 +96,6 @@ class __TwigTemplate_be65cdeb6d6424f0a6163cbdb35d578dfc7f50afd6c281af9c35704d9ee
 
 {% block body %}
     <p>Forgot to add something to your cart? Shop around then come back to pay!</p>
-{% endblock %}", "cancel.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\cancel.html.twig");
+{% endblock %}", "cancel.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\cancel.html.twig");
     }
 }

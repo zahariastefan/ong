@@ -154,6 +154,6 @@ class __TwigTemplate_1af8acec8983fd2060ce65bb380e6e48b4dd87341fc4cd5232fad3a2eb5
     </ul>
 </div>
 {% endblock %}
-", "dummy_authenticator/index.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\dummy_authenticator\\index.html.twig");
+", "dummy_authenticator/index.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\dummy_authenticator\\index.html.twig");
     }
 }

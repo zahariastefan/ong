@@ -155,6 +155,6 @@ class __TwigTemplate_1a10e0a1143565c519db098ae9ba305aa91a4242729111a04eec49cf935
     </div>
 </div>
 {% endblock %}
-", "admin/dashboard.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\admin\\dashboard.html.twig");
+", "admin/dashboard.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\admin\\dashboard.html.twig");
     }
 }

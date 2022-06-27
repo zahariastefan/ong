@@ -104,6 +104,6 @@ class __TwigTemplate_3a745c4fdc01b098b6ea7a975899aa0a883e44227d3335f5cd1bf0b120e
         <a href=\"mailto:orders@example.com\">orders@example.com</a>.
     </p>
 
-{% endblock %}", "success.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\success.html.twig");
+{% endblock %}", "success.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\success.html.twig");
     }
 }

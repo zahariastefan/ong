@@ -186,6 +186,6 @@ class __TwigTemplate_d3eb9b41cb170dcef2eeb16cf0c6ff0de7e3956d809acd28b97cf07db21
         </div>
     </div>
 {% endblock %}
-", "security/login.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\security\\login.html.twig");
+", "security/login.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\security\\login.html.twig");
     }
 }

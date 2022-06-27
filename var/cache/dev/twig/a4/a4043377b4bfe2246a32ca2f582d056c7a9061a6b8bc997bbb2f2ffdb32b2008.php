@@ -59,6 +59,6 @@ class __TwigTemplate_c33ebf6404fc910e972430a48bf7a9bb7836ed87462519afa9278a0e24f
 
     public function getSourceContext()
     {
-        return new Source("", "footer.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\footer.html.twig");
+        return new Source("", "footer.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\footer.html.twig");
     }
 }

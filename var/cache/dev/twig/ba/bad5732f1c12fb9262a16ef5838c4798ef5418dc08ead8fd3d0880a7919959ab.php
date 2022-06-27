@@ -227,6 +227,6 @@ class __TwigTemplate_c7f565dd2b290b3d4d117b74073ace70fd8004dff72a2ba7045aef7d855
         </div>
     </form>
 </div>
-", "@WebProfiler/Profiler/search.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\search.html.twig");
+", "@WebProfiler/Profiler/search.html.twig", "C:\\ONG symfony 5 new\\ong5\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Profiler\\search.html.twig");
     }
 }
