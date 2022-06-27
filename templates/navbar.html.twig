@@ -22,7 +22,14 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ path('user_dashboard') }}">Profile</a>
                     </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_donations') }}">Donatii</a>
+                </li>
             </ul>
+
+
+
+
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                 <div class="dropdown">
                     <button

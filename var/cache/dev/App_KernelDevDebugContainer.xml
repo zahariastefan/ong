@@ -394,6 +394,13 @@
         <argument type="service" id=".service_locator.GNc8e5B.App\Controller\AdminController"/>
       </call>
     </service>
+    <service id="App\Controller\DonationsController" class="App\Controller\DonationsController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\DonationsController"/>
+      </call>
+    </service>
     <service id="App\Controller\Homepage" class="App\Controller\Homepage" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -7367,6 +7374,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\Homepage" class="App\Controller\Homepage" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\Homepage" class="App\Controller\Homepage" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\Homepage" class="App\Controller\Homepage" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7806,11 +7816,11 @@
         <argument key="qrCodeGenerator" type="service_closure" id="scheb_two_factor.qr_code_generator"/>
       </argument>
     </service>
-    <service id=".service_locator.B2bOX3y" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.TtRxp3K" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
-        <argument key="App\Controller\Homepage::homepage" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Homepage::donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::success" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.imEfKVM"/>
@@ -7826,7 +7836,7 @@
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel::terminate" type="service_closure" id=".service_locator.KfwZsne"/>
         <argument key="App\Controller\AdminController:dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
-        <argument key="App\Controller\Homepage:homepage" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\Homepage:donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:success" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.imEfKVM"/>
@@ -8287,6 +8297,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.GNc8e5B" method="withContext"/>
     </service>
+    <service id=".service_locator.GNc8e5B.App\Controller\DonationsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\DonationsController"/>
+      <argument>App\Controller\DonationsController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+    </service>
     <service id=".service_locator.GNc8e5B.App\Controller\Homepage" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Homepage"/>
       <argument>App\Controller\Homepage</argument>
@@ -8499,12 +8515,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.B2bOX3y"/>
+      <argument type="service" id=".service_locator.TtRxp3K"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.B2bOX3y"/>
+      <argument type="service" id=".service_locator.TtRxp3K"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -9553,7 +9569,7 @@
     <service id="scheb_two_factor.token_factory" alias="scheb_two_factor.default_token_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.B2bOX3y"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.TtRxp3K"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9581,7 +9597,7 @@
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.kiizgfv" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.u6BTu4b" alias=".service_locator.pKcF_sp"/>
-    <service id=".service_locator.bqnQ1MK" alias=".service_locator.B2bOX3y"/>
+    <service id=".service_locator.Qc.aDHB" alias=".service_locator.TtRxp3K"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>

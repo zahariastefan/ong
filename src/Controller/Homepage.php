@@ -23,7 +23,15 @@ class Homepage extends AbstractController
     /**
      * @Route("/", name="app_homepage")
      */
-    public function homepage(EntityManagerInterface $entityManager)
+    public function homepage()
+    {
+        return $this->render("homepage.html.twig");
+    }
+
+    /**
+     * @Route("/donations", name="app_donations")
+     */
+    public function donations(EntityManagerInterface $entityManager)
     {
         //connect API
         $stripe = new \Stripe\StripeClient(
@@ -51,7 +59,7 @@ class Homepage extends AbstractController
 //        dd($arrProducts);
         $repository = $entityManager->getRepository(Cauze::class); //fetch data from DB
         $data = $repository->findBy([],['date' => 'DESC']);
-        return $this->render("checkout.html.twig", [
+        return $this->render("donations.html.twig", [
             'dataCauze' => $data,
             'products' =>$arrProducts
         ]);//send data to templates for render

@@ -12,6 +12,7 @@ return [
         '/admin/login' => [[['_route' => 'app_admin_adminlogin', '_controller' => 'App\\Controller\\AdminController::adminLogin'], null, null, null, false, false, null]],
         '/admin/answers' => [[['_route' => 'app_admin_adminanswers', '_controller' => 'App\\Controller\\AdminController::adminAnswers'], null, null, null, false, false, null]],
         '/' => [[['_route' => 'app_homepage', '_controller' => 'App\\Controller\\Homepage::homepage'], null, null, null, false, false, null]],
+        '/donations' => [[['_route' => 'app_donations', '_controller' => 'App\\Controller\\Homepage::donations'], null, null, null, false, false, null]],
         '/checkout' => [[['_route' => 'app_checkout', '_controller' => 'App\\Controller\\Homepage::payment'], null, null, null, false, false, null]],
         '/success' => [[['_route' => 'app_homepage_success', '_controller' => 'App\\Controller\\Homepage::success'], null, null, null, false, false, null]],
         '/cancel' => [[['_route' => 'app_homepage_cancel', '_controller' => 'App\\Controller\\Homepage::cancel'], null, null, null, false, false, null]],

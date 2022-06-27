@@ -7,6 +7,7 @@ return [
     'app_admin_adminlogin' => [[], ['_controller' => 'App\\Controller\\AdminController::adminLogin'], [], [['text', '/admin/login']], [], [], []],
     'app_admin_adminanswers' => [[], ['_controller' => 'App\\Controller\\AdminController::adminAnswers'], [], [['text', '/admin/answers']], [], [], []],
     'app_homepage' => [[], ['_controller' => 'App\\Controller\\Homepage::homepage'], [], [['text', '/']], [], [], []],
+    'app_donations' => [[], ['_controller' => 'App\\Controller\\Homepage::donations'], [], [['text', '/donations']], [], [], []],
     'app_checkout' => [[], ['_controller' => 'App\\Controller\\Homepage::payment'], [], [['text', '/checkout']], [], [], []],
     'app_homepage_success' => [[], ['_controller' => 'App\\Controller\\Homepage::success'], [], [['text', '/success']], [], [], []],
     'app_homepage_cancel' => [[], ['_controller' => 'App\\Controller\\Homepage::cancel'], [], [['text', '/cancel']], [], [], []],
