@@ -18,7 +18,6 @@
       <parameter key="WebpackEncoreBundle">Symfony\WebpackEncoreBundle\WebpackEncoreBundle</parameter>
       <parameter key="TwigExtraBundle">Twig\Extra\TwigExtraBundle\TwigExtraBundle</parameter>
       <parameter key="SecurityBundle">Symfony\Bundle\SecurityBundle\SecurityBundle</parameter>
-      <parameter key="MonologBundle">Symfony\Bundle\MonologBundle\MonologBundle</parameter>
       <parameter key="MakerBundle">Symfony\Bundle\MakerBundle\MakerBundle</parameter>
       <parameter key="SensioFrameworkExtraBundle">Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle</parameter>
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
@@ -26,6 +25,8 @@
       <parameter key="ChartjsBundle">Symfony\UX\Chartjs\ChartjsBundle</parameter>
       <parameter key="SymfonyCastsVerifyEmailBundle">SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle</parameter>
       <parameter key="SchebTwoFactorBundle">Scheb\TwoFactorBundle\SchebTwoFactorBundle</parameter>
+      <parameter key="KnpTimeBundle">Knp\Bundle\TimeBundle\KnpTimeBundle</parameter>
+      <parameter key="BabDevPagerfantaBundle">BabDev\PagerfantaBundle\BabDevPagerfantaBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -64,10 +65,6 @@
         <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\symfony\security-bundle</parameter>
         <parameter key="namespace">Symfony\Bundle\SecurityBundle</parameter>
       </parameter>
-      <parameter key="MonologBundle" type="collection">
-        <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\symfony\monolog-bundle</parameter>
-        <parameter key="namespace">Symfony\Bundle\MonologBundle</parameter>
-      </parameter>
       <parameter key="MakerBundle" type="collection">
         <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\symfony\maker-bundle\src</parameter>
         <parameter key="namespace">Symfony\Bundle\MakerBundle</parameter>
@@ -95,6 +92,14 @@
       <parameter key="SchebTwoFactorBundle" type="collection">
         <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle</parameter>
         <parameter key="namespace">Scheb\TwoFactorBundle</parameter>
+      </parameter>
+      <parameter key="KnpTimeBundle" type="collection">
+        <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle</parameter>
+        <parameter key="namespace">Knp\Bundle\TimeBundle</parameter>
+      </parameter>
+      <parameter key="BabDevPagerfantaBundle" type="collection">
+        <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle</parameter>
+        <parameter key="namespace">BabDev\PagerfantaBundle</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -259,24 +264,6 @@
       <parameter>dev</parameter>
       <parameter>main</parameter>
     </parameter>
-    <parameter key="monolog.use_microseconds">true</parameter>
-    <parameter key="monolog.swift_mailer.handlers" type="collection"/>
-    <parameter key="monolog.handlers_to_channels" type="collection">
-      <parameter key="monolog.handler.console" type="collection">
-        <parameter key="type">exclusive</parameter>
-        <parameter key="elements" type="collection">
-          <parameter>event</parameter>
-          <parameter>doctrine</parameter>
-          <parameter>console</parameter>
-        </parameter>
-      </parameter>
-      <parameter key="monolog.handler.main" type="collection">
-        <parameter key="type">exclusive</parameter>
-        <parameter key="elements" type="collection">
-          <parameter>event</parameter>
-        </parameter>
-      </parameter>
-    </parameter>
     <parameter key="scheb_two_factor.model_manager_name">null</parameter>
     <parameter key="scheb_two_factor.security_tokens" type="collection">
       <parameter>Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken</parameter>
@@ -288,6 +275,10 @@
     <parameter key="scheb_two_factor.totp.parameters" type="collection"/>
     <parameter key="scheb_two_factor.totp.template">security/2fa_form.html.twig</parameter>
     <parameter key="scheb_two_factor.trusted_device.enabled">false</parameter>
+    <parameter key="time.datetime_formatter.class">Knp\Bundle\TimeBundle\DateTimeFormatter</parameter>
+    <parameter key="time.twig.extension.time.class">Knp\Bundle\TimeBundle\Twig\Extension\TimeExtension</parameter>
+    <parameter key="babdev_pagerfanta.default_twig_template">@Pagerfanta/default.html.twig</parameter>
+    <parameter key="babdev_pagerfanta.default_view">twitter_bootstrap5</parameter>
     <parameter key="maker.compatible_check.doctrine.supports_attributes">true</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
@@ -387,53 +378,77 @@
       <tag name="controller.service_arguments"/>
       <tag name="routing.route_loader"/>
     </service>
+    <service id="App\Command\RandomSpellCommand" class="App\Command\RandomSpellCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="logger"/>
+      <call method="setName">
+        <argument>app:random-spell</argument>
+      </call>
+    </service>
     <service id="App\Controller\AdminController" class="App\Controller\AdminController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\AdminController"/>
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\AdminController"/>
+      </call>
+    </service>
+    <service id="App\Controller\AnswerController" class="App\Controller\AnswerController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\AnswerController"/>
       </call>
     </service>
     <service id="App\Controller\DonationsController" class="App\Controller\DonationsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\DonationsController"/>
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\DonationsController"/>
       </call>
     </service>
     <service id="App\Controller\Homepage" class="App\Controller\Homepage" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\Homepage"/>
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\Homepage"/>
       </call>
     </service>
     <service id="App\Controller\OnlyForBestsController" class="App\Controller\OnlyForBestsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\OnlyForBestsController"/>
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\OnlyForBestsController"/>
+      </call>
+    </service>
+    <service id="App\Controller\QuestionController" class="App\Controller\QuestionController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <argument type="service" id="logger"/>
+      <argument>true</argument>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\QuestionController"/>
       </call>
     </service>
     <service id="App\Controller\RegistrationController" class="App\Controller\RegistrationController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\RegistrationController"/>
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\RegistrationController"/>
       </call>
     </service>
     <service id="App\Controller\SecurityController" class="App\Controller\SecurityController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\SecurityController"/>
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\SecurityController"/>
       </call>
     </service>
     <service id="App\Controller\UserController" class="App\Controller\UserController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
-        <argument type="service" id=".service_locator.GNc8e5B.App\Controller\UserController"/>
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\UserController"/>
       </call>
     </service>
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
@@ -443,10 +458,22 @@
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="router.default"/>
     </service>
+    <service id="App\Factory\AnswerFactory" class="App\Factory\AnswerFactory" autowire="true" autoconfigure="true">
+      <tag name="foundry.factory"/>
+    </service>
     <service id="App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" autoconfigure="true">
       <tag name="foundry.factory"/>
     </service>
     <service id="App\Factory\ProductsFactory" class="App\Factory\ProductsFactory" autowire="true" autoconfigure="true">
+      <tag name="foundry.factory"/>
+    </service>
+    <service id="App\Factory\QuestionFactory" class="App\Factory\QuestionFactory" autowire="true" autoconfigure="true">
+      <tag name="foundry.factory"/>
+    </service>
+    <service id="App\Factory\QuestionTagFactory" class="App\Factory\QuestionTagFactory" autowire="true" autoconfigure="true">
+      <tag name="foundry.factory"/>
+    </service>
+    <service id="App\Factory\TagFactory" class="App\Factory\TagFactory" autowire="true" autoconfigure="true">
       <tag name="foundry.factory"/>
     </service>
     <service id="App\Factory\UniqueCodesFactory" class="App\Factory\UniqueCodesFactory" autowire="true" autoconfigure="true">
@@ -459,6 +486,10 @@
     <service id="App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true">
       <tag name="form.type"/>
     </service>
+    <service id="App\Repository\AnswerRepository" class="App\Repository\AnswerRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
     <service id="App\Repository\CauzeRepository" class="App\Repository\CauzeRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
@@ -468,6 +499,18 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\ProductsRepository" class="App\Repository\ProductsRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\QuestionRepository" class="App\Repository\QuestionRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\QuestionTagRepository" class="App\Repository\QuestionTagRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\TagRepository" class="App\Repository\TagRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -482,6 +525,10 @@
     <service id="App\Security\AccountNotVerifiedAuthenticationException" class="App\Security\AccountNotVerifiedAuthenticationException" autowire="true" autoconfigure="true"/>
     <service id="App\Security\DummyAuthenticator" class="App\Security\DummyAuthenticator" autowire="true" autoconfigure="true"/>
     <service id="App\Security\LoginFormAuthenticator" class="App\Security\LoginFormAuthenticator" autowire="true" autoconfigure="true"/>
+    <service id="App\Security\Voter\QuestionVoter" class="App\Security\Voter\QuestionVoter" autowire="true" autoconfigure="true">
+      <tag name="security.voter"/>
+      <argument type="service" id="security.helper"/>
+    </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="response_listener" class="Symfony\Component\HttpKernel\EventListener\ResponseListener">
       <tag name="kernel.event_subscriber"/>
@@ -523,7 +570,7 @@
       <tag name="container.hot_path"/>
       <tag name="container.hot_path"/>
       <argument>error_controller</argument>
-      <argument type="service" id="monolog.logger.request" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>true</argument>
       <argument type="collection"/>
     </service>
@@ -615,8 +662,6 @@
         <argument key="security.token_storage" type="service" id="security.token_storage" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_expression_language" type="service" id="cache.security_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.security_token_verifier" type="service" id="cache.security_token_verifier" on-invalid="ignore_uninitialized"/>
-        <argument key="monolog.handler.main" type="service" id="monolog.handler.main" on-invalid="ignore_uninitialized"/>
-        <argument key="monolog.handler.console" type="service" id="monolog.handler.console" on-invalid="ignore_uninitialized"/>
         <argument key=".debug.http_client" type="service" id=".debug.http_client" on-invalid="ignore_uninitialized"/>
       </argument>
       <argument type="collection">
@@ -702,12 +747,6 @@
         <argument key="cache.security_token_verifier" type="collection">
           <argument>reset</argument>
         </argument>
-        <argument key="monolog.handler.main" type="collection">
-          <argument>reset</argument>
-        </argument>
-        <argument key="monolog.handler.console" type="collection">
-          <argument>reset</argument>
-        </argument>
         <argument key=".debug.http_client" type="collection">
           <argument>reset</argument>
         </argument>
@@ -751,7 +790,7 @@
     <service id="config_builder.warmer" class="Symfony\Bundle\FrameworkBundle\CacheWarmer\ConfigBuilderCacheWarmer">
       <tag name="kernel.cache_warmer"/>
       <argument type="service" id="kernel"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="fragment.handler" class="Symfony\Component\HttpKernel\DependencyInjection\LazyLoadingFragmentHandler">
       <argument type="service" id=".service_locator.lLv4pWF"/>
@@ -788,13 +827,13 @@
           <factory class="Symfony\Component\ErrorHandler\ErrorRenderer\HtmlErrorRenderer" method="getAndCleanOutputBuffer"/>
         </service>
       </argument>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="console.error_listener" class="Symfony\Component\Console\EventListener\ErrorListener">
       <tag name="kernel.event_subscriber"/>
       <tag name="monolog.logger" channel="console"/>
       <tag name="container.no_preload"/>
-      <argument type="service" id="monolog.logger.console" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="console.suggest_missing_package_subscriber" class="Symfony\Bundle\FrameworkBundle\EventListener\SuggestMissingPackageSubscriber">
       <tag name="kernel.event_subscriber"/>
@@ -1018,7 +1057,7 @@
       <argument type="service" id="messenger.routable_message_bus"/>
       <argument type="service" id="messenger.receiver_locator"/>
       <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="monolog.logger.messenger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="collection">
         <argument>async</argument>
         <argument>failed</argument>
@@ -1105,7 +1144,7 @@
       <argument type="service" id=".service_locator.Y4J.A.e"/>
       <argument type="service" id="messenger.routable_message_bus"/>
       <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="monolog.logger"/>
+      <argument type="service" id="logger"/>
       <call method="setName">
         <argument>messenger:failed:retry</argument>
       </call>
@@ -1175,6 +1214,7 @@
         <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations</argument>
       </argument>
       <argument type="collection">
+        <argument>C:\ONG symfony 5 new\ong5\vendor\pagerfanta\twig/templates/</argument>
         <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\twig-bridge/Resources/views/Email</argument>
         <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\twig-bridge/Resources/views/Form</argument>
       </argument>
@@ -1201,6 +1241,7 @@
         <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations</argument>
       </argument>
       <argument type="collection">
+        <argument>C:\ONG symfony 5 new\ong5\vendor\pagerfanta\twig/templates/</argument>
         <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\twig-bridge/Resources/views/Email</argument>
         <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\twig-bridge/Resources/views/Form</argument>
       </argument>
@@ -1434,7 +1475,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.adapter.apcu" class="Symfony\Component\Cache\Adapter\ApcuAdapter" abstract="true">
@@ -1444,7 +1485,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.adapter.doctrine" class="Symfony\Component\Cache\Adapter\DoctrineAdapter" abstract="true">
@@ -1454,7 +1495,7 @@
       <argument></argument>
       <argument>0</argument>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
       <deprecated package="symfony/framework-bundle" version="5.4">The "%service_id%" service inherits from "cache.adapter.doctrine" which is deprecated.</deprecated>
     </service>
@@ -1466,7 +1507,7 @@
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.adapter.psr6" class="Symfony\Component\Cache\Adapter\ProxyAdapter" abstract="true">
@@ -1483,7 +1524,7 @@
       <argument>0</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.adapter.redis_tag_aware" class="Symfony\Component\Cache\Adapter\RedisTagAwareAdapter" abstract="true">
@@ -1494,7 +1535,7 @@
       <argument>0</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.adapter.memcached" class="Symfony\Component\Cache\Adapter\MemcachedAdapter" abstract="true">
@@ -1505,7 +1546,7 @@
       <argument>0</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.adapter.doctrine_dbal" class="Symfony\Component\Cache\Adapter\DoctrineDbalAdapter" abstract="true">
@@ -1517,7 +1558,7 @@
       <argument type="collection"/>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.adapter.pdo" class="Symfony\Component\Cache\Adapter\PdoAdapter" abstract="true">
@@ -1529,7 +1570,7 @@
       <argument type="collection"/>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.adapter.array" class="Symfony\Component\Cache\Adapter\ArrayAdapter" abstract="true">
@@ -1537,7 +1578,7 @@
       <tag name="monolog.logger" channel="cache"/>
       <argument>0</argument>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.default_marshaller" class="Symfony\Component\Cache\Marshaller\DefaultMarshaller">
@@ -1684,31 +1725,31 @@
       <tag name="monolog.logger" channel="mailer"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger.mailer" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="mailer.transport_factory.null" class="Symfony\Component\Mailer\Transport\NullTransportFactory">
       <tag name="mailer.transport_factory"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger.mailer" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="mailer.transport_factory.sendmail" class="Symfony\Component\Mailer\Transport\SendmailTransportFactory">
       <tag name="mailer.transport_factory"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger.mailer" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="mailer.transport_factory.smtp" class="Symfony\Component\Mailer\Transport\Smtp\EsmtpTransportFactory">
       <tag name="mailer.transport_factory" priority="-100"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger.mailer" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="mailer.transport_factory.native" class="Symfony\Component\Mailer\Transport\NativeTransportFactory">
       <tag name="mailer.transport_factory"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id=".debug.http_client" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger.mailer" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="translator.default" class="Symfony\Bundle\FrameworkBundle\Translation\Translator">
       <tag name="kernel.locale_aware"/>
@@ -1766,11 +1807,14 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.ar.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ar.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ar.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.ar.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.ar.xliff</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.az.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.az.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.az.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.az.xliff</argument>
           </argument>
           <argument key="be" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.be.xlf</argument>
@@ -1781,6 +1825,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.bg.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.bg.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.bg.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.bg.xliff</argument>
           </argument>
           <argument key="bs" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.bs.xlf</argument>
@@ -1791,6 +1836,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ca.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.ca.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ca.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.ca.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.ca.xliff</argument>
           </argument>
           <argument key="cs" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.cs.xlf</argument>
@@ -1798,6 +1845,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.cs.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.cs.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.cs.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.cs.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.cs.xliff</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.cy.xlf</argument>
@@ -1806,6 +1855,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.da.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.da.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.da.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.da.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.da.xliff</argument>
           </argument>
           <argument key="de" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.de.xlf</argument>
@@ -1813,6 +1864,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.de.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.de.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.de.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.de.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.de.xliff</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.el.xlf</argument>
@@ -1825,6 +1878,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.en.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.en.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.en.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.en.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.en.xliff</argument>
             <argument>C:\ONG symfony 5 new\ong5/translations\security.en.yaml</argument>
           </argument>
           <argument key="es" type="collection">
@@ -1833,6 +1888,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.es.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.es.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.es.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.es.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.es.xliff</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.et.xlf</argument>
@@ -1843,17 +1900,21 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.eu.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.eu.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.eu.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.eu.xliff</argument>
           </argument>
           <argument key="fa" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.fa.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.fa.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.fa.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.fa.xliff</argument>
           </argument>
           <argument key="fi" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.fi.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.fi.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.fi.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.fi.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.fi.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.fi.xliff</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.fr.xlf</argument>
@@ -1861,11 +1922,14 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.fr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.fr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.fr.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.fr.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.fr.xliff</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.gl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.gl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.gl.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.gl.xliff</argument>
           </argument>
           <argument key="he" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.he.xlf</argument>
@@ -1877,6 +1941,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.hr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.hr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.hr.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.hr.xliff</argument>
           </argument>
           <argument key="hu" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.hu.xlf</argument>
@@ -1884,6 +1949,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.hu.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.hu.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.hu.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.hu.xliff</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.hy.xlf</argument>
@@ -1894,18 +1960,22 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.id.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.id.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.id.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.id.xliff</argument>
           </argument>
           <argument key="it" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.it.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.it.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.it.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.it.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.it.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.it.xliff</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ja.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.ja.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ja.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ja.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.ja.xliff</argument>
           </argument>
           <argument key="lb" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.lb.xlf</argument>
@@ -1916,6 +1986,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.lt.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.lt.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.lt.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.lt.xliff</argument>
           </argument>
           <argument key="lv" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.lv.xlf</argument>
@@ -1936,6 +2007,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.nb.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.nb.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.nb.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.nb.xliff</argument>
           </argument>
           <argument key="nl" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.nl.xlf</argument>
@@ -1943,16 +2015,20 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.nl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle+intl-icu.nl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.nl.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.nl.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.nl.xliff</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.nn.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.nn.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.nn.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.nn.xliff</argument>
           </argument>
           <argument key="no" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.no.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.no.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.no.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.no.xliff</argument>
           </argument>
           <argument key="pl" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.pl.xlf</argument>
@@ -1960,17 +2036,22 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.pl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.pl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.pl.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.pl.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.pl.xliff</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.pt.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.pt.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.pt.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.pt.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.pt.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.pt.xliff</argument>
           </argument>
           <argument key="pt_BR" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.pt_BR.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.pt_BR.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.pt_BR.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.pt_BR.xliff</argument>
           </argument>
           <argument key="ro" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ro.xlf</argument>
@@ -1978,6 +2059,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ro.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ro.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.ro.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.ro.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.ro.xliff</argument>
           </argument>
           <argument key="ru" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ru.xlf</argument>
@@ -1985,6 +2068,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ru.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ru.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.ru.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.ru.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.ru.xliff</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sk.xlf</argument>
@@ -1992,11 +2077,15 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.sk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.sk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.sk.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.sk.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.sk.xliff</argument>
           </argument>
           <argument key="sl" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.sl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.sl.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.sl.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.sl.xliff</argument>
           </argument>
           <argument key="sq" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sq.xlf</argument>
@@ -2007,22 +2096,28 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sr_Cyrl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.sr_Cyrl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.sr_Cyrl.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.sr_Cyrl.xliff</argument>
           </argument>
           <argument key="sr_Latn" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sr_Latn.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.sr_Latn.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.sr_Latn.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.sr_Latn.xliff</argument>
           </argument>
           <argument key="sv" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sv.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.sv.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.sv.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.sv.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.sv.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.sv.xliff</argument>
           </argument>
           <argument key="th" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.th.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.th.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.th.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.th.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.th.xliff</argument>
           </argument>
           <argument key="tl" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.tl.xlf</argument>
@@ -2034,6 +2129,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.tr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.tr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.tr.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.tr.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.tr.xliff</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.uk.xlf</argument>
@@ -2041,6 +2138,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.uk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.uk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations\SchebTwoFactorBundle.uk.yml</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.uk.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.uk.xliff</argument>
           </argument>
           <argument key="uz" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.uz.xlf</argument>
@@ -2051,19 +2150,53 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.vi.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.vi.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.vi.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.vi.xliff</argument>
           </argument>
           <argument key="zh_CN" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.zh_CN.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.zh_CN.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.zh_CN.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.zh_CN.xliff</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.zh_CN.xliff</argument>
           </argument>
           <argument key="zh_TW" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.zh_TW.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.zh_TW.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.zh_TW.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.zh_TW.xliff</argument>
           </argument>
           <argument key="sr" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.sr.xlf</argument>
+          </argument>
+          <argument key="bs_Latn_BA" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.bs_Latn_BA.xliff</argument>
+          </argument>
+          <argument key="eo" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.eo.xliff</argument>
+          </argument>
+          <argument key="hr_HR" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.hr_HR.xliff</argument>
+          </argument>
+          <argument key="ky" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.ky.xliff</argument>
+          </argument>
+          <argument key="pt_PT" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.pt_PT.xliff</argument>
+          </argument>
+          <argument key="sr_Latin" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.sr_Latin.xliff</argument>
+          </argument>
+          <argument key="zh" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.zh.xliff</argument>
+          </argument>
+          <argument key="zh_HK" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations\time.zh_HK.xliff</argument>
+          </argument>
+          <argument key="oc" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.oc.xliff</argument>
+          </argument>
+          <argument key="sw" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.sw.xliff</argument>
           </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
@@ -2072,6 +2205,8 @@
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations</argument>
+          <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations</argument>
+          <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\framework-bundle/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\doctrine\doctrine-bundle/translations</argument>
@@ -2082,7 +2217,6 @@
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\webpack-encore-bundle\src/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\twig\extra-bundle/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-bundle/translations</argument>
-          <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\monolog-bundle/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\maker-bundle\src/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\sensio\framework-extra-bundle\src/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
@@ -2096,6 +2230,8 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/translations</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\knplabs\knp-time-bundle/Resources/translations</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/translations</argument>
             <argument>translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\framework-bundle/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\doctrine\doctrine-bundle/translations</argument>
@@ -2106,7 +2242,6 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\webpack-encore-bundle\src/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\twig\extra-bundle/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-bundle/translations</argument>
-            <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\monolog-bundle/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\maker-bundle\src/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\sensio\framework-extra-bundle\src/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\doctrine\doctrine-fixtures-bundle/translations</argument>
@@ -2128,7 +2263,7 @@
     <service id="translator.logging" class="Symfony\Component\Translation\LoggingTranslator">
       <tag name="monolog.logger" channel="translation"/>
       <argument type="service" id="translator.logging.inner"/>
-      <argument type="service" id="monolog.logger.translation"/>
+      <argument type="service" id="logger"/>
     </service>
     <service id="translator.formatter.default" class="Symfony\Component\Translation\Formatter\MessageFormatter">
       <argument type="service" id="identity_translator"/>
@@ -2334,12 +2469,12 @@
       <tag name="monolog.logger" channel="php"/>
       <tag name="container.hot_path"/>
       <argument>null</argument>
-      <argument type="service" id="monolog.logger.php" on-invalid="null"/>
+      <argument>null</argument>
       <argument>null</argument>
       <argument>-1</argument>
       <argument>true</argument>
       <argument>true</argument>
-      <argument type="service" id="monolog.logger.deprecation" on-invalid="null"/>
+      <argument>null</argument>
     </service>
     <service id="debug.file_link_formatter" class="Symfony\Component\HttpKernel\Debug\FileLinkFormatter">
       <argument>null</argument>
@@ -2358,7 +2493,7 @@
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="debug.event_dispatcher.inner"/>
       <argument type="service" id="debug.stopwatch"/>
-      <argument type="service" id="monolog.logger.event" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service" id="request_stack" on-invalid="null"/>
       <call method="addListener">
         <argument>kernel.controller</argument>
@@ -2391,6 +2526,22 @@
           <argument>onKernelResponse</argument>
         </argument>
         <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.exception</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="pagerfanta.event_listener.convert_not_valid_max_per_page_to_not_found"/>
+          <argument>onKernelException</argument>
+        </argument>
+        <argument>512</argument>
+      </call>
+      <call method="addListener">
+        <argument>kernel.exception</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="pagerfanta.event_listener.convert_not_valid_current_page_to_not_found"/>
+          <argument>onKernelException</argument>
+        </argument>
+        <argument>512</argument>
       </call>
       <call method="addListener">
         <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
@@ -2881,22 +3032,6 @@
         <argument>1</argument>
       </call>
       <call method="addListener">
-        <argument>console.command</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="monolog.handler.console"/>
-          <argument>onCommand</argument>
-        </argument>
-        <argument>255</argument>
-      </call>
-      <call method="addListener">
-        <argument>console.terminate</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="monolog.handler.console"/>
-          <argument>onTerminate</argument>
-        </argument>
-        <argument>-255</argument>
-      </call>
-      <call method="addListener">
         <argument>console.error</argument>
         <argument type="collection">
           <argument type="service_closure" id="maker.console_error_listener"/>
@@ -3026,9 +3161,6 @@
       <argument type="service" id="debug.argument_resolver.inner"/>
       <argument type="service" id="debug.stopwatch"/>
     </service>
-    <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
-      <argument type="service" id="request_stack"/>
-    </service>
     <service id="routing.resolver" class="Symfony\Component\Config\Loader\LoaderResolver">
       <call method="addLoader">
         <argument type="service" id="routing.loader.xml"/>
@@ -3098,7 +3230,7 @@
     <service id="router.default" class="Symfony\Bundle\FrameworkBundle\Routing\Router">
       <tag name="monolog.logger" channel="router"/>
       <tag name="container.service_subscriber" id="routing.loader"/>
-      <argument type="service" id=".service_locator.491LSII.router.default"/>
+      <argument type="service" id=".service_locator.WOytlHA.router.default"/>
       <argument>kernel::loadRoutes</argument>
       <argument type="collection">
         <argument key="cache_dir">C:\ONG symfony 5 new\ong5\var\cache\dev</argument>
@@ -3112,7 +3244,7 @@
       </argument>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
       <argument type="service" id="parameter_bag" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger.router" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <argument>en</argument>
       <call method="setConfigCacheFactory">
         <argument type="service" id="config_cache_factory"/>
@@ -3150,7 +3282,7 @@
       <argument type="service" id="router.default"/>
       <argument type="service" id="request_stack"/>
       <argument type="service" id="router.request_context" on-invalid="ignore"/>
-      <argument type="service" id="monolog.logger.request" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <argument>C:\ONG symfony 5 new\ong5</argument>
       <argument>true</argument>
     </service>
@@ -3258,10 +3390,10 @@
       <tag name="container.private" package="symfony/framework-bundle" version="5.2"/>
       <argument type="collection">
         <argument type="service" id="serializer.denormalizer.unwrapping"/>
+        <argument type="service" id="pagerfanta.serializer.normalizer"/>
         <argument type="service" id="serializer.normalizer.flatten_exception"/>
         <argument type="service" id="serializer.normalizer.problem"/>
         <argument type="service" id="serializer.normalizer.uid"/>
-        <argument type="service" id="serializer.normalizer.json_serializable"/>
         <argument type="service" id="serializer.normalizer.datetime"/>
         <argument type="service" id="serializer.normalizer.constraint_violation_list"/>
         <argument type="service" id="serializer.normalizer.mime_message"/>
@@ -3269,6 +3401,7 @@
         <argument type="service" id="serializer.normalizer.dateinterval"/>
         <argument type="service" id="serializer.normalizer.form_error"/>
         <argument type="service" id="serializer.normalizer.data_uri"/>
+        <argument type="service" id="serializer.normalizer.json_serializable"/>
         <argument type="service" id="serializer.denormalizer.array"/>
         <argument type="service" id="serializer.normalizer.object"/>
       </argument>
@@ -3305,7 +3438,7 @@
       <tag name="serializer.normalizer" priority="-910"/>
     </service>
     <service id="serializer.normalizer.json_serializable" class="Symfony\Component\Serializer\Normalizer\JsonSerializableNormalizer">
-      <tag name="serializer.normalizer" priority="-900"/>
+      <tag name="serializer.normalizer" priority="-950"/>
       <argument>null</argument>
       <argument>null</argument>
     </service>
@@ -3456,7 +3589,7 @@
       <tag name="monolog.logger" channel="lock"/>
       <argument type="abstract">Store</argument>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.lock" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id=".lock.default.store.TTEh_gT" class="Symfony\Component\Lock\PersistingStoreInterface">
@@ -3466,7 +3599,7 @@
     <service id="lock.default.factory" class="Symfony\Component\Lock\LockFactory">
       <argument type="service" id=".lock.default.store.TTEh_gT"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.lock" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="lock.default" class="Symfony\Component\Lock\Lock">
@@ -3817,7 +3950,7 @@
       <argument type="service" id="messenger.senders_locator"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="messenger.transport.symfony_serializer" class="Symfony\Component\Messenger\Transport\Serialization\Serializer">
@@ -3833,7 +3966,7 @@
       <tag name="monolog.logger" channel="messenger"/>
       <argument type="abstract">bus handler resolver</argument>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="messenger.middleware.add_bus_name_stamp_middleware" class="Symfony\Component\Messenger\Middleware\AddBusNameStampMiddleware" abstract="true"/>
@@ -3876,7 +4009,7 @@
       <tag name="kernel.reset" method="reset"/>
     </service>
     <service id="messenger.transport.sqs.factory" class="Symfony\Component\Messenger\Bridge\AmazonSqs\Transport\AmazonSqsTransportFactory">
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="messenger.transport.beanstalkd.factory" class="Symfony\Component\Messenger\Bridge\Beanstalkd\Transport\BeanstalkdTransportFactory"/>
     <service id="messenger.retry_strategy_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -3897,7 +4030,7 @@
       <tag name="monolog.logger" channel="messenger"/>
       <argument type="service" id=".service_locator.c7f47p7"/>
       <argument type="service" id="messenger.retry_strategy_locator"/>
-      <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
     <service id="messenger.failure.add_error_details_stamp_listener" class="Symfony\Component\Messenger\EventListener\AddErrorDetailsStampListener">
@@ -3907,7 +4040,7 @@
       <tag name="kernel.event_subscriber"/>
       <tag name="monolog.logger" channel="messenger"/>
       <argument type="service" id=".service_locator._wyX1Dp"/>
-      <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="messenger.listener.dispatch_pcntl_signal_listener" class="Symfony\Component\Messenger\EventListener\DispatchPcntlSignalListener">
       <tag name="kernel.event_subscriber"/>
@@ -3916,11 +4049,11 @@
       <tag name="kernel.event_subscriber"/>
       <tag name="monolog.logger" channel="messenger"/>
       <argument type="service" id="cache.messenger.restart_workers_signal"/>
-      <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="messenger.listener.stop_worker_on_sigterm_signal_listener" class="Symfony\Component\Messenger\EventListener\StopWorkerOnSigtermSignalListener">
       <tag name="kernel.event_subscriber"/>
-      <argument type="service" id="monolog.logger" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="messenger.listener.stop_worker_on_stop_exception_listener" class="Symfony\Component\Messenger\EventListener\StopWorkerOnCustomStopExceptionListener">
       <tag name="kernel.event_subscriber"/>
@@ -4079,7 +4212,7 @@
       <tag name="container.private" package="symfony/framework-bundle" version="5.4"/>
       <tag name="kernel.reset" method="reset"/>
       <argument type="service" id="profiler.storage"/>
-      <argument type="service" id="monolog.logger.profiler" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>true</argument>
       <call method="add">
         <argument type="service" id="data_collector.request"/>
@@ -4195,7 +4328,7 @@
     <service id="data_collector.logger" class="Symfony\Component\HttpKernel\DataCollector\LoggerDataCollector">
       <tag name="monolog.logger" channel="profiler"/>
       <tag name="data_collector" template="@WebProfiler/Collector/logger.html.twig" id="logger" priority="300"/>
-      <argument type="service" id="monolog.logger.profiler" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/App_KernelDevDebugContainer</argument>
       <argument type="service" id="request_stack" on-invalid="ignore"/>
     </service>
@@ -4412,11 +4545,6 @@
       <call method="setMiddlewares">
         <argument type="collection">
           <argument type="service">
-            <service class="Doctrine\DBAL\Logging\Middleware">
-              <argument type="service" id="monolog.logger.doctrine"/>
-            </service>
-          </argument>
-          <argument type="service">
             <service class="Doctrine\Bundle\DoctrineBundle\Middleware\DebugMiddleware">
               <argument type="service" id="doctrine.debug_data_holder"/>
               <argument type="service" id="debug.stopwatch" on-invalid="null"/>
@@ -4471,11 +4599,6 @@
         </service>
       </argument>
     </service>
-    <service id="doctrine.dbal.logging_middleware" class="Doctrine\DBAL\Logging\Middleware" abstract="true">
-      <tag name="monolog.logger" channel="doctrine"/>
-      <tag name="doctrine.middleware" connection="default"/>
-      <argument type="service" id="monolog.logger.doctrine"/>
-    </service>
     <service id="doctrine.debug_data_holder" class="Doctrine\Bundle\DoctrineBundle\Middleware\BacktraceDebugDataHolder">
       <argument type="collection"/>
     </service>
@@ -4496,7 +4619,7 @@
     <service id="messenger.middleware.doctrine_open_transaction_logger" class="Symfony\Bridge\Doctrine\Messenger\DoctrineOpenTransactionLoggerMiddleware" abstract="true">
       <argument type="service" id="doctrine"/>
       <argument>null</argument>
-      <argument type="service" id="monolog.logger"/>
+      <argument type="service" id="logger"/>
     </service>
     <service id="messenger.transport.doctrine.factory" class="Symfony\Component\Messenger\Bridge\Doctrine\Transport\DoctrineTransportFactory">
       <tag name="messenger.transport_factory"/>
@@ -4531,7 +4654,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.C7Ico9R"/>
+      <argument type="service" id=".service_locator.e3wl7z4"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -4797,7 +4920,7 @@
     <service id="doctrine.migrations.dependency_factory" class="Doctrine\Migrations\DependencyFactory">
       <argument type="service" id="doctrine.migrations.configuration_loader"/>
       <argument type="service" id="doctrine.migrations.entity_manager_registry_loader"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <call method="setDefinition">
         <argument>Doctrine\Migrations\Version\MigrationFactory</argument>
         <argument type="service_closure" id="doctrine.migrations.container_aware_migrations_factory"/>
@@ -5044,7 +5167,7 @@
     <service id="var_dumper.dump_server" class="Symfony\Component\VarDumper\Server\DumpServer">
       <tag name="monolog.logger" channel="debug"/>
       <argument>tcp://%env(VAR_DUMPER_SERVER)%</argument>
-      <argument type="service" id="monolog.logger.debug" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="var_dumper.command.server_dump" class="Symfony\Component\VarDumper\Command\ServerDumpCommand">
       <tag name="console.command"/>
@@ -5067,16 +5190,6 @@
       </call>
       <call method="setDescription">
         <argument>Start a dump server that collects and displays dumps in a single place</argument>
-      </call>
-    </service>
-    <service id="monolog.command.server_log" class="Symfony\Bridge\Monolog\Command\ServerLogCommand">
-      <tag name="console.command"/>
-      <tag name="container.no_preload"/>
-      <call method="setName">
-        <argument>server:log</argument>
-      </call>
-      <call method="setDescription">
-        <argument>Start a log server that displays logs in real time</argument>
       </call>
     </service>
     <service id="twig" class="Twig\Environment" public="true">
@@ -5161,7 +5274,16 @@
         <argument type="service" id="webpack_encore.twig_stimulus_extension"/>
       </call>
       <call method="addExtension">
+        <argument type="service" id="twig.extension.string"/>
+      </call>
+      <call method="addExtension">
         <argument type="service" id="chartjs.twig_extension"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="time.twig.extension.time"/>
+      </call>
+      <call method="addExtension">
+        <argument type="service" id="pagerfanta.twig_extension"/>
       </call>
       <call method="addGlobal">
         <argument>app</argument>
@@ -5188,6 +5310,12 @@
           <argument>suggestTag</argument>
         </argument>
       </call>
+      <call method="registerUndefinedFunctionCallback">
+        <argument type="collection">
+          <argument type="service" id="pagerfanta.undefined_callable_handler"/>
+          <argument>onUndefinedFunction</argument>
+        </argument>
+      </call>
       <configurator service="twig.configurator.environment" method="configure"/>
     </service>
     <service id="twig.app_variable" class="Symfony\Bridge\Twig\AppVariable">
@@ -5207,6 +5335,7 @@
     <service id="twig.template_iterator" class="Symfony\Bundle\TwigBundle\TemplateIterator">
       <argument type="service" id="kernel"/>
       <argument type="collection">
+        <argument key="C:\ONG symfony 5 new\ong5\vendor\pagerfanta\twig/templates/">Pagerfanta</argument>
         <argument key="C:\ONG symfony 5 new\ong5\vendor\symfony\twig-bridge/Resources/views/Email">email</argument>
         <argument key="C:\ONG symfony 5 new\ong5\vendor\symfony\twig-bridge/Resources/views/Form">null</argument>
       </argument>
@@ -5222,6 +5351,10 @@
       <tag name="twig.loader"/>
       <argument type="collection"/>
       <argument>C:\ONG symfony 5 new\ong5</argument>
+      <call method="addPath">
+        <argument>C:\ONG symfony 5 new\ong5\vendor\pagerfanta\twig/templates/</argument>
+        <argument>Pagerfanta</argument>
+      </call>
       <call method="addPath">
         <argument>C:\ONG symfony 5 new\ong5\vendor\doctrine\doctrine-bundle/Resources/views</argument>
         <argument>Doctrine</argument>
@@ -5269,6 +5402,14 @@
       <call method="addPath">
         <argument>C:\ONG symfony 5 new\ong5\vendor\scheb\2fa-bundle/Resources/views</argument>
         <argument>!SchebTwoFactor</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/templates</argument>
+        <argument>BabDevPagerfanta</argument>
+      </call>
+      <call method="addPath">
+        <argument>C:\ONG symfony 5 new\ong5\vendor\babdev\pagerfanta-bundle/templates</argument>
+        <argument>!BabDevPagerfanta</argument>
       </call>
       <call method="addPath">
         <argument>C:\ONG symfony 5 new\ong5/templates</argument>
@@ -5356,7 +5497,7 @@
       <argument>,</argument>
     </service>
     <service id="twig.runtime_loader" class="Twig\RuntimeLoader\ContainerRuntimeLoader">
-      <argument type="service" id=".service_locator.pTeli0u"/>
+      <argument type="service" id=".service_locator.7oO09vf"/>
     </service>
     <service id="twig.error_renderer.html" class="Symfony\Bridge\Twig\ErrorRenderer\TwigErrorRenderer">
       <argument type="service" id="twig"/>
@@ -5556,6 +5697,9 @@
       </argument>
     </service>
     <service id="twig.missing_extension_suggestor" class="Twig\Extra\TwigExtraBundle\MissingExtensionSuggestor"/>
+    <service id="twig.extension.string" class="Twig\Extra\String\StringExtension">
+      <tag name="twig.extension"/>
+    </service>
     <service id="security.authorization_checker" class="Symfony\Component\Security\Core\Authorization\AuthorizationChecker" public="true">
       <tag name="container.private" package="symfony/security-bundle" version="5.3"/>
       <argument type="service" id="security.token_storage"/>
@@ -5749,7 +5893,7 @@
     <service id="security.channel_listener" class="Symfony\Component\Security\Http\Firewall\ChannelListener">
       <tag name="monolog.logger" channel="security"/>
       <argument type="service" id="security.access_map"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service">
         <service class="int">
           <factory service="router.request_context" method="getHttpPort"/>
@@ -5798,7 +5942,7 @@
         <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
       </argument>
       <argument type="abstract">Provider Key</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
       <argument type="service" id="scheb_two_factor.security.authentication.trust_resolver"/>
       <argument type="collection">
@@ -5831,7 +5975,7 @@
       <argument type="service" id="security.authentication.success_handler"/>
       <argument type="service" id="security.authentication.failure_handler"/>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
     </service>
     <service id="security.authentication.custom_success_handler" class="Symfony\Component\Security\Http\Authentication\CustomAuthenticationSuccessHandler" abstract="true">
@@ -5842,7 +5986,7 @@
     <service id="security.authentication.success_handler" class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler" abstract="true">
       <argument type="service" id="security.http_utils"/>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authentication.custom_failure_handler" class="Symfony\Component\Security\Http\Authentication\CustomAuthenticationFailureHandler" abstract="true">
       <argument type="abstract">The custom failure handler service</argument>
@@ -5853,7 +5997,7 @@
       <argument type="service" id="http_kernel"/>
       <argument type="service" id="security.http_utils"/>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.exception_listener" class="Symfony\Component\Security\Http\Firewall\ExceptionListener" abstract="true">
       <tag name="monolog.logger" channel="security"/>
@@ -5864,7 +6008,7 @@
       <argument type="service" id="security.authentication.entry_point" on-invalid="null"/>
       <argument>null</argument>
       <argument type="service" id="security.access.denied_handler" on-invalid="null"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>false</argument>
     </service>
     <service id="security.authentication.switchuser_listener" class="Symfony\Component\Security\Http\Firewall\SwitchUserListener" abstract="true">
@@ -5874,7 +6018,7 @@
       <argument type="abstract">User Checker</argument>
       <argument type="abstract">Provider Key</argument>
       <argument type="service" id="debug.security.access.decision_manager"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>_switch_user</argument>
       <argument>ROLE_ALLOWED_TO_SWITCH</argument>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
@@ -5892,7 +6036,7 @@
       <argument type="service" id="security.untracked_token_storage"/>
       <argument type="service" id="security.authentication.rememberme"/>
       <argument type="service" id="security.authentication.manager"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
       <argument type="abstract">Catch exception flag set in RememberMeFactory</argument>
       <argument type="service" id="security.authentication.session_strategy"/>
@@ -5909,21 +6053,21 @@
       <argument type="abstract">Shared Token Key</argument>
       <argument type="abstract">Shared Provider Key</argument>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authentication.rememberme.services.persistent" class="Symfony\Component\Security\Http\RememberMe\PersistentTokenBasedRememberMeServices" abstract="true">
       <argument type="collection"/>
       <argument type="abstract">Shared Token Key</argument>
       <argument type="abstract">Shared Provider Key</argument>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authentication.rememberme.services.simplehash" class="Symfony\Component\Security\Http\RememberMe\TokenBasedRememberMeServices" abstract="true">
       <argument type="collection"/>
       <argument type="abstract">Shared Token Key</argument>
       <argument type="abstract">Shared Provider Key</argument>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.rememberme.response_listener" class="Symfony\Component\Security\Http\RememberMe\ResponseListener">
       <tag name="kernel.event_subscriber"/>
@@ -5935,7 +6079,7 @@
       <argument type="service" id="security.token_storage"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="abstract">provider key</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>true</argument>
       <argument>false</argument>
       <argument type="abstract">required badges</argument>
@@ -5983,7 +6127,7 @@
       <tag name="monolog.logger" channel="security"/>
       <argument type="abstract">realm name</argument>
       <argument type="abstract">user provider</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.form_login" class="Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator" abstract="true">
       <argument type="service" id="security.http_utils"/>
@@ -6010,7 +6154,7 @@
       <argument type="abstract">firewall name</argument>
       <argument type="abstract">user key</argument>
       <argument type="abstract">credentials key</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.remote_user" class="Symfony\Component\Security\Http\Authenticator\RemoteUserAuthenticator" abstract="true">
       <tag name="monolog.logger" channel="security"/>
@@ -6018,7 +6162,7 @@
       <argument type="service" id="security.token_storage"/>
       <argument type="abstract">firewall name</argument>
       <argument type="abstract">user key</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="twig.extension.logout_url" class="Symfony\Bridge\Twig\Extension\LogoutUrlExtension">
       <tag name="twig.extension"/>
@@ -6062,7 +6206,7 @@
       <argument type="service" id="security.authentication.manager"/>
       <argument type="abstract">Provider-shared Key</argument>
       <argument type="abstract">Authenticators</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>false</argument>
       <deprecated package="symfony/security-bundle" version="5.3">The "%service_id%" service is deprecated, use the new authenticator system instead.</deprecated>
     </service>
@@ -6373,7 +6517,7 @@
         <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
       </argument>
       <argument>main</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="service" id="security.event_dispatcher.main"/>
       <argument type="service" id="scheb_two_factor.security.authentication.trust_resolver"/>
       <argument type="collection">
@@ -6460,7 +6604,7 @@
     <service id="security.authentication.success_handler.main.form_login" class="Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler">
       <argument type="service" id="security.http_utils"/>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <call method="setOptions">
         <argument type="collection">
           <argument key="login_path">app_login</argument>
@@ -6478,7 +6622,7 @@
       <argument type="service" id="http_kernel"/>
       <argument type="service" id="security.http_utils"/>
       <argument type="collection"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <call method="setOptions">
         <argument type="collection">
           <argument key="login_path">app_login</argument>
@@ -6553,7 +6697,7 @@
       <tag name="container.hot_path"/>
       <argument type="service" id="scheb_two_factor.provider_registry"/>
       <argument type="service" id="scheb_two_factor.provider_preparation_recorder"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>main</argument>
       <argument>false</argument>
       <argument>false</argument>
@@ -6572,7 +6716,7 @@
       <argument type="service" id="security.authentication.failure_handler.two_factor.main"/>
       <argument type="service" id="security.authentication.authentication_required_handler.two_factor.main"/>
       <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.remember_me_signature_hasher" class="Symfony\Component\Security\Core\Signature\SignatureHasher">
       <argument type="service" id="property_accessor"/>
@@ -6587,7 +6731,7 @@
       <argument type="abstract">user provider</argument>
       <argument type="service" id="request_stack"/>
       <argument type="abstract">options</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.persistent_remember_me_handler" class="Symfony\Component\Security\Http\RememberMe\PersistentRememberMeHandler" abstract="true">
       <tag name="monolog.logger" channel="security"/>
@@ -6596,7 +6740,7 @@
       <argument type="abstract">user provider</argument>
       <argument type="service" id="request_stack"/>
       <argument type="abstract">options</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument type="abstract">token verifier</argument>
     </service>
     <service id="security.authenticator.firewall_aware_remember_me_handler" class="Symfony\Bundle\SecurityBundle\RememberMe\FirewallAwareRememberMeHandler">
@@ -6606,12 +6750,12 @@
     </service>
     <service id="security.listener.check_remember_me_conditions" class="Symfony\Component\Security\Http\EventListener\CheckRememberMeConditionsListener" abstract="true">
       <argument type="abstract">options</argument>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.listener.remember_me" class="Symfony\Component\Security\Http\EventListener\RememberMeListener" abstract="true">
       <tag name="monolog.logger" channel="security"/>
       <argument type="abstract">remember me handler</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.remember_me" class="Symfony\Component\Security\Http\Authenticator\RememberMeAuthenticator" abstract="true">
       <tag name="monolog.logger" channel="security"/>
@@ -6619,7 +6763,7 @@
       <argument>%env(APP_SECRET)%</argument>
       <argument type="service" id="security.token_storage"/>
       <argument type="abstract">options</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="cache.security_token_verifier" class="Symfony\Component\Cache\Adapter\TraceableAdapter">
       <tag name="cache.pool"/>
@@ -6657,7 +6801,7 @@
         <argument key="samesite">lax</argument>
         <argument key="remember_me_parameter">_remember_me</argument>
       </argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.listener.check_remember_me_conditions.main" class="Symfony\Component\Security\Http\EventListener\CheckRememberMeConditionsListener">
       <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
@@ -6665,19 +6809,19 @@
         <argument key="always_remember_me">true</argument>
         <argument key="remember_me_parameter">_remember_me</argument>
       </argument>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.listener.remember_me.main" class="Symfony\Component\Security\Http\EventListener\RememberMeListener">
       <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
       <argument type="service" id="security.authenticator.remember_me_handler.main"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.remember_me.main" class="Symfony\Component\Security\Http\Authenticator\RememberMeAuthenticator">
       <argument type="service" id="security.authenticator.remember_me_handler.main"/>
       <argument>%env(APP_SECRET)%</argument>
       <argument type="service" id="security.token_storage"/>
       <argument>REMEMBERME</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.manager.main" class="Symfony\Component\Security\Http\Authentication\AuthenticatorManager">
       <tag name="monolog.logger" channel="security"/>
@@ -6690,7 +6834,7 @@
       <argument type="service" id="security.token_storage"/>
       <argument type="service" id="security.event_dispatcher.main"/>
       <argument>main</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>true</argument>
       <argument>false</argument>
       <argument type="collection"/>
@@ -6708,7 +6852,7 @@
       <argument type="service" id="security.user_checker"/>
       <argument>main</argument>
       <argument type="service" id="debug.security.access.decision_manager"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>_switch_user</argument>
       <argument>ROLE_ALLOWED_TO_SWITCH</argument>
       <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
@@ -6722,7 +6866,7 @@
       <argument type="service" id="security.authenticator.form_login.main"/>
       <argument>null</argument>
       <argument>null</argument>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument>false</argument>
     </service>
     <service id="security.firewall.map.context.main" class="Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext">
@@ -6786,67 +6930,6 @@
       <call method="setDescription">
         <argument>Hash a user password</argument>
       </call>
-    </service>
-    <service id="monolog.logger" class="Symfony\Bridge\Monolog\Logger">
-      <argument>app</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="useMicrosecondTimestamps">
-        <argument>true</argument>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger_prototype" class="Symfony\Bridge\Monolog\Logger" abstract="true">
-      <argument></argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.activation_strategy.not_found" class="Symfony\Bridge\Monolog\Handler\FingersCrossed\NotFoundActivationStrategy" abstract="true"/>
-    <service id="monolog.handler.fingers_crossed.error_level_activation_strategy" class="Monolog\Handler\FingersCrossed\ErrorLevelActivationStrategy" abstract="true"/>
-    <service id="monolog.formatter.chrome_php" class="Monolog\Formatter\ChromePHPFormatter"/>
-    <service id="monolog.formatter.gelf_message" class="Monolog\Formatter\GelfMessageFormatter"/>
-    <service id="monolog.formatter.html" class="Monolog\Formatter\HtmlFormatter"/>
-    <service id="monolog.formatter.json" class="Monolog\Formatter\JsonFormatter"/>
-    <service id="monolog.formatter.line" class="Monolog\Formatter\LineFormatter"/>
-    <service id="monolog.formatter.loggly" class="Monolog\Formatter\LogglyFormatter"/>
-    <service id="monolog.formatter.normalizer" class="Monolog\Formatter\NormalizerFormatter"/>
-    <service id="monolog.formatter.scalar" class="Monolog\Formatter\ScalarFormatter"/>
-    <service id="monolog.formatter.wildfire" class="Monolog\Formatter\WildfireFormatter"/>
-    <service id="monolog.formatter.logstash" class="Monolog\Formatter\LogstashFormatter">
-      <argument>app</argument>
-    </service>
-    <service id="monolog.http_client" class="Symfony\Contracts\HttpClient\HttpClientInterface">
-      <factory class="Symfony\Component\HttpClient\HttpClient" method="create"/>
-    </service>
-    <service id="monolog.processor.psr_log_message" class="Monolog\Processor\PsrLogMessageProcessor"/>
-    <service id="monolog.handler.main" class="Monolog\Handler\StreamHandler">
-      <tag name="kernel.reset" method="reset"/>
-      <argument>C:\ONG symfony 5 new\ong5\var\log/dev.log</argument>
-      <argument>100</argument>
-      <argument>true</argument>
-      <argument>null</argument>
-      <argument>false</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="monolog.processor.psr_log_message"/>
-      </call>
-    </service>
-    <service id="monolog.handler.console" class="Symfony\Bridge\Monolog\Handler\ConsoleHandler">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="kernel.reset" method="reset"/>
-      <tag name="container.no_preload"/>
-      <argument>null</argument>
-      <argument>true</argument>
-      <argument type="collection"/>
-      <argument type="collection"/>
     </service>
     <service id="maker.file_manager" class="Symfony\Bundle\MakerBundle\FileManager">
       <argument type="service" id="filesystem"/>
@@ -7079,7 +7162,7 @@
       <argument type="service" id="security.role_hierarchy" on-invalid="null"/>
       <argument type="service" id="security.token_storage" on-invalid="null"/>
       <argument type="service" id="security.authorization_checker" on-invalid="null"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="sensio_framework_extra.security.expression_language.default" class="Sensio\Bundle\FrameworkExtraBundle\Security\ExpressionLanguage"/>
     <service id="framework_extra_bundle.event.is_granted" class="Sensio\Bundle\FrameworkExtraBundle\EventListener\IsGrantedListener">
@@ -7215,7 +7298,7 @@
       <argument type="service" id="scheb_two_factor.trusted_device_manager" on-invalid="null"/>
       <argument type="service" id="debug.event_dispatcher"/>
       <argument type="service" id="scheb_two_factor.default_token_factory"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="scheb_two_factor.security.rememberme_services_decorator" class="Scheb\TwoFactorBundle\Security\Authentication\RememberMe\RememberMeServicesDecorator" abstract="true">
       <argument></argument>
@@ -7223,7 +7306,7 @@
     <service id="scheb_two_factor.security.provider_preparation_listener" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderPreparationListener" abstract="true">
       <argument type="service" id="scheb_two_factor.provider_registry"/>
       <argument type="service" id="scheb_two_factor.provider_preparation_recorder"/>
-      <argument type="service" id="monolog.logger" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
       <argument></argument>
       <argument></argument>
       <argument></argument>
@@ -7277,7 +7360,7 @@
       <argument></argument>
       <argument></argument>
       <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="monolog.logger.security" on-invalid="null"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="scheb_two_factor.security.listener.token_created" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\AuthenticationTokenListener" abstract="true">
       <argument></argument>
@@ -7371,9 +7454,107 @@
       <argument type="service" id="scheb_two_factor.security.totp_authenticator"/>
       <argument type="service" id="scheb_two_factor.security.totp.default_form_renderer"/>
     </service>
+    <service id="time.datetime_formatter" class="Knp\Bundle\TimeBundle\DateTimeFormatter">
+      <argument type="service" id="translator.data_collector"/>
+    </service>
+    <service id="time.twig.extension.time" class="Knp\Bundle\TimeBundle\Twig\Extension\TimeExtension">
+      <tag name="twig.extension"/>
+      <argument type="service" id="time.datetime_formatter"/>
+    </service>
+    <service id="pagerfanta.route_generator_factory" class="BabDev\PagerfantaBundle\RouteGenerator\RequestAwareRouteGeneratorFactory" public="true">
+      <tag name="container.private" package="babdev/pagerfanta-bundle" version="3.5"/>
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="request_stack"/>
+      <argument type="service" id="property_accessor" on-invalid="ignore"/>
+    </service>
+    <service id="pagerfanta.view.default" class="Pagerfanta\View\DefaultView">
+      <tag name="pagerfanta.view" alias="default"/>
+    </service>
+    <service id="pagerfanta.view.foundation6" class="Pagerfanta\View\Foundation6View">
+      <tag name="pagerfanta.view" alias="foundation6"/>
+    </service>
+    <service id="pagerfanta.view.semantic_ui" class="Pagerfanta\View\SemanticUiView">
+      <tag name="pagerfanta.view" alias="semantic_ui"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap" class="Pagerfanta\View\TwitterBootstrapView">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap3" class="Pagerfanta\View\TwitterBootstrap3View">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap3"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap4" class="Pagerfanta\View\TwitterBootstrap4View">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap4"/>
+    </service>
+    <service id="pagerfanta.view.twitter_bootstrap5" class="Pagerfanta\View\TwitterBootstrap5View">
+      <tag name="pagerfanta.view" alias="twitter_bootstrap5"/>
+    </service>
+    <service id="pagerfanta.view_factory" class="Pagerfanta\View\ViewFactory" public="true">
+      <tag name="container.private" package="babdev/pagerfanta-bundle" version="3.5"/>
+      <call method="set">
+        <argument>default</argument>
+        <argument type="service" id="pagerfanta.view.default"/>
+      </call>
+      <call method="set">
+        <argument>foundation6</argument>
+        <argument type="service" id="pagerfanta.view.foundation6"/>
+      </call>
+      <call method="set">
+        <argument>semantic_ui</argument>
+        <argument type="service" id="pagerfanta.view.semantic_ui"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap3</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap3"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap4</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap4"/>
+      </call>
+      <call method="set">
+        <argument>twitter_bootstrap5</argument>
+        <argument type="service" id="pagerfanta.view.twitter_bootstrap5"/>
+      </call>
+      <call method="set">
+        <argument>twig</argument>
+        <argument type="service" id="pagerfanta.view.twig"/>
+      </call>
+    </service>
+    <service id="pagerfanta.twig_extension" class="Pagerfanta\Twig\Extension\PagerfantaExtension">
+      <tag name="twig.extension"/>
+    </service>
+    <service id="pagerfanta.twig_runtime" class="Pagerfanta\Twig\Extension\PagerfantaRuntime">
+      <tag name="twig.runtime"/>
+      <argument>twitter_bootstrap5</argument>
+      <argument type="service" id="pagerfanta.view_factory"/>
+      <argument type="service" id="pagerfanta.route_generator_factory"/>
+    </service>
+    <service id="pagerfanta.undefined_callable_handler" class="BabDev\PagerfantaBundle\Twig\UndefinedCallableHandler"/>
+    <service id="pagerfanta.view.twig" class="Pagerfanta\Twig\View\TwigView">
+      <tag name="pagerfanta.view" alias="twig"/>
+      <argument type="service" id="twig"/>
+      <argument>@Pagerfanta/default.html.twig</argument>
+    </service>
+    <service id="pagerfanta.serializer.normalizer" class="BabDev\PagerfantaBundle\Serializer\Normalizer\PagerfantaNormalizer">
+      <tag name="serializer.normalizer"/>
+    </service>
+    <service id="pagerfanta.event_listener.convert_not_valid_max_per_page_to_not_found" class="BabDev\PagerfantaBundle\EventListener\ConvertNotValidCurrentPageToNotFoundListener">
+      <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="512"/>
+    </service>
+    <service id="pagerfanta.event_listener.convert_not_valid_current_page_to_not_found" class="BabDev\PagerfantaBundle\EventListener\ConvertNotValidMaxPerPageToNotFoundListener">
+      <tag name="kernel.event_listener" event="kernel.exception" method="onKernelException" priority="512"/>
+    </service>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\RandomSpellCommand" class="App\Command\RandomSpellCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\RandomSpellCommand" class="App\Command\RandomSpellCommand" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AnswerController" class="App\Controller\AnswerController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AnswerController" class="App\Controller\AnswerController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\AnswerController" class="App\Controller\AnswerController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7383,6 +7564,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\OnlyForBestsController" class="App\Controller\OnlyForBestsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\OnlyForBestsController" class="App\Controller\OnlyForBestsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\OnlyForBestsController" class="App\Controller\OnlyForBestsController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RegistrationController" class="App\Controller\RegistrationController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7396,26 +7580,44 @@
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\CheckVerifiedUserSubscriber" class="App\EventSubscriber\CheckVerifiedUserSubscriber" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\EventSubscriber\CheckVerifiedUserSubscriber" class="App\EventSubscriber\CheckVerifiedUserSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\AnswerFactory" class="App\Factory\AnswerFactory" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Factory\AnswerFactory" class="App\Factory\AnswerFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\ProductsFactory" class="App\Factory\ProductsFactory" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Factory\ProductsFactory" class="App\Factory\ProductsFactory" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\QuestionFactory" class="App\Factory\QuestionFactory" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Factory\QuestionFactory" class="App\Factory\QuestionFactory" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\QuestionTagFactory" class="App\Factory\QuestionTagFactory" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Factory\QuestionTagFactory" class="App\Factory\QuestionTagFactory" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\TagFactory" class="App\Factory\TagFactory" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Factory\TagFactory" class="App\Factory\TagFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\UniqueCodesFactory" class="App\Factory\UniqueCodesFactory" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Factory\UniqueCodesFactory" class="App\Factory\UniqueCodesFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\UserFactory" class="App\Factory\UserFactory" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Factory\UserFactory" class="App\Factory\UserFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Form\FormTypeInterface.0.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Form\RegistrationFormType" class="App\Form\RegistrationFormType" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AnswerRepository" class="App\Repository\AnswerRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\AnswerRepository" class="App\Repository\AnswerRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CauzeRepository" class="App\Repository\CauzeRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CauzeRepository" class="App\Repository\CauzeRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\OwnerRepository" class="App\Repository\OwnerRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\OwnerRepository" class="App\Repository\OwnerRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ProductsRepository" class="App\Repository\ProductsRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\ProductsRepository" class="App\Repository\ProductsRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\QuestionRepository" class="App\Repository\QuestionRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\QuestionRepository" class="App\Repository\QuestionRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\QuestionTagRepository" class="App\Repository\QuestionTagRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\QuestionTagRepository" class="App\Repository\QuestionTagRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\TagRepository" class="App\Repository\TagRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\TagRepository" class="App\Repository\TagRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UniqueCodesRepository" class="App\Repository\UniqueCodesRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UniqueCodesRepository" class="App\Repository\UniqueCodesRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Security\Core\Authorization\Voter\VoterInterface.0.App\Security\Voter\QuestionVoter" class="App\Security\Voter\QuestionVoter" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Security\Voter\QuestionVoter" class="App\Security\Voter\QuestionVoter" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.gSv9zYw" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7776,10 +7978,43 @@
         <argument key="chartBuilder" type="service_closure" id="chartjs.builder"/>
       </argument>
     </service>
+    <service id=".service_locator.kpfRfZG" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="answerRepository" type="service_closure" id="App\Repository\AnswerRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.HpwlquH" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="answer" type="service_closure" id=".errored..service_locator.HpwlquH.App\Entity\Answer"/>
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="logger" type="service_closure" id="logger"/>
+      </argument>
+    </service>
     <service id=".service_locator.l2QwsaZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Q_xsdXo" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="repository" type="service_closure" id="App\Repository\QuestionRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.t_C_3cc" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="question" type="service_closure" id=".errored..service_locator.t_C_3cc.App\Entity\Question"/>
+      </argument>
+    </service>
+    <service id=".service_locator.trjgtck" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="question" type="service_closure" id=".errored..service_locator.trjgtck.App\Entity\Question"/>
       </argument>
     </service>
     <service id=".service_locator.imEfKVM" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7816,13 +8051,19 @@
         <argument key="qrCodeGenerator" type="service_closure" id="scheb_two_factor.qr_code_generator"/>
       </argument>
     </service>
-    <service id=".service_locator.TtRxp3K" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.1W_XEKX" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
+        <argument key="App\Controller\AnswerController::answerVote" type="service_closure" id=".service_locator.HpwlquH"/>
+        <argument key="App\Controller\AnswerController::popularAnswers" type="service_closure" id=".service_locator.kpfRfZG"/>
         <argument key="App\Controller\Homepage::donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::success" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\QuestionController::edit" type="service_closure" id=".service_locator.t_C_3cc"/>
+        <argument key="App\Controller\QuestionController::homepage" type="service_closure" id=".service_locator.Q_xsdXo"/>
+        <argument key="App\Controller\QuestionController::questionVote" type="service_closure" id=".service_locator.trjgtck"/>
+        <argument key="App\Controller\QuestionController::show" type="service_closure" id=".service_locator.t_C_3cc"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.imEfKVM"/>
         <argument key="App\Controller\RegistrationController::verifyUserEmail" type="service_closure" id=".service_locator.LqAhyfd"/>
         <argument key="App\Controller\SecurityController::displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.UBfdanz"/>
@@ -7836,9 +8077,15 @@
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel::terminate" type="service_closure" id=".service_locator.KfwZsne"/>
         <argument key="App\Controller\AdminController:dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
+        <argument key="App\Controller\AnswerController:answerVote" type="service_closure" id=".service_locator.HpwlquH"/>
+        <argument key="App\Controller\AnswerController:popularAnswers" type="service_closure" id=".service_locator.kpfRfZG"/>
         <argument key="App\Controller\Homepage:donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:success" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\QuestionController:edit" type="service_closure" id=".service_locator.t_C_3cc"/>
+        <argument key="App\Controller\QuestionController:homepage" type="service_closure" id=".service_locator.Q_xsdXo"/>
+        <argument key="App\Controller\QuestionController:questionVote" type="service_closure" id=".service_locator.trjgtck"/>
+        <argument key="App\Controller\QuestionController:show" type="service_closure" id=".service_locator.t_C_3cc"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.imEfKVM"/>
         <argument key="App\Controller\RegistrationController:verifyUserEmail" type="service_closure" id=".service_locator.LqAhyfd"/>
         <argument key="App\Controller\SecurityController:displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.UBfdanz"/>
@@ -7930,7 +8177,7 @@
     <service id="messenger.bus.default.middleware.handle_message" class="Symfony\Component\Messenger\Middleware\HandleMessageMiddleware">
       <argument type="service" id="messenger.bus.default.messenger.handlers_locator"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.messenger" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="debug.traced.messenger.bus.default" class="Symfony\Component\Messenger\TraceableMessageBus">
@@ -7998,12 +8245,16 @@
         <argument key="doctrine.orm.messenger.doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.messenger.doctrine_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.C7Ico9R" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.e3wl7z4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Repository\AnswerRepository" type="service_closure" id="App\Repository\AnswerRepository"/>
         <argument key="App\Repository\CauzeRepository" type="service_closure" id="App\Repository\CauzeRepository"/>
         <argument key="App\Repository\OwnerRepository" type="service_closure" id="App\Repository\OwnerRepository"/>
         <argument key="App\Repository\ProductsRepository" type="service_closure" id="App\Repository\ProductsRepository"/>
+        <argument key="App\Repository\QuestionRepository" type="service_closure" id="App\Repository\QuestionRepository"/>
+        <argument key="App\Repository\QuestionTagRepository" type="service_closure" id="App\Repository\QuestionTagRepository"/>
+        <argument key="App\Repository\TagRepository" type="service_closure" id="App\Repository\TagRepository"/>
         <argument key="App\Repository\UniqueCodesRepository" type="service_closure" id="App\Repository\UniqueCodesRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
       </argument>
@@ -8018,9 +8269,6 @@
     <service id=".doctrine.orm.default_metadata_driver" class="Doctrine\Bundle\DoctrineBundle\Mapping\MappingDriver">
       <argument type="service" id=".doctrine.orm.default_metadata_driver.inner"/>
       <argument type="service" id=".service_locator.KLVvNIq"/>
-    </service>
-    <service id="doctrine.dbal.logging_middleware.default" class="Doctrine\DBAL\Logging\Middleware">
-      <argument type="service" id="monolog.logger.doctrine"/>
     </service>
     <service id="doctrine.dbal.debug_middleware.default" class="Doctrine\Bundle\DoctrineBundle\Middleware\DebugMiddleware">
       <argument type="service" id="doctrine.debug_data_holder"/>
@@ -8045,6 +8293,10 @@
       <argument type="service" id="security.access.expression_voter"/>
       <argument type="service" id="debug.event_dispatcher"/>
     </service>
+    <service id="debug.security.voter.App\Security\Voter\QuestionVoter" class="Symfony\Component\Security\Core\Authorization\Voter\TraceableVoter">
+      <argument type="service" id="App\Security\Voter\QuestionVoter"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
     <service id="security.listener.csrf_protection" class="Symfony\Component\Security\Http\EventListener\CsrfProtectionListener">
       <tag name="kernel.event_subscriber"/>
       <argument type="service" id="security.csrf.token_manager"/>
@@ -8056,206 +8308,7 @@
     <service id="security.ldap_locator" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <argument type="collection"/>
     </service>
-    <service id="monolog.logger.request" class="Symfony\Bridge\Monolog\Logger">
-      <argument>request</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.console" class="Symfony\Bridge\Monolog\Logger">
-      <argument>console</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.messenger" class="Symfony\Bridge\Monolog\Logger">
-      <argument>messenger</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.cache" class="Symfony\Bridge\Monolog\Logger">
-      <argument>cache</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.http_client" class="Symfony\Bridge\Monolog\Logger">
-      <argument>http_client</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.mailer" class="Symfony\Bridge\Monolog\Logger">
-      <argument>mailer</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.translation" class="Symfony\Bridge\Monolog\Logger">
-      <argument>translation</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.php" class="Symfony\Bridge\Monolog\Logger">
-      <argument>php</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.event" class="Symfony\Bridge\Monolog\Logger">
-      <argument>event</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.null_internal"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.router" class="Symfony\Bridge\Monolog\Logger">
-      <argument>router</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.lock" class="Symfony\Bridge\Monolog\Logger">
-      <argument>lock</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.profiler" class="Symfony\Bridge\Monolog\Logger">
-      <argument>profiler</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.doctrine" class="Symfony\Bridge\Monolog\Logger">
-      <argument>doctrine</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.debug" class="Symfony\Bridge\Monolog\Logger">
-      <argument>debug</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.security" class="Symfony\Bridge\Monolog\Logger">
-      <argument>security</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.logger.deprecation" class="Symfony\Bridge\Monolog\Logger" public="true">
-      <argument>deprecation</argument>
-      <call method="pushProcessor">
-        <argument type="service" id="debug.log_processor"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.console"/>
-      </call>
-      <call method="pushHandler">
-        <argument type="service" id="monolog.handler.main"/>
-      </call>
-      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
-    </service>
-    <service id="monolog.handler.null_internal" class="Monolog\Handler\NullHandler"/>
+    <service id="logger" class="Symfony\Component\HttpKernel\Log\Logger"/>
     <service id=".service_locator.yY.p4P7" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8272,7 +8325,7 @@
         <argument key="translation.loader.yml" type="service_closure" id="translation.loader.yml"/>
       </argument>
     </service>
-    <service id=".service_locator.GNc8e5B" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="doctrine" type="service_closure" id="doctrine" on-invalid="ignore"/>
@@ -8291,47 +8344,59 @@
         <argument key="twig" type="service_closure" id="twig" on-invalid="ignore"/>
       </argument>
     </service>
-    <service id=".service_locator.GNc8e5B.App\Controller\AdminController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV.App\Controller\AdminController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\AdminController"/>
       <argument>App\Controller\AdminController</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
-    <service id=".service_locator.GNc8e5B.App\Controller\DonationsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV.App\Controller\AnswerController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AnswerController"/>
+      <argument>App\Controller\AnswerController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
+    </service>
+    <service id=".service_locator..6XfnfV.App\Controller\DonationsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\DonationsController"/>
       <argument>App\Controller\DonationsController</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
-    <service id=".service_locator.GNc8e5B.App\Controller\Homepage" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV.App\Controller\Homepage" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\Homepage"/>
       <argument>App\Controller\Homepage</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
-    <service id=".service_locator.GNc8e5B.App\Controller\OnlyForBestsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV.App\Controller\OnlyForBestsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\OnlyForBestsController"/>
       <argument>App\Controller\OnlyForBestsController</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
-    <service id=".service_locator.GNc8e5B.App\Controller\RegistrationController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV.App\Controller\QuestionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\QuestionController"/>
+      <argument>App\Controller\QuestionController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
+    </service>
+    <service id=".service_locator..6XfnfV.App\Controller\RegistrationController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\RegistrationController"/>
       <argument>App\Controller\RegistrationController</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
-    <service id=".service_locator.GNc8e5B.App\Controller\SecurityController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV.App\Controller\SecurityController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\SecurityController"/>
       <argument>App\Controller\SecurityController</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
-    <service id=".service_locator.GNc8e5B.App\Controller\UserController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator..6XfnfV.App\Controller\UserController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\UserController"/>
       <argument>App\Controller\UserController</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.GNc8e5B" method="withContext"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
     <service id=".service_locator.J4b.DPX" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -8345,17 +8410,17 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.J4b.DPX" method="withContext"/>
     </service>
-    <service id=".service_locator.491LSII" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.WOytlHA" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="routing.loader" type="service_closure" id="routing.loader"/>
       </argument>
     </service>
-    <service id=".service_locator.491LSII.router.default" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.WOytlHA.router.default" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="router.default"/>
       <argument>router.default</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.491LSII" method="withContext"/>
+      <factory service=".service_locator.WOytlHA" method="withContext"/>
     </service>
     <service id=".service_locator.HLwzKIm" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
@@ -8422,7 +8487,7 @@
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="initialized_session" type="service_closure" id=".session.do-not-use" on-invalid="ignore_uninitialized"/>
-        <argument key="logger" type="service_closure" id="monolog.logger" on-invalid="ignore"/>
+        <argument key="logger" type="service_closure" id="logger" on-invalid="ignore"/>
         <argument key="session" type="service_closure" id=".session.do-not-use" on-invalid="ignore"/>
         <argument key="session_collector" type="service_closure" id="data_collector.request.session_collector" on-invalid="ignore"/>
         <argument key="session_factory" type="service_closure" id="session.factory" on-invalid="ignore"/>
@@ -8463,7 +8528,7 @@
     <service id="debug.event_dispatcher.inner" class="Symfony\Component\EventDispatcher\EventDispatcher"/>
     <service id="debug.controller_resolver.inner" class="Symfony\Bundle\FrameworkBundle\Controller\ControllerResolver">
       <argument type="service" id="service_container"/>
-      <argument type="service" id="monolog.logger.request" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
     </service>
     <service id="debug.argument_resolver.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver">
       <argument type="service" id="argument_metadata_factory"/>
@@ -8497,6 +8562,7 @@
         <argument type="service" id="debug.security.voter.scheb_two_factor.security.access.authenticated_voter"/>
         <argument type="service" id="debug.security.voter.security.access.role_hierarchy_voter"/>
         <argument type="service" id="debug.security.voter.security.access.expression_voter"/>
+        <argument type="service" id="debug.security.voter.App\Security\Voter\QuestionVoter"/>
       </argument>
       <argument type="service">
         <service class="Symfony\Component\Security\Core\Authorization\Strategy\AffirmativeStrategy">
@@ -8515,12 +8581,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.TtRxp3K"/>
+      <argument type="service" id=".service_locator.1W_XEKX"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.TtRxp3K"/>
+      <argument type="service" id=".service_locator.1W_XEKX"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8537,7 +8603,7 @@
       <argument type="collection"/>
       <argument>6</argument>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.http_client" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
       <factory class="Symfony\Component\HttpClient\HttpClient" method="create"/>
     </service>
@@ -8549,6 +8615,9 @@
     </service>
     <service id=".errored..service_locator.KfwZsne.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.KfbR3DY.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
+    <service id=".errored..service_locator.HpwlquH.App\Entity\Answer" class="App\Entity\Answer"/>
+    <service id=".errored..service_locator.t_C_3cc.App\Entity\Question" class="App\Entity\Question"/>
+    <service id=".errored..service_locator.trjgtck.App\Entity\Question" class="App\Entity\Question"/>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
       <argument type="collection"/>
@@ -8824,13 +8893,6 @@
       <argument>false</argument>
       <argument type="service_closure" id="var_dumper.command.server_dump"/>
     </service>
-    <service id=".monolog.command.server_log.lazy" class="Symfony\Component\Console\Command\LazyCommand">
-      <argument>server:log</argument>
-      <argument type="collection"/>
-      <argument>Start a log server that displays logs in real time</argument>
-      <argument>false</argument>
-      <argument type="service_closure" id="monolog.command.server_log"/>
-    </service>
     <service id=".twig.command.debug.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>debug:twig</argument>
       <argument type="collection"/>
@@ -9039,8 +9101,9 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.eTTy642"/>
+      <argument type="service" id=".service_locator.8g61fR8"/>
       <argument type="collection">
+        <argument key="app:random-spell">App\Command\RandomSpellCommand</argument>
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
         <argument key="cache:clear">console.command.cache_clear</argument>
@@ -9113,7 +9176,6 @@
         <argument key="doctrine:migrations:up-to-date">doctrine_migrations.up_to_date_command</argument>
         <argument key="doctrine:migrations:version">doctrine_migrations.version_command</argument>
         <argument key="server:dump">var_dumper.command.server_dump</argument>
-        <argument key="server:log">monolog.command.server_log</argument>
         <argument key="debug:twig">twig.command.debug</argument>
         <argument key="lint:twig">twig.command.lint</argument>
         <argument key="debug:firewall">security.command.debug_firewall</argument>
@@ -9148,9 +9210,10 @@
         <argument key="make:story">maker.auto_command.make_story</argument>
       </argument>
     </service>
-    <service id=".service_locator.eTTy642" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.8g61fR8" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Command\RandomSpellCommand" type="service_closure" id="App\Command\RandomSpellCommand"/>
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
         <argument key="console.command.assets_install" type="service_closure" id=".console.command.assets_install.lazy"/>
         <argument key="console.command.cache_clear" type="service_closure" id=".console.command.cache_clear.lazy"/>
@@ -9222,7 +9285,6 @@
         <argument key="doctrine_migrations.up_to_date_command" type="service_closure" id="doctrine_migrations.up_to_date_command"/>
         <argument key="doctrine_migrations.version_command" type="service_closure" id="doctrine_migrations.version_command"/>
         <argument key="var_dumper.command.server_dump" type="service_closure" id=".var_dumper.command.server_dump.lazy"/>
-        <argument key="monolog.command.server_log" type="service_closure" id=".monolog.command.server_log.lazy"/>
         <argument key="twig.command.debug" type="service_closure" id=".twig.command.debug.lazy"/>
         <argument key="twig.command.lint" type="service_closure" id=".twig.command.lint.lazy"/>
         <argument key="security.command.debug_firewall" type="service_closure" id=".security.command.debug_firewall.lazy"/>
@@ -9261,7 +9323,7 @@
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.system.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9269,7 +9331,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.validator.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9277,7 +9339,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.serializer.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9285,7 +9347,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.annotations.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9293,7 +9355,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.property_info.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9301,7 +9363,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.messenger.restart_workers_signal.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
@@ -9310,7 +9372,7 @@
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.rate_limiter.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
@@ -9319,7 +9381,7 @@
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/app</argument>
       <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
       <call method="setLogger">
-        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+        <argument type="service" id="logger" on-invalid="ignore"/>
       </call>
     </service>
     <service id="cache.validator_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9327,7 +9389,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.doctrine.orm.default.result.recorder_inner" class="Symfony\Component\Cache\Adapter\ArrayAdapter"/>
@@ -9337,7 +9399,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.security_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9345,7 +9407,7 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
     <service id="cache.security_token_verifier.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
@@ -9353,16 +9415,17 @@
       <argument>0</argument>
       <argument>%container.build_id%</argument>
       <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/system</argument>
-      <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      <argument type="service" id="logger" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
     </service>
-    <service id=".service_locator.pTeli0u" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.7oO09vf" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="Symfony\Bridge\Twig\Extension\CsrfRuntime" type="service_closure" id="twig.runtime.security_csrf"/>
         <argument key="Symfony\Bridge\Twig\Extension\HttpKernelRuntime" type="service_closure" id="twig.runtime.httpkernel"/>
         <argument key="Symfony\Bridge\Twig\Extension\SerializerRuntime" type="service_closure" id="twig.runtime.serializer"/>
         <argument key="Symfony\Component\Form\FormRenderer" type="service_closure" id="twig.form.renderer"/>
+        <argument key="Pagerfanta\Twig\Extension\PagerfantaRuntime" type="service_closure" id="pagerfanta.twig_runtime"/>
       </argument>
     </service>
     <service id="Psr\Container\ContainerInterface" alias="service_container">
@@ -9371,6 +9434,7 @@
     <service id="Symfony\Component\DependencyInjection\ContainerInterface" alias="service_container">
       <deprecated package="symfony/dependency-injection" version="5.1">The "%alias_id%" autowiring alias is deprecated. Define it explicitly in your app if you want to keep using it.</deprecated>
     </service>
+    <service id="Psr\Log\LoggerInterface $mdLogger" alias="monolog.logger.markdown"/>
     <service id="App\Kernel" alias="kernel" public="true"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface" alias="parameter_bag"/>
     <service id="Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface" alias="parameter_bag"/>
@@ -9548,8 +9612,6 @@
     <service id="security.user_checker.main" alias="security.user_checker"/>
     <service id="security.firewall.context_locator" alias=".service_locator.zJyh7qS"/>
     <service id="Symfony\Component\Security\Core\User\UserCheckerInterface" alias="security.user_checker"/>
-    <service id="logger" alias="monolog.logger"/>
-    <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="sensio_framework_extra.converter.doctrine.orm.expression_language" alias="sensio_framework_extra.converter.doctrine.orm.expression_language.default"/>
     <service id="sensio_framework_extra.security.expression_language" alias="sensio_framework_extra.security.expression_language.default"/>
     <service id="Symfony\UX\Chartjs\Builder\ChartBuilderInterface" alias="chartjs.builder"/>
@@ -9567,42 +9629,33 @@
     <service id="scheb_two_factor.persister" alias="scheb_two_factor.persister.doctrine"/>
     <service id="scheb_two_factor.ip_whitelist_provider" alias="scheb_two_factor.default_ip_whitelist_provider"/>
     <service id="scheb_two_factor.token_factory" alias="scheb_two_factor.default_token_factory"/>
+    <service id="Knp\Bundle\TimeBundle\DateTimeFormatter" alias="time.datetime_formatter"/>
+    <service id="Pagerfanta\RouteGenerator\RouteGeneratorFactoryInterface" alias="pagerfanta.route_generator_factory"/>
+    <service id="Pagerfanta\View\ViewFactory" alias="pagerfanta.view_factory"/>
+    <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.TtRxp3K"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.1W_XEKX"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
-    <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
-    <service id="Psr\Log\LoggerInterface $consoleLogger" alias="monolog.logger.console"/>
-    <service id="Psr\Log\LoggerInterface $messengerLogger" alias="monolog.logger.messenger"/>
-    <service id="Psr\Log\LoggerInterface $cacheLogger" alias="monolog.logger.cache"/>
-    <service id="Psr\Log\LoggerInterface $httpClientLogger" alias="monolog.logger.http_client"/>
-    <service id="Psr\Log\LoggerInterface $mailerLogger" alias="monolog.logger.mailer"/>
-    <service id="Psr\Log\LoggerInterface $translationLogger" alias="monolog.logger.translation"/>
-    <service id="Psr\Log\LoggerInterface $phpLogger" alias="monolog.logger.php"/>
-    <service id="Psr\Log\LoggerInterface $eventLogger" alias="monolog.logger.event"/>
-    <service id="Psr\Log\LoggerInterface $routerLogger" alias="monolog.logger.router"/>
-    <service id="Psr\Log\LoggerInterface $lockLogger" alias="monolog.logger.lock"/>
-    <service id="Psr\Log\LoggerInterface $profilerLogger" alias="monolog.logger.profiler"/>
-    <service id="Psr\Log\LoggerInterface $doctrineLogger" alias="monolog.logger.doctrine"/>
-    <service id="Psr\Log\LoggerInterface $debugLogger" alias="monolog.logger.debug"/>
-    <service id="Psr\Log\LoggerInterface $securityLogger" alias="monolog.logger.security"/>
-    <service id="Psr\Log\LoggerInterface $deprecationLogger" alias="monolog.logger.deprecation"/>
+    <service id="Psr\Log\LoggerInterface" alias="logger"/>
     <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.XDGmiR3" alias=".1_ServiceLocator~.yWLThg"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
+    <service id=".service_locator.MPSanjN" alias=".service_locator.HpwlquH"/>
+    <service id=".service_locator.D2X2l4L" alias=".service_locator.trjgtck"/>
     <service id=".service_locator.kiizgfv" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.u6BTu4b" alias=".service_locator.pKcF_sp"/>
-    <service id=".service_locator.Qc.aDHB" alias=".service_locator.TtRxp3K"/>
+    <service id=".service_locator.XV5bRIN" alias=".service_locator.1W_XEKX"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
     <service id=".service_locator.O24_MAy" alias=".service_locator.yY.p4P7"/>
-    <service id=".service_locator.W9y3dzm" alias=".service_locator.GNc8e5B"/>
+    <service id=".service_locator.Hx3AXjl" alias=".service_locator..6XfnfV"/>
     <service id="validator" alias="debug.validator" public="true"/>
     <service id="event_dispatcher" alias="debug.event_dispatcher" public="true"/>
     <service id="controller_resolver" alias="debug.controller_resolver"/>
@@ -9628,13 +9681,18 @@
     <service id=".service_locator._5g_Wvc" alias=".service_locator.KfwZsne"/>
     <service id=".service_locator.JBAFp66" alias=".service_locator.KfbR3DY"/>
     <service id=".service_locator.widEuHX" alias=".service_locator.Wxf6IJb"/>
+    <service id=".service_locator.e62gWpV" alias=".service_locator.kpfRfZG"/>
+    <service id=".service_locator.PHdcih_" alias=".service_locator.HpwlquH"/>
     <service id=".service_locator.Er0_7SX" alias=".service_locator.l2QwsaZ"/>
+    <service id=".service_locator.Gkn6yz6" alias=".service_locator.Q_xsdXo"/>
+    <service id=".service_locator.akP90b3" alias=".service_locator.t_C_3cc"/>
+    <service id=".service_locator.bpisobJ" alias=".service_locator.trjgtck"/>
     <service id=".service_locator.oCSk1pU" alias=".service_locator.imEfKVM"/>
     <service id=".service_locator.kKNyb2j" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.kXCVHeG" alias=".service_locator.UDgw6Ol"/>
     <service id=".service_locator.UckXCgB" alias=".service_locator.pKcF_sp"/>
     <service id=".service_locator.NLYc7TA" alias=".service_locator.UBfdanz"/>
-    <service id=".service_locator.Wd_D6Iy" alias=".service_locator.GNc8e5B"/>
+    <service id=".service_locator.Q4YZ0XR" alias=".service_locator..6XfnfV"/>
     <service id=".service_locator.L0rFhJm" alias=".service_locator.GVyCdgr"/>
     <service id=".service_locator.9YCWxeJ" alias=".service_locator.dw8O4oN"/>
     <service id=".service_locator.aa1PbBb" alias=".service_locator.nLgZj7R"/>

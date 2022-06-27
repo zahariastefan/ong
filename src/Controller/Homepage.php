@@ -20,13 +20,13 @@ class Homepage extends AbstractController
     //TODO --> everytime we access homepage that make API request from Stripe for product, that make all slow
     //TODO --> find a solution to check if exist changes on products, if yes make api request if not, use cookie or something else
 
-    /**
-     * @Route("/", name="app_homepage")
-     */
-    public function homepage()
-    {
-        return $this->render("homepage.html.twig");
-    }
+//    /**
+//     * @Route("/", name="app_homepage1")
+//     */
+//    public function homepage()
+//    {
+//        return $this->render("homepage1.html.twig");
+//    }
 
     /**
      * @Route("/donations", name="app_donations")

@@ -11,6 +11,7 @@ use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 class FakerConfig 
 {
     private $locale;
+    private $seed;
     private $service;
     private $_usedProperties = [];
 
@@ -25,6 +26,21 @@ class FakerConfig
     {
         $this->_usedProperties['locale'] = true;
         $this->locale = $value;
+
+        return $this;
+    }
+
+    /**
+     * Random number generator seed to produce the same fake values every run
+     * @example 1234
+     * @default null
+     * @param ParamConfigurator|int $value
+     * @return $this
+     */
+    public function seed($value): self
+    {
+        $this->_usedProperties['seed'] = true;
+        $this->seed = $value;
 
         return $this;
     }
@@ -52,6 +68,12 @@ class FakerConfig
             unset($value['locale']);
         }
 
+        if (array_key_exists('seed', $value)) {
+            $this->_usedProperties['seed'] = true;
+            $this->seed = $value['seed'];
+            unset($value['seed']);
+        }
+
         if (array_key_exists('service', $value)) {
             $this->_usedProperties['service'] = true;
             $this->service = $value['service'];
@@ -68,6 +90,9 @@ class FakerConfig
         $output = [];
         if (isset($this->_usedProperties['locale'])) {
             $output['locale'] = $this->locale;
+        }
+        if (isset($this->_usedProperties['seed'])) {
+            $output['seed'] = $this->seed;
         }
         if (isset($this->_usedProperties['service'])) {
             $output['service'] = $this->service;
