@@ -571,6 +571,7 @@
         <argument key="mailer.message_logger_listener" type="service" id="mailer.message_logger_listener" on-invalid="ignore_uninitialized"/>
         <argument key="debug.stopwatch" type="service" id="debug.stopwatch" on-invalid="ignore_uninitialized"/>
         <argument key="debug.event_dispatcher" type="service" id="debug.event_dispatcher" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.rate_limiter" type="service" id="cache.rate_limiter" on-invalid="ignore_uninitialized"/>
         <argument key="session_listener" type="service" id="session_listener" on-invalid="ignore_uninitialized"/>
         <argument key="form.choice_list_factory.cached" type="service" id="form.choice_list_factory.cached" on-invalid="ignore_uninitialized"/>
         <argument key="cache.validator_expression_language" type="service" id="cache.validator_expression_language" on-invalid="ignore_uninitialized"/>
@@ -622,6 +623,9 @@
           <argument>reset</argument>
         </argument>
         <argument key="debug.event_dispatcher" type="collection">
+          <argument>reset</argument>
+        </argument>
+        <argument key="cache.rate_limiter" type="collection">
           <argument>reset</argument>
         </argument>
         <argument key="session_listener" type="collection">
@@ -814,6 +818,7 @@
         <argument>cache.annotations</argument>
         <argument>cache.property_info</argument>
         <argument>cache.messenger.restart_workers_signal</argument>
+        <argument>cache.rate_limiter</argument>
         <argument>cache.validator_expression_language</argument>
         <argument>cache.doctrine.orm.default.result</argument>
         <argument>cache.doctrine.orm.default.query</argument>
@@ -851,6 +856,7 @@
         <argument>cache.annotations</argument>
         <argument>cache.property_info</argument>
         <argument>cache.messenger.restart_workers_signal</argument>
+        <argument>cache.rate_limiter</argument>
         <argument>cache.validator_expression_language</argument>
         <argument>cache.doctrine.orm.default.result</argument>
         <argument>cache.doctrine.orm.default.query</argument>
@@ -876,6 +882,7 @@
         <argument>cache.annotations</argument>
         <argument>cache.property_info</argument>
         <argument>cache.messenger.restart_workers_signal</argument>
+        <argument>cache.rate_limiter</argument>
         <argument>cache.validator_expression_language</argument>
         <argument>cache.doctrine.orm.default.result</argument>
         <argument>cache.doctrine.orm.default.query</argument>
@@ -1514,6 +1521,7 @@
       <argument type="collection">
         <argument key="cache.app" type="service" id="cache.app" on-invalid="ignore_uninitialized"/>
         <argument key="cache.messenger.restart_workers_signal" type="service" id="cache.messenger.restart_workers_signal" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.rate_limiter" type="service" id="cache.rate_limiter" on-invalid="ignore_uninitialized"/>
       </argument>
     </service>
     <service id="cache.system_clearer" class="Symfony\Component\HttpKernel\CacheClearer\Psr6CacheClearer" public="true">
@@ -1541,6 +1549,7 @@
         <argument key="cache.annotations" type="service" id="cache.annotations" on-invalid="ignore_uninitialized"/>
         <argument key="cache.property_info" type="service" id="cache.property_info" on-invalid="ignore_uninitialized"/>
         <argument key="cache.messenger.restart_workers_signal" type="service" id="cache.messenger.restart_workers_signal" on-invalid="ignore_uninitialized"/>
+        <argument key="cache.rate_limiter" type="service" id="cache.rate_limiter" on-invalid="ignore_uninitialized"/>
         <argument key="cache.validator_expression_language" type="service" id="cache.validator_expression_language" on-invalid="ignore_uninitialized"/>
         <argument key="cache.doctrine.orm.default.result" type="service" id="cache.doctrine.orm.default.result" on-invalid="ignore_uninitialized"/>
         <argument key="cache.doctrine.orm.default.query" type="service" id="cache.doctrine.orm.default.query" on-invalid="ignore_uninitialized"/>
@@ -3306,6 +3315,43 @@
       <tag name="property_info.description_extractor" priority="-1000"/>
       <tag name="property_info.type_extractor" priority="-1001"/>
     </service>
+    <service id="lock.store.combined.abstract" class="Symfony\Component\Lock\Store\CombinedStore" abstract="true">
+      <argument type="abstract">List of stores</argument>
+      <argument type="service" id="lock.strategy.majority"/>
+    </service>
+    <service id="lock.strategy.majority" class="Symfony\Component\Lock\Strategy\ConsensusStrategy"/>
+    <service id="lock.factory.abstract" class="Symfony\Component\Lock\LockFactory" abstract="true">
+      <tag name="monolog.logger" channel="lock"/>
+      <argument type="abstract">Store</argument>
+      <call method="setLogger">
+        <argument type="service" id="monolog.logger.lock" on-invalid="ignore"/>
+      </call>
+    </service>
+    <service id=".lock.default.store.TTEh_gT" class="Symfony\Component\Lock\PersistingStoreInterface">
+      <argument>%env(LOCK_DSN)%</argument>
+      <factory class="Symfony\Component\Lock\Store\StoreFactory" method="createStore"/>
+    </service>
+    <service id="lock.default.factory" class="Symfony\Component\Lock\LockFactory">
+      <argument type="service" id=".lock.default.store.TTEh_gT"/>
+      <call method="setLogger">
+        <argument type="service" id="monolog.logger.lock" on-invalid="ignore"/>
+      </call>
+    </service>
+    <service id="lock.default" class="Symfony\Component\Lock\Lock">
+      <argument>default</argument>
+      <factory service="lock.default.factory" method="createLock"/>
+      <deprecated package="symfony/framework-bundle" version="5.2">The "%service_id%" service is deprecated, use "lock.default.factory" instead.</deprecated>
+    </service>
+    <service id="cache.rate_limiter" class="Symfony\Component\Cache\Adapter\TraceableAdapter" public="true">
+      <tag name="cache.pool"/>
+      <tag name="kernel.reset" method="reset"/>
+      <argument type="service" id="cache.rate_limiter.recorder_inner"/>
+    </service>
+    <service id="limiter" class="Symfony\Component\RateLimiter\RateLimiterFactory" abstract="true">
+      <argument type="abstract">config</argument>
+      <argument type="abstract">storage</argument>
+      <argument>null</argument>
+    </service>
     <service id="web_link.add_link_header_listener" class="Symfony\Component\WebLink\EventListener\AddLinkHeaderListener">
       <tag name="kernel.event_subscriber"/>
       <tag name="container.hot_path"/>
@@ -4063,6 +4109,10 @@
       <call method="addInstance">
         <argument>cache.messenger.restart_workers_signal</argument>
         <argument type="service" id="cache.messenger.restart_workers_signal"/>
+      </call>
+      <call method="addInstance">
+        <argument>cache.rate_limiter</argument>
+        <argument type="service" id="cache.rate_limiter"/>
       </call>
       <call method="addInstance">
         <argument>cache.validator_expression_language</argument>
@@ -7554,6 +7604,19 @@
       </call>
       <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
     </service>
+    <service id="monolog.logger.lock" class="Symfony\Bridge\Monolog\Logger">
+      <argument>lock</argument>
+      <call method="pushProcessor">
+        <argument type="service" id="debug.log_processor"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.console"/>
+      </call>
+      <call method="pushHandler">
+        <argument type="service" id="monolog.handler.main"/>
+      </call>
+      <configurator class="Symfony\Bundle\FrameworkBundle\DependencyInjection\Compiler\AddDebugLogProcessorPass" method="configureLogger"/>
+    </service>
     <service id="monolog.logger.profiler" class="Symfony\Bridge\Monolog\Logger">
       <argument>profiler</argument>
       <call method="pushProcessor">
@@ -8666,6 +8729,15 @@
         <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       </call>
     </service>
+    <service id="cache.rate_limiter.recorder_inner" class="Symfony\Component\Cache\Adapter\FilesystemAdapter">
+      <argument>WqgszQX09V</argument>
+      <argument>0</argument>
+      <argument>C:\ONG symfony 5 new\ong5\var\cache\dev/pools/app</argument>
+      <argument type="service" id="cache.default_marshaller" on-invalid="ignore"/>
+      <call method="setLogger">
+        <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
+      </call>
+    </service>
     <service id="cache.validator_expression_language.recorder_inner" class="Symfony\Component\Cache\Adapter\AdapterInterface">
       <argument>2A16ax9XHr</argument>
       <argument>0</argument>
@@ -8786,6 +8858,23 @@
     <service id="Symfony\Component\PropertyInfo\PropertyInitializableExtractorInterface" alias="property_info"/>
     <service id="Symfony\Component\PropertyInfo\PropertyReadInfoExtractorInterface" alias="property_info.reflection_extractor"/>
     <service id="Symfony\Component\PropertyInfo\PropertyWriteInfoExtractorInterface" alias="property_info.reflection_extractor"/>
+    <service id="lock.default.store" alias=".lock.default.store.TTEh_gT">
+      <deprecated package="symfony/framework-bundle" version="5.2">The "%alias_id%" alias is deprecated, use "lock.default.factory" instead.</deprecated>
+    </service>
+    <service id="lock.store" alias=".lock.default.store.TTEh_gT">
+      <deprecated package="symfony/framework-bundle" version="5.2">The "%alias_id%" alias is deprecated, use "lock.factory" instead.</deprecated>
+    </service>
+    <service id="lock.factory" alias="lock.default.factory"/>
+    <service id="lock" alias="lock.default">
+      <deprecated package="symfony/framework-bundle" version="5.2">The "%alias_id%" alias is deprecated, use "lock.factory" instead.</deprecated>
+    </service>
+    <service id="Symfony\Component\Lock\PersistingStoreInterface" alias=".lock.default.store.TTEh_gT">
+      <deprecated package="symfony/framework-bundle" version="5.2">The "%alias_id%" alias is deprecated, use "Symfony\Component\Lock\LockFactory" instead.</deprecated>
+    </service>
+    <service id="Symfony\Component\Lock\LockFactory" alias="lock.default.factory"/>
+    <service id="Symfony\Component\Lock\LockInterface" alias="lock.default">
+      <deprecated package="symfony/framework-bundle" version="5.2">The "%alias_id%" alias is deprecated, use "Symfony\Component\Lock\LockFactory" instead.</deprecated>
+    </service>
     <service id="cache.default_redis_provider" alias=".cache_connection.GD_MSZC"/>
     <service id="cache.default_memcached_provider" alias=".cache_connection.JKE6keX"/>
     <service id="cache.default_doctrine_dbal_provider" alias="doctrine.dbal.default_connection"/>
@@ -8897,6 +8986,7 @@
     <service id="Psr\Log\LoggerInterface $phpLogger" alias="monolog.logger.php"/>
     <service id="Psr\Log\LoggerInterface $eventLogger" alias="monolog.logger.event"/>
     <service id="Psr\Log\LoggerInterface $routerLogger" alias="monolog.logger.router"/>
+    <service id="Psr\Log\LoggerInterface $lockLogger" alias="monolog.logger.lock"/>
     <service id="Psr\Log\LoggerInterface $profilerLogger" alias="monolog.logger.profiler"/>
     <service id="Psr\Log\LoggerInterface $doctrineLogger" alias="monolog.logger.doctrine"/>
     <service id="Psr\Log\LoggerInterface $debugLogger" alias="monolog.logger.debug"/>
