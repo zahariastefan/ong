@@ -136,7 +136,10 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
             echo "                <a class=\"nav-link text-black-50\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo "\">Log In</a>
-                <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
+                <a href=\"";
+            // line 55
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
+            echo "\" class=\"btn btn-dark\">Sign up</a>
             ";
         }
         // line 57
@@ -164,7 +167,7 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
     public function getDebugInfo()
     {
-        return array (  143 => 57,  136 => 54,  131 => 51,  125 => 48,  122 => 47,  117 => 44,  115 => 42,  112 => 41,  110 => 40,  104 => 37,  100 => 36,  89 => 27,  87 => 26,  81 => 23,  78 => 22,  72 => 19,  69 => 18,  67 => 17,  53 => 6,  47 => 3,  43 => 1,);
+        return array (  146 => 57,  141 => 55,  136 => 54,  131 => 51,  125 => 48,  122 => 47,  117 => 44,  115 => 42,  112 => 41,  110 => 40,  104 => 37,  100 => 36,  89 => 27,  87 => 26,  81 => 23,  78 => 22,  72 => 19,  69 => 18,  67 => 17,  53 => 6,  47 => 3,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -223,11 +226,11 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
                 </div>
                 {%else%}
                 <a class=\"nav-link text-black-50\" href=\"{{ path('app_login') }}\">Log In</a>
-                <a href=\"#\" class=\"btn btn-dark\">Sign up</a>
+                <a href=\"{{ path('app_register') }}\" class=\"btn btn-dark\">Sign up</a>
             {% endif %}
 
         </div>
     </div>
-</nav>", "navbar.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\navbar.html.twig");
+</nav>", "navbar.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\navbar.html.twig");
     }
 }

@@ -66,17 +66,29 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
         <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
         <script src=\"https://js.stripe.com/v3/\"></script>
     </head>
-    <body>
-    ";
+    <body
+            ";
         // line 20
-        $this->loadTemplate("navbar.html.twig", "base.html.twig", 20)->display($context);
-        // line 21
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
+            // line 21
+            echo "                ";
+            echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\StimulusTwigExtension']->renderStimulusController($this->env, "user-api", ["url" => $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_user_api_me")]);
+            // line 23
+            echo "
+            ";
+        }
+        // line 25
+        echo "    >
+    ";
+        // line 26
+        $this->loadTemplate("navbar.html.twig", "base.html.twig", 26)->display($context);
+        // line 27
         echo "    ";
         $this->displayBlock('body', $context, $blocks);
-        // line 23
+        // line 29
         echo "    ";
-        $this->loadTemplate("footer.html.twig", "base.html.twig", 23)->display($context);
-        // line 24
+        $this->loadTemplate("footer.html.twig", "base.html.twig", 29)->display($context);
+        // line 30
         echo "    </body>
 </html>
 ";
@@ -153,7 +165,7 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
 
     }
 
-    // line 21
+    // line 27
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -163,7 +175,7 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 22
+        // line 28
         echo "    ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -185,7 +197,7 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
 
     public function getDebugInfo()
     {
-        return array (  167 => 22,  157 => 21,  144 => 13,  134 => 12,  121 => 9,  111 => 8,  92 => 5,  80 => 24,  77 => 23,  74 => 21,  72 => 20,  65 => 15,  63 => 12,  60 => 11,  57 => 8,  53 => 5,  47 => 1,);
+        return array (  179 => 28,  169 => 27,  156 => 13,  146 => 12,  133 => 9,  123 => 8,  104 => 5,  92 => 30,  89 => 29,  86 => 27,  84 => 26,  81 => 25,  77 => 23,  74 => 21,  72 => 20,  65 => 15,  63 => 12,  60 => 11,  57 => 8,  53 => 5,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -208,13 +220,19 @@ class __TwigTemplate_add226e206edd14c71f687ffc0750e89451ac98b66798cebe4659c42438
         <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
         <script src=\"https://js.stripe.com/v3/\"></script>
     </head>
-    <body>
+    <body
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                {{ stimulus_controller('user-api', {
+                    url: path('app_user_api_me')
+                }) }}
+            {% endif %}
+    >
     {% include 'navbar.html.twig' %}
     {% block body %}
     {% endblock %}
     {% include 'footer.html.twig' %}
     </body>
 </html>
-", "base.html.twig", "C:\\good projects\\ONG with stripe\\ONG symfony 5 new\\ong5\\templates\\base.html.twig");
+", "base.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\base.html.twig");
     }
 }
