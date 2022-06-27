@@ -416,6 +416,9 @@
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
+    <service id="App\EventSubscriber\CheckVerifiedUserSubscriber" class="App\EventSubscriber\CheckVerifiedUserSubscriber" autowire="true" autoconfigure="true">
+      <tag name="kernel.event_subscriber"/>
+    </service>
     <service id="App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" autoconfigure="true">
       <tag name="foundry.factory"/>
     </service>
@@ -2347,6 +2350,14 @@
           <argument>onKernelResponse</argument>
         </argument>
         <argument>0</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="App\EventSubscriber\CheckVerifiedUserSubscriber"/>
+          <argument>onCheckPassport</argument>
+        </argument>
+        <argument>-10</argument>
       </call>
       <call method="addListener">
         <argument>kernel.response</argument>
@@ -6123,6 +6134,14 @@
       <call method="addListener">
         <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
         <argument type="collection">
+          <argument type="service_closure" id="App\EventSubscriber\CheckVerifiedUserSubscriber"/>
+          <argument>onCheckPassport</argument>
+        </argument>
+        <argument>-10</argument>
+      </call>
+      <call method="addListener">
+        <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
+        <argument type="collection">
           <argument type="service_closure" id="security.listener.check_authenticator_credentials"/>
           <argument>checkPassport</argument>
         </argument>
@@ -6893,6 +6912,8 @@
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\CheckVerifiedUserSubscriber" class="App\EventSubscriber\CheckVerifiedUserSubscriber" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\EventSubscriber\CheckVerifiedUserSubscriber" class="App\EventSubscriber\CheckVerifiedUserSubscriber" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\ProductsFactory" class="App\Factory\ProductsFactory" autowire="true" abstract="true"/>
