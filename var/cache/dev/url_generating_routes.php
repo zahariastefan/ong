@@ -12,6 +12,7 @@ return [
     'app_homepage_cancel' => [[], ['_controller' => 'App\\Controller\\Homepage::cancel'], [], [['text', '/cancel']], [], [], []],
     'app_onlyforbests_new' => [[], ['_controller' => 'App\\Controller\\OnlyForBestsController::new'], [], [['text', '/boss']], [], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
+    'app_verify_email' => [[], ['_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], [], [['text', '/verify']], [], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/login']], [], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
     'app_user_api_me' => [[], ['_controller' => 'App\\Controller\\UserController::apiMe'], [], [['text', '/api/me']], [], [], []],

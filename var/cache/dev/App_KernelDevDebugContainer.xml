@@ -24,6 +24,7 @@
       <parameter key="DoctrineFixturesBundle">Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle</parameter>
       <parameter key="ZenstruckFoundryBundle">Zenstruck\Foundry\ZenstruckFoundryBundle</parameter>
       <parameter key="ChartjsBundle">Symfony\UX\Chartjs\ChartjsBundle</parameter>
+      <parameter key="SymfonyCastsVerifyEmailBundle">SymfonyCasts\Bundle\VerifyEmail\SymfonyCastsVerifyEmailBundle</parameter>
     </parameter>
     <parameter key="kernel.bundles_metadata" type="collection">
       <parameter key="FrameworkBundle" type="collection">
@@ -85,6 +86,10 @@
       <parameter key="ChartjsBundle" type="collection">
         <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\symfony\ux-chartjs</parameter>
         <parameter key="namespace">Symfony\UX\Chartjs</parameter>
+      </parameter>
+      <parameter key="SymfonyCastsVerifyEmailBundle" type="collection">
+        <parameter key="path">C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src</parameter>
+        <parameter key="namespace">SymfonyCasts\Bundle\VerifyEmail</parameter>
       </parameter>
     </parameter>
     <parameter key="kernel.charset">UTF-8</parameter>
@@ -1723,6 +1728,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ar.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.ar.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ar.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ar.xlf</argument>
           </argument>
           <argument key="az" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.az.xlf</argument>
@@ -1753,6 +1759,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.cs.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.cs.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.cs.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.cs.xlf</argument>
           </argument>
           <argument key="cy" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.cy.xlf</argument>
@@ -1766,6 +1773,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.de.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.de.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.de.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.de.xlf</argument>
           </argument>
           <argument key="el" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.el.xlf</argument>
@@ -1776,12 +1784,14 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.en.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.en.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.en.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.en.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5/translations\security.en.yaml</argument>
           </argument>
           <argument key="es" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.es.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.es.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.es.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.es.xlf</argument>
           </argument>
           <argument key="et" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.et.xlf</argument>
@@ -1802,11 +1812,13 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.fi.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.fi.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.fi.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.fi.xlf</argument>
           </argument>
           <argument key="fr" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.fr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.fr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.fr.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.fr.xlf</argument>
           </argument>
           <argument key="gl" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.gl.xlf</argument>
@@ -1827,6 +1839,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.hu.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.hu.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.hu.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.hu.xlf</argument>
           </argument>
           <argument key="hy" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.hy.xlf</argument>
@@ -1842,11 +1855,13 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.it.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.it.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.it.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.it.xlf</argument>
           </argument>
           <argument key="ja" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ja.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.ja.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ja.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ja.xlf</argument>
           </argument>
           <argument key="lb" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.lb.xlf</argument>
@@ -1882,6 +1897,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.nl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.nl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.nl.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle+intl-icu.nl.xlf</argument>
           </argument>
           <argument key="nn" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.nn.xlf</argument>
@@ -1897,11 +1913,13 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.pl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.pl.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.pl.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.pl.xlf</argument>
           </argument>
           <argument key="pt" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.pt.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.pt.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.pt.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.pt.xlf</argument>
           </argument>
           <argument key="pt_BR" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.pt_BR.xlf</argument>
@@ -1912,16 +1930,19 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ro.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.ro.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ro.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ro.xlf</argument>
           </argument>
           <argument key="ru" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.ru.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.ru.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.ru.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ru.xlf</argument>
           </argument>
           <argument key="sk" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.sk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.sk.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.sk.xlf</argument>
           </argument>
           <argument key="sl" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.sl.xlf</argument>
@@ -1962,11 +1983,13 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.tr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.tr.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.tr.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.tr.xlf</argument>
           </argument>
           <argument key="uk" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.uk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.uk.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.uk.xlf</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.uk.xlf</argument>
           </argument>
           <argument key="uz" type="collection">
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations\validators.uz.xlf</argument>
@@ -1988,11 +2011,15 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations\validators.zh_TW.xlf</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations\security.zh_TW.xlf</argument>
           </argument>
+          <argument key="sr" type="collection">
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.sr.xlf</argument>
+          </argument>
         </argument>
         <argument key="scanned_directories" type="collection">
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations</argument>
+          <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\framework-bundle/translations</argument>
           <argument>C:\ONG symfony 5 new\ong5\vendor\doctrine\doctrine-bundle/translations</argument>
@@ -2015,6 +2042,7 @@
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\validator/Resources/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\form/Resources/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\security-core/Resources/translations</argument>
+            <argument>C:\ONG symfony 5 new\ong5\vendor\symfonycasts\verify-email-bundle\src/Resources/translations</argument>
             <argument>translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\symfony\framework-bundle/translations</argument>
             <argument>C:\ONG symfony 5 new\ong5\vendor\doctrine\doctrine-bundle/translations</argument>
@@ -6728,6 +6756,21 @@
       <tag name="twig.extension"/>
       <argument type="service" id="webpack_encore.twig_stimulus_extension"/>
     </service>
+    <service id="symfonycasts.verify_email.token_generator" class="SymfonyCasts\Bundle\VerifyEmail\Generator\VerifyEmailTokenGenerator">
+      <argument>%env(APP_SECRET)%</argument>
+    </service>
+    <service id="symfonycasts.verify_email.query_utility" class="SymfonyCasts\Bundle\VerifyEmail\Util\VerifyEmailQueryUtility"/>
+    <service id="symfonycasts.verify_email.uri_signer" class="Symfony\Component\HttpKernel\UriSigner">
+      <argument>%env(APP_SECRET)%</argument>
+      <argument>signature</argument>
+    </service>
+    <service id="symfonycasts.verify_email.helper" class="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelper">
+      <argument type="service" id="router.default"/>
+      <argument type="service" id="symfonycasts.verify_email.uri_signer"/>
+      <argument type="service" id="symfonycasts.verify_email.query_utility"/>
+      <argument type="service" id="symfonycasts.verify_email.token_generator"/>
+      <argument>3600</argument>
+    </service>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7134,12 +7177,13 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.39aNmga" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.IVweQOi" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="formLoginAuthenticator" type="service_closure" id="security.authenticator.form_login.main"/>
         <argument key="userAuthenticator" type="service_closure" id="security.user_authenticator"/>
         <argument key="userPasswordHasherInterface" type="service_closure" id="security.user_password_hasher"/>
+        <argument key="verifyEmailHelper" type="service_closure" id="symfonycasts.verify_email.helper"/>
       </argument>
     </service>
     <service id=".service_locator.UDgw6Ol" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -7148,14 +7192,14 @@
         <argument key="authenticationUtils" type="service_closure" id="security.authentication_utils"/>
       </argument>
     </service>
-    <service id=".service_locator.SBs69Ic" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.sQYDI4V" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
         <argument key="App\Controller\Homepage::homepage" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::success" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.39aNmga"/>
+        <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.IVweQOi"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.UDgw6Ol"/>
         <argument key="App\Controller\SecurityController::logout" type="service_closure" id=".service_locator.UDgw6Ol"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
@@ -7168,7 +7212,7 @@
         <argument key="App\Controller\Homepage:homepage" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:success" type="service_closure" id=".service_locator.l2QwsaZ"/>
-        <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.39aNmga"/>
+        <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.IVweQOi"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.UDgw6Ol"/>
         <argument key="App\Controller\SecurityController:logout" type="service_closure" id=".service_locator.UDgw6Ol"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
@@ -7835,12 +7879,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.SBs69Ic"/>
+      <argument type="service" id=".service_locator.sQYDI4V"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.SBs69Ic"/>
+      <argument type="service" id=".service_locator.sQYDI4V"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8845,9 +8889,10 @@
     <service id="sensio_framework_extra.converter.doctrine.orm.expression_language" alias="sensio_framework_extra.converter.doctrine.orm.expression_language.default"/>
     <service id="sensio_framework_extra.security.expression_language" alias="sensio_framework_extra.security.expression_language.default"/>
     <service id="Symfony\UX\Chartjs\Builder\ChartBuilderInterface" alias="chartjs.builder"/>
+    <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.SBs69Ic"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.sQYDI4V"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -8872,8 +8917,8 @@
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.XDGmiR3" alias=".1_ServiceLocator~.yWLThg"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
-    <service id=".service_locator.50DoWC1" alias=".service_locator.39aNmga"/>
-    <service id=".service_locator.Gl8W8Al" alias=".service_locator.SBs69Ic"/>
+    <service id=".service_locator.U06CmkZ" alias=".service_locator.IVweQOi"/>
+    <service id=".service_locator.L5NBv.l" alias=".service_locator.sQYDI4V"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
@@ -8905,7 +8950,7 @@
     <service id=".service_locator.JBAFp66" alias=".service_locator.KfbR3DY"/>
     <service id=".service_locator.widEuHX" alias=".service_locator.Wxf6IJb"/>
     <service id=".service_locator.Er0_7SX" alias=".service_locator.l2QwsaZ"/>
-    <service id=".service_locator.7PpSnHC" alias=".service_locator.39aNmga"/>
+    <service id=".service_locator.Kx___YD" alias=".service_locator.IVweQOi"/>
     <service id=".service_locator.kXCVHeG" alias=".service_locator.UDgw6Ol"/>
     <service id=".service_locator.WyPRyuX" alias=".service_locator.3oR_vrd"/>
     <service id=".service_locator.roi79pC" alias=".service_locator.1bus1bL"/>

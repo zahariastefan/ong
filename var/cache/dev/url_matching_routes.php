@@ -17,6 +17,7 @@ return [
         '/cancel' => [[['_route' => 'app_homepage_cancel', '_controller' => 'App\\Controller\\Homepage::cancel'], null, null, null, false, false, null]],
         '/boss' => [[['_route' => 'app_onlyforbests_new', '_controller' => 'App\\Controller\\OnlyForBestsController::new'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],
+        '/verify' => [[['_route' => 'app_verify_email', '_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], null, null, null, false, false, null]],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/api/me' => [[['_route' => 'app_user_api_me', '_controller' => 'App\\Controller\\UserController::apiMe'], null, null, null, false, false, null]],

@@ -146,7 +146,26 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
         echo "
         </div>
     </div>
-</nav>";
+</nav>
+
+
+";
+        // line 63
+        $context['_parent'] = $context;
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 63, $this->source); })()), "flashes", [0 => "success"], "method", false, false, false, 63));
+        foreach ($context['_seq'] as $context["_key"] => $context["flash"]) {
+            // line 64
+            echo "    <div class=\"alert alert-success\">
+        ";
+            // line 65
+            echo twig_escape_filter($this->env, $context["flash"], "html", null, true);
+            echo "
+    </div>
+";
+        }
+        $_parent = $context['_parent'];
+        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['flash'], $context['_parent'], $context['loop']);
+        $context = array_intersect_key($context, $_parent) + $_parent;
         
         $__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e->leave($__internal_085b0142806202599c7fe3b329164a92397d8978207a37e79d70b8c52599e33e_prof);
 
@@ -167,7 +186,7 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
     public function getDebugInfo()
     {
-        return array (  146 => 57,  141 => 55,  136 => 54,  131 => 51,  125 => 48,  122 => 47,  117 => 44,  115 => 42,  112 => 41,  110 => 40,  104 => 37,  100 => 36,  89 => 27,  87 => 26,  81 => 23,  78 => 22,  72 => 19,  69 => 18,  67 => 17,  53 => 6,  47 => 3,  43 => 1,);
+        return array (  161 => 65,  158 => 64,  154 => 63,  146 => 57,  141 => 55,  136 => 54,  131 => 51,  125 => 48,  122 => 47,  117 => 44,  115 => 42,  112 => 41,  110 => 40,  104 => 37,  100 => 36,  89 => 27,  87 => 26,  81 => 23,  78 => 22,  72 => 19,  69 => 18,  67 => 17,  53 => 6,  47 => 3,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -231,6 +250,13 @@ class __TwigTemplate_1f3fdc5905818174f00f35f40e2082775ef8bae1db4d79e24ec8372946c
 
         </div>
     </div>
-</nav>", "navbar.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\navbar.html.twig");
+</nav>
+
+
+{% for flash in app.flashes('success') %}
+    <div class=\"alert alert-success\">
+        {{ flash }}
+    </div>
+{% endfor %}", "navbar.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\navbar.html.twig");
     }
 }
