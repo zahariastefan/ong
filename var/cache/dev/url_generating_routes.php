@@ -8,6 +8,7 @@ return [
     'app_admin_adminanswers' => [[], ['_controller' => 'App\\Controller\\AdminController::adminAnswers'], [], [['text', '/admin/answers']], [], [], []],
     'app_popular_answers' => [[], ['_controller' => 'App\\Controller\\AnswerController::popularAnswers'], [], [['text', '/answers/popular']], [], [], []],
     'answer_vote' => [['id'], ['_controller' => 'App\\Controller\\AnswerController::answerVote'], [], [['text', '/vote'], ['variable', '/', '[^/]++', 'id', true], ['text', '/answers']], [], [], []],
+    'app_comment_commentvote' => [['id', 'direction'], ['_controller' => 'App\\Controller\\CommentController::commentVote'], ['direction' => 'up|down'], [['variable', '/', 'up|down', 'direction', true], ['text', '/vote'], ['variable', '/', '[^/]++', 'id', true], ['text', '/comments']], [], [], []],
     'app_donations' => [[], ['_controller' => 'App\\Controller\\Homepage::donations'], [], [['text', '/donations']], [], [], []],
     'app_checkout' => [[], ['_controller' => 'App\\Controller\\Homepage::payment'], [], [['text', '/checkout']], [], [], []],
     'app_homepage_success' => [[], ['_controller' => 'App\\Controller\\Homepage::success'], [], [['text', '/success']], [], [], []],

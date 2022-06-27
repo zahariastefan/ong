@@ -29,17 +29,18 @@ class AnswerController extends BaseController
 
     /**
      * @Route("/answers/{id}/vote", methods="POST", name="answer_vote")
-     * @IsGranted("IS_AUTHENTICATED_REMEMBERED")
      */
-    public function answerVote(Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
+    public function answerVote($id, Answer $answer, LoggerInterface $logger, Request $request, EntityManagerInterface $entityManager)
     {
-        $logger->info('{user} is voting on answer {answer}',[
-            'user' => $this->getUser()->getEmail(),
-            'answer' => $answer->getId(),
-        ]);
+        $slug= $_GET['slug'];
+//        $logger->info('{user} is voting on answer {answer}',[
+//            'user' => $this->getUser()->getEmail(),
+//            'answer' => $answer->getId(),
+//        ]);
 
-        $data = json_decode($request->getContent(), true);
-        $direction = $data['direction'] ?? 'up';
+        $data = $request->getContent();
+        $direction = explode('=',$data);
+        $direction = $direction[1];
 
         // use real logic here to save this to the database
         if ($direction === 'up') {
@@ -53,6 +54,8 @@ class AnswerController extends BaseController
 
         $entityManager->flush();
 
-        return $this->json(['votes' => $answer->getVotes()]);
+        return $this->redirectToRoute('app_question_show', [
+            'slug' => $slug
+        ]);
     }
 }

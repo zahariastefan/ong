@@ -38,42 +38,44 @@ return [
     [ // $regexpList
         0 => '{^(?'
                 .'|/answers/([^/]++)/vote(*:29)'
-                .'|/(\\d+)?(*:43)'
+                .'|/comments/([^/]++)/vote/(up|down)(*:69)'
+                .'|/(\\d+)?(*:83)'
                 .'|/questions/(?'
-                    .'|([^/]++)(*:72)'
-                    .'|edit/([^/]++)(*:92)'
-                    .'|([^/]++)/vote(*:112)'
+                    .'|([^/]++)(*:112)'
+                    .'|edit/([^/]++)(*:133)'
+                    .'|([^/]++)/vote(*:154)'
                 .')'
                 .'|/_(?'
-                    .'|error/(\\d+)(?:\\.([^/]++))?(*:152)'
-                    .'|wdt/([^/]++)(*:172)'
+                    .'|error/(\\d+)(?:\\.([^/]++))?(*:194)'
+                    .'|wdt/([^/]++)(*:214)'
                     .'|profiler/([^/]++)(?'
                         .'|/(?'
-                            .'|search/results(*:218)'
-                            .'|router(*:232)'
+                            .'|search/results(*:260)'
+                            .'|router(*:274)'
                             .'|exception(?'
-                                .'|(*:252)'
-                                .'|\\.css(*:265)'
+                                .'|(*:294)'
+                                .'|\\.css(*:307)'
                             .')'
                         .')'
-                        .'|(*:275)'
+                        .'|(*:317)'
                     .')'
                 .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
         29 => [[['_route' => 'answer_vote', '_controller' => 'App\\Controller\\AnswerController::answerVote'], ['id'], ['POST' => 0], null, false, false, null]],
-        43 => [[['_route' => 'app_homepage', 'page' => 1, '_controller' => 'App\\Controller\\QuestionController::homepage'], ['page'], null, null, false, true, null]],
-        72 => [[['_route' => 'app_question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['slug'], null, null, false, true, null]],
-        92 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::edit'], ['slug'], null, null, false, true, null]],
-        112 => [[['_route' => 'app_question_vote', '_controller' => 'App\\Controller\\QuestionController::questionVote'], ['slug'], ['POST' => 0], null, false, false, null]],
-        152 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        172 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
-        218 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
-        232 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
-        252 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
-        265 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        275 => [
+        69 => [[['_route' => 'app_comment_commentvote', '_controller' => 'App\\Controller\\CommentController::commentVote'], ['id', 'direction'], ['POST' => 0], null, false, true, null]],
+        83 => [[['_route' => 'app_homepage', 'page' => 1, '_controller' => 'App\\Controller\\QuestionController::homepage'], ['page'], null, null, false, true, null]],
+        112 => [[['_route' => 'app_question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['slug'], null, null, false, true, null]],
+        133 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::edit'], ['slug'], null, null, false, true, null]],
+        154 => [[['_route' => 'app_question_vote', '_controller' => 'App\\Controller\\QuestionController::questionVote'], ['slug'], ['POST' => 0], null, false, false, null]],
+        194 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
+        214 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
+        260 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
+        274 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
+        294 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
+        307 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
+        317 => [
             [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

@@ -400,6 +400,13 @@
         <argument type="service" id=".service_locator..6XfnfV.App\Controller\AnswerController"/>
       </call>
     </service>
+    <service id="App\Controller\CommentController" class="App\Controller\CommentController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\CommentController"/>
+      </call>
+    </service>
     <service id="App\Controller\DonationsController" class="App\Controller\DonationsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -7555,6 +7562,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AnswerController" class="App\Controller\AnswerController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AnswerController" class="App\Controller\AnswerController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AnswerController" class="App\Controller\AnswerController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7992,6 +8002,12 @@
         <argument key="logger" type="service_closure" id="logger"/>
       </argument>
     </service>
+    <service id=".service_locator.OC2AG.K" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="logger" type="service_closure" id="logger"/>
+      </argument>
+    </service>
     <service id=".service_locator.l2QwsaZ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8051,12 +8067,13 @@
         <argument key="qrCodeGenerator" type="service_closure" id="scheb_two_factor.qr_code_generator"/>
       </argument>
     </service>
-    <service id=".service_locator.1W_XEKX" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.FGripx0" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
         <argument key="App\Controller\AnswerController::answerVote" type="service_closure" id=".service_locator.HpwlquH"/>
         <argument key="App\Controller\AnswerController::popularAnswers" type="service_closure" id=".service_locator.kpfRfZG"/>
+        <argument key="App\Controller\CommentController::commentVote" type="service_closure" id=".service_locator.OC2AG.K"/>
         <argument key="App\Controller\Homepage::donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::success" type="service_closure" id=".service_locator.l2QwsaZ"/>
@@ -8079,6 +8096,7 @@
         <argument key="App\Controller\AdminController:dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
         <argument key="App\Controller\AnswerController:answerVote" type="service_closure" id=".service_locator.HpwlquH"/>
         <argument key="App\Controller\AnswerController:popularAnswers" type="service_closure" id=".service_locator.kpfRfZG"/>
+        <argument key="App\Controller\CommentController:commentVote" type="service_closure" id=".service_locator.OC2AG.K"/>
         <argument key="App\Controller\Homepage:donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:success" type="service_closure" id=".service_locator.l2QwsaZ"/>
@@ -8356,6 +8374,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
+    <service id=".service_locator..6XfnfV.App\Controller\CommentController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CommentController"/>
+      <argument>App\Controller\CommentController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
+    </service>
     <service id=".service_locator..6XfnfV.App\Controller\DonationsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\DonationsController"/>
       <argument>App\Controller\DonationsController</argument>
@@ -8581,12 +8605,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.1W_XEKX"/>
+      <argument type="service" id=".service_locator.FGripx0"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.1W_XEKX"/>
+      <argument type="service" id=".service_locator.FGripx0"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -9635,7 +9659,7 @@
     <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.1W_XEKX"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.FGripx0"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9650,7 +9674,7 @@
     <service id=".service_locator.D2X2l4L" alias=".service_locator.trjgtck"/>
     <service id=".service_locator.kiizgfv" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.u6BTu4b" alias=".service_locator.pKcF_sp"/>
-    <service id=".service_locator.XV5bRIN" alias=".service_locator.1W_XEKX"/>
+    <service id=".service_locator.DUns_P." alias=".service_locator.FGripx0"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
@@ -9683,6 +9707,7 @@
     <service id=".service_locator.widEuHX" alias=".service_locator.Wxf6IJb"/>
     <service id=".service_locator.e62gWpV" alias=".service_locator.kpfRfZG"/>
     <service id=".service_locator.PHdcih_" alias=".service_locator.HpwlquH"/>
+    <service id=".service_locator.tRwM5e6" alias=".service_locator.OC2AG.K"/>
     <service id=".service_locator.Er0_7SX" alias=".service_locator.l2QwsaZ"/>
     <service id=".service_locator.Gkn6yz6" alias=".service_locator.Q_xsdXo"/>
     <service id=".service_locator.akP90b3" alias=".service_locator.t_C_3cc"/>

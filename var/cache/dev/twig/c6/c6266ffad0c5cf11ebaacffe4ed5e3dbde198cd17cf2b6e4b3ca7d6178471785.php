@@ -223,6 +223,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         // line 66
         echo "    </ul>
 </div>
+
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -316,6 +317,11 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         {% endfor %}
     </ul>
 </div>
+
+{#    {% block javascripts %}#}
+{#        {{ parent() }}#}
+{#        <script src=\"{{ asset('js/question_show.js') }}\"></script>#}
+{#    {% endblock %}#}
 {% endblock %}
 ", "question/show.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\question\\show.html.twig");
     }
