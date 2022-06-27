@@ -65,7 +65,7 @@ class Homepage extends AbstractController
         $stripe = new \Stripe\StripeClient(
             'sk_test_51L07e8JoD3aKcbAtG5HqC3HnNt3lCULigczbHG0vB84rby0eDtAp5u8nSEq8dfaNDj4uFzZjOgVUE8doDuRfFejX00um8jm5mu'
         );
-        $YOUR_DOMAIN = 'http://127.0.0.1:8000';
+        $YOUR_DOMAIN = 'http://127.0.0.1:8001';
 
 //        $price = $_POST['price'];
         $price = $request->request->get('price'); //this is info from POST['price']
