@@ -25,8 +25,6 @@ class RegistrationController extends AbstractController
     //because FormLoginAuthenticator doesn't have autowiring we have to add it manually in services.yaml!
     public function register(Request $request,
                              UserPasswordHasherInterface $userPasswordHasher,
-                             UserAuthenticatorInterface $userAuthenticator,
-                             FormLoginAuthenticator $formLoginAuthenticator,
                              VerifyEmailHelperInterface $verifyEmailHelper): Response
     {
         $user = new User();
