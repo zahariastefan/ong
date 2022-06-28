@@ -24,6 +24,7 @@ class DummyAuthenticator extends AbstractAuthenticator implements Authentication
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
+        dd('we are here');
         // TODO: Implement onAuthenticationSuccess() method.
     }
 

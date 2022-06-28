@@ -26,15 +26,14 @@ security:
             lazy: true
             provider: app_user_provider
             entry_point: form_login
-            custom_authenticator:
-                #   - App\Security\LoginFormAuthenticator
-                - App\Security\DummyAuthenticator
             form_login:
                 login_path: app_login
                 check_path: app_login
                 username_parameter: email
                 password_parameter: password
                 enable_csrf: true
+                use_referer: true
+                target_path_parameter: _target_path
             two_factor:
                 auth_form_path: 2fa_login
                 check_path: 2fa_login_check

@@ -74,14 +74,26 @@ class QuestionController extends AbstractController
      */
     public function show(Question $question, UserVotesRepository $repository)
     {
-        $user = $this->getUser();
-        $userId = $user->getId();
-        $postId = $question->getId();
         $objUserVotes = new UserVotes();
-        $objUserVotesCurrent = $repository->findBy([
-            'user_id' => $userId,
-            'target_id' => $postId
-        ]);
+        $user = $this->getUser();
+        if($user) {
+            $userId = $user->getId();
+            $postId = $question->getId();
+            $objUserVotesCurrent = $repository->findBy([
+                'user_id' => $userId,
+                'target_id' => $postId
+            ]);
+            if($objUserVotesCurrent != null && $objUserVotesCurrent != ''){
+                $vote = $objUserVotesCurrent[0]->getVote();
+            }else{
+                $vote = 0;
+            }
+        }else{
+            $vote = 0;
+        }
+
+
+
 
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
@@ -89,7 +101,7 @@ class QuestionController extends AbstractController
 
         return $this->render('question/show.html.twig', [
             'question' => $question,
-            'votes' => $objUserVotesCurrent[0]->getVote()
+            'votes' => $vote
         ]);
     }
 
@@ -108,6 +120,7 @@ class QuestionController extends AbstractController
 
     /**
      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
+     * @IsGranted("ROLE_USER")
      */
     public function questionVote(UserVotesRepository $repository, Question $question, Request $request, EntityManagerInterface $entityManager)
     {
@@ -157,15 +170,17 @@ class QuestionController extends AbstractController
                     }
                     break;
             }
+            $entityManager->persist($objUserVotesCurrent[0]);
+
         }else{
             ($direction === 'up') ? $firstVote = 1 : $firstVote = -1;
             $objUserVotes->setVote($firstVote);
             $objUserVotes->setTargetId($postId);
             $objUserVotes->setUserId($userId);
+            $entityManager->persist($objUserVotes);
         }
 
 
-        $entityManager->persist($objUserVotesCurrent[0]);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_question_show', [

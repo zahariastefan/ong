@@ -88,7 +88,10 @@ class __TwigTemplate_a81de627261b2211f8745667f2dc3fefa081a5febcfc6330679483c8afc
         echo "    <div class=\"container\">
         <div class=\"row\">
             <div class=\"login-form bg-light mt-4 p-4\">
-                <form method=\"post\" class=\"row g-3\">
+                <form action=\"";
+        // line 9
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
+        echo "\"  method=\"post\" class=\"row g-3\">
                     <h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>
                     ";
         // line 11
@@ -116,6 +119,10 @@ class __TwigTemplate_a81de627261b2211f8745667f2dc3fefa081a5febcfc6330679483c8afc
         // line 23
         echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken("authenticate"), "html", null, true);
         echo "\">
+                    <input type=\"hidden\" name=\"_target_path\" value=\"";
+        // line 24
+        echo twig_escape_filter($this->env, (isset($context["pr_url"]) || array_key_exists("pr_url", $context) ? $context["pr_url"] : (function () { throw new RuntimeError('Variable "pr_url" does not exist.', 24, $this->source); })()), "html", null, true);
+        echo "\"/>
 
                     <div class=\"col-12\">
                         <button class=\"btn btn-lg btn-primary float-end\" type=\"submit\">
@@ -147,7 +154,7 @@ class __TwigTemplate_a81de627261b2211f8745667f2dc3fefa081a5febcfc6330679483c8afc
 
     public function getDebugInfo()
     {
-        return array (  117 => 23,  108 => 17,  103 => 14,  97 => 12,  95 => 11,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
+        return array (  124 => 24,  120 => 23,  111 => 17,  106 => 14,  100 => 12,  98 => 11,  93 => 9,  88 => 6,  78 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -160,7 +167,7 @@ class __TwigTemplate_a81de627261b2211f8745667f2dc3fefa081a5febcfc6330679483c8afc
     <div class=\"container\">
         <div class=\"row\">
             <div class=\"login-form bg-light mt-4 p-4\">
-                <form method=\"post\" class=\"row g-3\">
+                <form action=\"{{ path('app_login') }}\"  method=\"post\" class=\"row g-3\">
                     <h1 class=\"h3 mb-3 font-weight-normal\">Please sign in</h1>
                     {% if error %}
                         <div class=\"alert alert-danger\">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
@@ -175,6 +182,7 @@ class __TwigTemplate_a81de627261b2211f8745667f2dc3fefa081a5febcfc6330679483c8afc
                         <input type=\"password\" name=\"password\" id=\"inputPassword\" class=\"form-control\" required>
                     </div>
                     <input type=\"hidden\" name=\"_csrf_token\" value=\"{{ csrf_token('authenticate') }}\">
+                    <input type=\"hidden\" name=\"_target_path\" value=\"{{ pr_url }}\"/>
 
                     <div class=\"col-12\">
                         <button class=\"btn btn-lg btn-primary float-end\" type=\"submit\">
