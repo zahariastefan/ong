@@ -119,65 +119,79 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         }
         // line 23
         echo "                                </small>
-                                <form action=\"";
-        // line 24
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_vote", ["slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 24, $this->source); })()), "slug", [], "any", false, false, false, 24), "question_id" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 24, $this->source); })()), "id", [], "any", false, false, false, 24)]), "html", null, true);
-        echo "\" method=\"POST\">
-                                    <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
-                                        <button class=\"vote-up btn btn-link\" name=\"direction\" value=\"up\"><i class=\"far fa-arrow-alt-circle-up\" ";
+";
+        // line 25
+        echo "                                    <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
+                                        <button class=\"vote-up btn btn-link\" name=\"direction\" value=\"up\"><i class=\"far fa-arrow-alt-circle-up vote-direction  ";
         // line 26
-        if ((0 === twig_compare((isset($context["votes"]) || array_key_exists("votes", $context) ? $context["votes"] : (function () { throw new RuntimeError('Variable "votes" does not exist.', 26, $this->source); })()), 1))) {
-            echo " style=\"color:blue;\" ";
+        if (((0 === twig_compare((isset($context["votes"]) || array_key_exists("votes", $context) ? $context["votes"] : (function () { throw new RuntimeError('Variable "votes" does not exist.', 26, $this->source); })()), 1)) && (0 === twig_compare((isset($context["likes"]) || array_key_exists("likes", $context) ? $context["likes"] : (function () { throw new RuntimeError('Variable "likes" does not exist.', 26, $this->source); })()), 1)))) {
+            echo " active_arrow ";
         } else {
-            echo " style=\"color:grey;\" ";
+            echo " disabled_arrow ";
         }
-        echo "></i></button>
-                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down\" ";
+        echo "\"></i></button>
+                                        <span class=\"total-votes-up\">";
         // line 27
-        if ((0 === twig_compare((isset($context["votes"]) || array_key_exists("votes", $context) ? $context["votes"] : (function () { throw new RuntimeError('Variable "votes" does not exist.', 27, $this->source); })()),  -1))) {
-            echo " style=\"color:blue;\" ";
+        if ((0 === twig_compare(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 27, $this->source); })()), "likeNr", [], "any", false, false, false, 27), ""))) {
+            echo " 0 ";
         } else {
-            echo " style=\"color:grey;\" ";
+            echo " ";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 27, $this->source); })()), "likeNr", [], "any", false, false, false, 27), "html", null, true);
+            echo " ";
         }
-        echo "></i></button>
-                                        <span>";
+        echo "</span>
+                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down vote-direction  ";
         // line 28
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 28, $this->source); })()), "votesString", [], "any", false, false, false, 28), "html", null, true);
+        if (((0 === twig_compare((isset($context["votes"]) || array_key_exists("votes", $context) ? $context["votes"] : (function () { throw new RuntimeError('Variable "votes" does not exist.', 28, $this->source); })()), 1)) && (0 === twig_compare((isset($context["unlikes"]) || array_key_exists("unlikes", $context) ? $context["unlikes"] : (function () { throw new RuntimeError('Variable "unlikes" does not exist.', 28, $this->source); })()), 1)))) {
+            echo " active_arrow ";
+        } else {
+            echo " disabled_arrow ";
+        }
+        echo "\"></i></button>
+                                        <span class=\"total-votes-down\">";
+        // line 29
+        if ((0 === twig_compare(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 29, $this->source); })()), "unlikeNr", [], "any", false, false, false, 29), ""))) {
+            echo " 0 ";
+        } else {
+            echo " ";
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 29, $this->source); })()), "unlikeNr", [], "any", false, false, false, 29), "html", null, true);
+        }
         echo "</span>
                                     </div>
-                                </form>
-                            </div>
+";
+        // line 32
+        echo "                            </div>
                         </div>
                         <div class=\"col\">
                             <div class=\"d-flex justify-content-between\">
                                 <h1 class=\"q-title-show\">";
-        // line 35
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 35, $this->source); })()), "name", [], "any", false, false, false, 35), "html", null, true);
+        // line 36
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 36, $this->source); })()), "name", [], "any", false, false, false, 36), "html", null, true);
         echo "</h1>
                                 ";
-        // line 36
-        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("EDIT", (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 36, $this->source); })()))) {
-            // line 37
+        // line 37
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("EDIT", (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 37, $this->source); })()))) {
+            // line 38
             echo "                                    <a href=\"";
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_edit", ["slug" => twig_get_attribute($this->env, $this->source,             // line 38
-(isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 38, $this->source); })()), "slug", [], "any", false, false, false, 38)]), "html", null, true);
-            // line 39
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_edit", ["slug" => twig_get_attribute($this->env, $this->source,             // line 39
+(isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 39, $this->source); })()), "slug", [], "any", false, false, false, 39)]), "html", null, true);
+            // line 40
             echo "\" class=\"btn btn-secondary btn-sm mb-2\">Edit</a>
                                 ";
         }
-        // line 41
+        // line 42
         echo "                            </div>
                             <div class=\"q-display p-3\">
                                 <i class=\"fa fa-quote-left mr-3\"></i>
                                 <p class=\"d-inline\">";
-        // line 44
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 44, $this->source); })()), "question", [], "any", false, false, false, 44), "html", null, true);
+        // line 45
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 45, $this->source); })()), "question", [], "any", false, false, false, 45), "html", null, true);
         echo "</p>
                                 <p class=\"pt-4\"><strong>--";
-        // line 45
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 45, $this->source); })()), "owner", [], "any", false, false, false, 45), "displayName", [], "any", false, false, false, 45), "html", null, true);
+        // line 46
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 46, $this->source); })()), "owner", [], "any", false, false, false, 46), "displayName", [], "any", false, false, false, 46), "html", null, true);
         echo " (";
-        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 45, $this->source); })()), "owner", [], "any", false, false, false, 45), "email", [], "any", false, false, false, 45), "html", null, true);
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 46, $this->source); })()), "owner", [], "any", false, false, false, 46), "email", [], "any", false, false, false, 46), "html", null, true);
         echo ")</strong></p>
                             </div>
                         </div>
@@ -188,7 +202,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
     </div>
     <div class=\"d-flex justify-content-between my-4\">
         <form action=\"";
-        // line 54
+        // line 55
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_comment_create");
         echo "\">
             <p><label for=\"post-comment\">Post a Comment:</label></p>
@@ -200,9 +214,9 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
 
     <ul class=\"list-unstyled\">
         ";
-        // line 63
+        // line 64
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 63, $this->source); })()), "approvedAnswers", [], "any", false, false, false, 63));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 64, $this->source); })()), "approvedAnswers", [], "any", false, false, false, 64));
         $context['loop'] = [
           'parent' => $context['_parent'],
           'index0' => 0,
@@ -217,7 +231,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["answer"]) {
-            // line 64
+            // line 65
             echo "            ";
             echo twig_include($this->env, $context, "answer/_answer.html.twig");
             echo "
@@ -234,9 +248,86 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['answer'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 66
+        // line 67
         echo "    </ul>
 </div>
+    <script>
+
+        function ajaxRequest(direction) {
+            var path = '";
+        // line 72
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_vote", ["slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 72, $this->source); })()), "slug", [], "any", false, false, false, 72), "question_id" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 72, $this->source); })()), "id", [], "any", false, false, false, 72)]), "html", null, true);
+        echo "';
+            var fullUrl   = window.location.origin + path;
+
+            console.log(direction);
+             \$.ajax({
+                type: \"POST\",
+                url: fullUrl,
+                 data: {direction:direction},
+                success: function (data) {
+                    console.log('success');
+                }
+            });
+        }
+
+
+        \$('.vote-up').click(()=>{
+            var attributes = \$('.vote-up i').attr('class');
+            var checkClass = attributes.includes('active_arrow');
+            var actualNr = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
+            var actualNrDOWN = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+
+            console.log('up');
+            if(checkClass){
+                \$('.vote-up i').removeClass('active_arrow');
+                \$('.vote-up i').addClass('disabled_arrow');
+                \$('.vote-down i').addClass('disabled_arrow');
+                \$('.vote-down i').removeClass('active_arrow');
+                \$('.total-votes-up').text(parseInt(actualNr) - 1);
+
+            }else{
+                \$('.vote-up i').addClass('active_arrow');
+                \$('.vote-up i').removeClass('disabled_arrow');
+                \$('.vote-down i').addClass('disabled_arrow');
+                \$('.total-votes-up').text(parseInt(actualNr) + 1);
+                if( \$('.vote-down i').hasClass('active_arrow')){
+                    \$('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+                }
+                \$('.vote-down i').removeClass('active_arrow');
+            }
+            ajaxRequest('up');
+
+        });
+
+
+        \$('.vote-down').click(()=>{
+            var attributes = \$('.vote-down i').attr('class');
+            var checkClass = attributes.includes('active_arrow');
+            var actualNr = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+            console.log('up');
+            var actualNrUP = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
+
+            if(checkClass){
+                \$('.vote-down i').removeClass('active_arrow');
+                \$('.vote-down i').addClass('disabled_arrow');
+                \$('.vote-up i').removeClass('active_arrow');
+                \$('.vote-up i').addClass('disabled_arrow');
+                \$('.total-votes-down').text(parseInt(actualNr) - 1);
+            }else{
+                \$('.vote-down i').addClass('active_arrow');
+                \$('.vote-down i').removeClass('disabled_arrow');
+                \$('.vote-up i').addClass('disabled_arrow');
+                \$('.total-votes-down').text(parseInt(actualNr) + 1);
+                if( \$('.vote-up i').hasClass('active_arrow')){
+                    \$('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                }
+                \$('.vote-up i').removeClass('active_arrow');
+            }
+            ajaxRequest('down');
+        });
+
+    </script>
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -258,7 +349,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
 
     public function getDebugInfo()
     {
-        return array (  238 => 66,  221 => 64,  204 => 63,  192 => 54,  178 => 45,  174 => 44,  169 => 41,  165 => 39,  163 => 38,  161 => 37,  159 => 36,  155 => 35,  145 => 28,  137 => 27,  129 => 26,  124 => 24,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
+        return array (  259 => 72,  252 => 67,  235 => 65,  218 => 64,  206 => 55,  192 => 46,  188 => 45,  183 => 42,  179 => 40,  177 => 39,  175 => 38,  173 => 37,  169 => 36,  163 => 32,  153 => 29,  145 => 28,  135 => 27,  127 => 26,  124 => 25,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -286,13 +377,14 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
                                         (unpublished)
                                     {% endif %}
                                 </small>
-                                <form action=\"{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}\" method=\"POST\">
+{#                                <form action=\"{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}\" method=\"POST\">#}
                                     <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
-                                        <button class=\"vote-up btn btn-link\" name=\"direction\" value=\"up\"><i class=\"far fa-arrow-alt-circle-up\" {% if votes == 1 %} style=\"color:blue;\" {% else %} style=\"color:grey;\" {% endif %}></i></button>
-                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down\" {% if votes == -1 %} style=\"color:blue;\" {%else%} style=\"color:grey;\" {% endif %}></i></button>
-                                        <span>{{ question.votesString }}</span>
+                                        <button class=\"vote-up btn btn-link\" name=\"direction\" value=\"up\"><i class=\"far fa-arrow-alt-circle-up vote-direction  {% if votes == 1 and likes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}\"></i></button>
+                                        <span class=\"total-votes-up\">{% if question.likeNr == '' %} 0 {% else %} {{ question.likeNr }} {% endif %}</span>
+                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down vote-direction  {% if votes == 1 and unlikes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}\"></i></button>
+                                        <span class=\"total-votes-down\">{% if question.unlikeNr == '' %} 0 {% else %} {{ question.unlikeNr }}{% endif %}</span>
                                     </div>
-                                </form>
+{#                                </form>#}
                             </div>
                         </div>
                         <div class=\"col\">
@@ -330,7 +422,82 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         {% endfor %}
     </ul>
 </div>
+    <script>
+
+        function ajaxRequest(direction) {
+            var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
+            var fullUrl   = window.location.origin + path;
+
+            console.log(direction);
+             \$.ajax({
+                type: \"POST\",
+                url: fullUrl,
+                 data: {direction:direction},
+                success: function (data) {
+                    console.log('success');
+                }
+            });
+        }
+
+
+        \$('.vote-up').click(()=>{
+            var attributes = \$('.vote-up i').attr('class');
+            var checkClass = attributes.includes('active_arrow');
+            var actualNr = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
+            var actualNrDOWN = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+
+            console.log('up');
+            if(checkClass){
+                \$('.vote-up i').removeClass('active_arrow');
+                \$('.vote-up i').addClass('disabled_arrow');
+                \$('.vote-down i').addClass('disabled_arrow');
+                \$('.vote-down i').removeClass('active_arrow');
+                \$('.total-votes-up').text(parseInt(actualNr) - 1);
+
+            }else{
+                \$('.vote-up i').addClass('active_arrow');
+                \$('.vote-up i').removeClass('disabled_arrow');
+                \$('.vote-down i').addClass('disabled_arrow');
+                \$('.total-votes-up').text(parseInt(actualNr) + 1);
+                if( \$('.vote-down i').hasClass('active_arrow')){
+                    \$('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+                }
+                \$('.vote-down i').removeClass('active_arrow');
+            }
+            ajaxRequest('up');
+
+        });
+
+
+        \$('.vote-down').click(()=>{
+            var attributes = \$('.vote-down i').attr('class');
+            var checkClass = attributes.includes('active_arrow');
+            var actualNr = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+            console.log('up');
+            var actualNrUP = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
+
+            if(checkClass){
+                \$('.vote-down i').removeClass('active_arrow');
+                \$('.vote-down i').addClass('disabled_arrow');
+                \$('.vote-up i').removeClass('active_arrow');
+                \$('.vote-up i').addClass('disabled_arrow');
+                \$('.total-votes-down').text(parseInt(actualNr) - 1);
+            }else{
+                \$('.vote-down i').addClass('active_arrow');
+                \$('.vote-down i').removeClass('disabled_arrow');
+                \$('.vote-up i').addClass('disabled_arrow');
+                \$('.total-votes-down').text(parseInt(actualNr) + 1);
+                if( \$('.vote-up i').hasClass('active_arrow')){
+                    \$('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                }
+                \$('.vote-up i').removeClass('active_arrow');
+            }
+            ajaxRequest('down');
+        });
+
+    </script>
 {% endblock %}
+
 ", "question/show.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\question\\show.html.twig");
     }
 }

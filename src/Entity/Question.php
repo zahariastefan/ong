@@ -68,6 +68,16 @@ class Question
      */
     private $owner;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $like_nr = 0;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $unlike_nr = 0;
+
     public function __construct()
     {
         $this->answers = new ArrayCollection();
@@ -233,6 +243,30 @@ class Question
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getLikeNr(): ?int
+    {
+        return $this->like_nr;
+    }
+
+    public function setLikeNr(?int $like_nr): self
+    {
+        $this->like_nr = $like_nr;
+
+        return $this;
+    }
+
+    public function getUnlikeNr(): ?int
+    {
+        return $this->unlike_nr;
+    }
+
+    public function setUnlikeNr(?int $unlike_nr): self
+    {
+        $this->unlike_nr = $unlike_nr;
 
         return $this;
     }

@@ -2,6 +2,9 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
 @import '~@fontsource/roboto-condensed';
 
-body {
-    /*background-color: lightgray;*/
+.active_arrow {
+    color: blue;
+}
+.disabled_arrow {
+    color: grey;
 }

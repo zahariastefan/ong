@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\TotalVotes;
 use App\Entity\UserVotes;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
+use App\Repository\TotalVotesRepository;
 use App\Repository\UserVotesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
@@ -72,10 +74,18 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show(Question $question, UserVotesRepository $repository)
+    public function show($slug, Question $question, UserVotesRepository $repository)
     {
         $objUserVotes = new UserVotes();
         $user = $this->getUser();
+
+//        $totalLikes = $questionBySlug[0]->getLikeNr();
+//        $totalUnlikes = $questionBySlug[0]->getUnlikeNr();
+
+//        ($totalLikes > 0) ? $totalLikes : $totalLikes = 0;
+//        ($totalUnlikes > 0) ? $totalUnlikes : $totalUnlikes = 0;
+
+
         if($user) {
             $userId = $user->getId();
             $postId = $question->getId();
@@ -85,6 +95,8 @@ class QuestionController extends AbstractController
             ]);
             if($objUserVotesCurrent != null && $objUserVotesCurrent != ''){
                 $vote = $objUserVotesCurrent[0]->getVote();
+                $like = $objUserVotesCurrent[0]->getLikeNr();
+                $unlike = $objUserVotesCurrent[0]->getUnlikeNr();
             }else{
                 $vote = 0;
             }
@@ -92,16 +104,19 @@ class QuestionController extends AbstractController
             $vote = 0;
         }
 
-
-
-
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
         }
 
+
+        if(!$like) $like=0;
+        if(!$unlike) $unlike=0;
+
         return $this->render('question/show.html.twig', [
             'question' => $question,
-            'votes' => $vote
+            'votes' => $vote,
+            'likes' => $like,
+            'unlikes'=> $unlike
         ]);
     }
 
@@ -117,14 +132,21 @@ class QuestionController extends AbstractController
         ]);
     }
 
-
     /**
      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
      * @IsGranted("ROLE_USER")
      */
-    public function questionVote(UserVotesRepository $repository, Question $question, Request $request, EntityManagerInterface $entityManager)
+    public function questionVote(UserVotesRepository $repository, Question $question, QuestionRepository $questionRepository, Request $request, EntityManagerInterface $entityManager, $slug)
     {
+        $direction = $_POST['direction'];
+//        dd($direction);
         $objUserVotes = new UserVotes();
+        $questionBySlug = $questionRepository->findBy([
+            'slug' => $slug
+        ]);
+
+        $totalLikes = $questionBySlug[0]->getLikeNr();
+        $totalUnlikes = $questionBySlug[0]->getUnlikeNr();
 
         $user = $this->getUser();
         $userId = $user->getId();
@@ -132,49 +154,87 @@ class QuestionController extends AbstractController
 
         $objUserVotesCurrent = $repository->findBy([
             'user_id' => $userId,
-            'target_id' => $postId
+            'target_id' => $postId,
         ]);
 
-        $direction = $request->request->get('direction');
+//        $direction = $request->request->get('direction');
 
-        if($objUserVotesCurrent != null){//if already exist a record of this user id in User Votes
-            //check if user_id and target_id exist on same row based on id
-                $vote = $objUserVotesCurrent[0]->getVote();
-            switch (intval($vote)){
-                case -1:
-                    if ($direction === 'up') {
-                        $question->upVote();
-                        $objUserVotesCurrent[0]->setVote(intval(1));
-                    } else {
-                        $question->upVote();
-                        $objUserVotesCurrent[0]->setVote(0);
-                    }
-                    break;
-                case 0:
-                    if ($direction === 'up') {
-                        $question->upVote();
-                        $objUserVotesCurrent[0]->setVote(1);
-                    } else {
-                        $question->downVote();
-                        $objUserVotesCurrent[0]->setVote(-1);
-                    }
-                    break;
-                case 1:
-                    if ($direction === 'up') {
-                        $question->downVote();
-                        $objUserVotesCurrent[0]->setVote(0);
-                    } else {
-//                        dd($direction);
-                        $question->downVote();
-                        $objUserVotesCurrent[0]->setVote(-1);
-                    }
-                    break;
+        if($objUserVotesCurrent != null){//now one of two SURELY exist
+            $like = $objUserVotesCurrent[0]->getLikeNr();
+            $unlike = $objUserVotesCurrent[0]->getUnlikeNr();
+//            dd($like);
+            if(!$like && !$unlike){ // remove the possibility to have a record without like or unlike
+//                dd('nici de una nici de alta');
+                if($direction === 'up') {
+                    $objUserVotesCurrent[0]->setLikeNr(1);
+//                    dd('up');
+                }else {
+                    $objUserVotesCurrent[0]->setUnlikeNr(1);
+                }
+                $objUserVotesCurrent[0]->setVote(1);
             }
+            if($like == 1){// exist 1 like UV
+//                dd('a intrat in like!');
+//                dd('$direction');
+                if($direction === 'up') {// am apasat UP => scoate 1 like
+//                    dd('up aici');
+                    $objUserVotesCurrent[0]->setLikeNr(null);
+                    $objUserVotesCurrent[0]->setUnlikeNr(null);
+                    $objUserVotesCurrent[0]->setVote(0);
+
+                    /**TODO verify if is ok Question**/
+                    if($totalLikes >0){ //scoatem 1 si din Questions de la like_nr
+                        $questionBySlug[0]->setLikeNr(intval($totalLikes) - 1);
+                    }
+                }else{//am apasat DOWN
+//                    dd('down');
+                    $objUserVotesCurrent[0]->setLikeNr(null);
+                    $objUserVotesCurrent[0]->setUnlikeNr(1);
+                    $objUserVotesCurrent[0]->setVote(1);
+
+                    /**TODO verify Questions**/
+                    if($totalLikes > 0){ //scoatem 1 si din Questions de la like_nr
+                        $questionBySlug[0]->setLikeNr(intval($totalLikes) - 1);
+                        if($totalUnlikes > 0) {
+                            $questionBySlug[0]->setUnlikeNr(intval($totalUnlikes) + 1);
+                        }
+                    }
+                }
+            }
+            if($unlike){//exista 1 unlike in UV
+//                dd('a intrat in unlike!');
+
+                if($direction === 'down') { //scoatem 1 unlike
+//                    dd('down');
+                    $objUserVotesCurrent[0]->setUnlikeNr(null);
+                    $objUserVotesCurrent[0]->setLikeNr(null);
+                    $objUserVotesCurrent[0]->setVote(0);
+
+                    /**TODO verify Question**/
+                    if($totalUnlikes > 0){//scoatem si din Question unlike_nr
+                        $questionBySlug[0]->setUnlikeNr(intval($totalUnlikes) - 1);
+                    }
+                }else{
+//                    dd('up');
+                    $objUserVotesCurrent[0]->setUnlikeNr(null);
+                    $objUserVotesCurrent[0]->setLikeNr(1);
+                    $objUserVotesCurrent[0]->setVote(1);
+
+                    /**TODO verify Question**/
+                    if($totalUnlikes > 0){//scoatem si din Question unlike_nr
+                        $questionBySlug[0]->setUnlikeNr(intval($totalUnlikes) - 1);
+                        if($totalLikes > 0) {
+                            $questionBySlug[0]->setLikeNr(intval($totalLikes) + 1);
+                        }
+                    }
+                }
+            }
+            //dd('nu a intrat');
             $entityManager->persist($objUserVotesCurrent[0]);
 
         }else{
-            ($direction === 'up') ? $firstVote = 1 : $firstVote = -1;
-            $objUserVotes->setVote($firstVote);
+            ($direction === 'up') ? $objUserVotes->setLikeNr(1) : $objUserVotes->setUnlikeNr(1);
+            $objUserVotes->setVote(1);
             $objUserVotes->setTargetId($postId);
             $objUserVotes->setUserId($userId);
             $entityManager->persist($objUserVotes);
@@ -183,8 +243,10 @@ class QuestionController extends AbstractController
 
         $entityManager->flush();
 
-        return $this->redirectToRoute('app_question_show', [
-            'slug' => $question->getSlug()
-        ]);
+        return new Response();
+
+//        return $this->redirectToRoute('app_question_show', [
+//            'slug' => $question->getSlug()
+//        ]);
     }
 }
