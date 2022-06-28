@@ -479,6 +479,13 @@
         <argument type="service" id=".service_locator..6XfnfV.App\Controller\UserController"/>
       </call>
     </service>
+    <service id="App\Controller\UserVotesController" class="App\Controller\UserVotesController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\UserVotesController"/>
+      </call>
+    </service>
     <service id="App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true">
       <tag name="doctrine.fixture.orm"/>
     </service>
@@ -547,6 +554,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\UserVotesRepository" class="App\Repository\UserVotesRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -4682,7 +4693,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.e3wl7z4"/>
+      <argument type="service" id=".service_locator.Bu0bKKy"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7616,6 +7627,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserVotesController" class="App\Controller\UserVotesController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserVotesController" class="App\Controller\UserVotesController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\UserVotesController" class="App\Controller\UserVotesController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\FixturesBundle\ORMFixtureInterface.0.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\DataFixtures\AppFixtures" class="App\DataFixtures\AppFixtures" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\EventDispatcher\EventSubscriberInterface.0.App\EventSubscriber\CheckVerifiedUserSubscriber" class="App\EventSubscriber\CheckVerifiedUserSubscriber" autowire="true" abstract="true"/>
@@ -7656,6 +7670,8 @@
     <service id=".abstract.instanceof.App\Repository\UniqueCodesRepository" class="App\Repository\UniqueCodesRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserVotesRepository" class="App\Repository\UserVotesRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\UserVotesRepository" class="App\Repository\UserVotesRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Security\Core\Authorization\Voter\VoterInterface.0.App\Security\Voter\QuestionVoter" class="App\Security\Voter\QuestionVoter" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Security\Voter\QuestionVoter" class="App\Security\Voter\QuestionVoter" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".service_locator.gSv9zYw" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8050,17 +8066,25 @@
         <argument key="repository" type="service_closure" id="App\Repository\QuestionRepository"/>
       </argument>
     </service>
+    <service id=".service_locator.qI1t_Vr" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="question" type="service_closure" id=".errored..service_locator.qI1t_Vr.App\Entity\Question"/>
+        <argument key="repository" type="service_closure" id="App\Repository\UserVotesRepository"/>
+      </argument>
+    </service>
     <service id=".service_locator.t_C_3cc" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="question" type="service_closure" id=".errored..service_locator.t_C_3cc.App\Entity\Question"/>
       </argument>
     </service>
-    <service id=".service_locator.trjgtck" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.cEee.qB" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="question" type="service_closure" id=".errored..service_locator.trjgtck.App\Entity\Question"/>
+        <argument key="question" type="service_closure" id=".errored..service_locator.cEee.qB.App\Entity\Question"/>
+        <argument key="repository" type="service_closure" id="App\Repository\UserVotesRepository"/>
       </argument>
     </service>
     <service id=".service_locator.imEfKVM" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8097,7 +8121,7 @@
         <argument key="qrCodeGenerator" type="service_closure" id="scheb_two_factor.qr_code_generator"/>
       </argument>
     </service>
-    <service id=".service_locator.FGripx0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.fd7cswe" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
@@ -8109,8 +8133,8 @@
         <argument key="App\Controller\Homepage::success" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\QuestionController::edit" type="service_closure" id=".service_locator.t_C_3cc"/>
         <argument key="App\Controller\QuestionController::homepage" type="service_closure" id=".service_locator.Q_xsdXo"/>
-        <argument key="App\Controller\QuestionController::questionVote" type="service_closure" id=".service_locator.trjgtck"/>
-        <argument key="App\Controller\QuestionController::show" type="service_closure" id=".service_locator.t_C_3cc"/>
+        <argument key="App\Controller\QuestionController::questionVote" type="service_closure" id=".service_locator.cEee.qB"/>
+        <argument key="App\Controller\QuestionController::show" type="service_closure" id=".service_locator.qI1t_Vr"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.imEfKVM"/>
         <argument key="App\Controller\RegistrationController::verifyUserEmail" type="service_closure" id=".service_locator.LqAhyfd"/>
         <argument key="App\Controller\SecurityController::displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.UBfdanz"/>
@@ -8132,8 +8156,8 @@
         <argument key="App\Controller\Homepage:success" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\QuestionController:edit" type="service_closure" id=".service_locator.t_C_3cc"/>
         <argument key="App\Controller\QuestionController:homepage" type="service_closure" id=".service_locator.Q_xsdXo"/>
-        <argument key="App\Controller\QuestionController:questionVote" type="service_closure" id=".service_locator.trjgtck"/>
-        <argument key="App\Controller\QuestionController:show" type="service_closure" id=".service_locator.t_C_3cc"/>
+        <argument key="App\Controller\QuestionController:questionVote" type="service_closure" id=".service_locator.cEee.qB"/>
+        <argument key="App\Controller\QuestionController:show" type="service_closure" id=".service_locator.qI1t_Vr"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.imEfKVM"/>
         <argument key="App\Controller\RegistrationController:verifyUserEmail" type="service_closure" id=".service_locator.LqAhyfd"/>
         <argument key="App\Controller\SecurityController:displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.UBfdanz"/>
@@ -8293,7 +8317,7 @@
         <argument key="doctrine.orm.messenger.doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.messenger.doctrine_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.e3wl7z4" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Bu0bKKy" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AnswerRepository" type="service_closure" id="App\Repository\AnswerRepository"/>
@@ -8305,6 +8329,7 @@
         <argument key="App\Repository\TagRepository" type="service_closure" id="App\Repository\TagRepository"/>
         <argument key="App\Repository\UniqueCodesRepository" type="service_closure" id="App\Repository\UniqueCodesRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
+        <argument key="App\Repository\UserVotesRepository" type="service_closure" id="App\Repository\UserVotesRepository"/>
       </argument>
     </service>
     <service id=".service_locator.KLVvNIq" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8467,6 +8492,12 @@
     <service id=".service_locator..6XfnfV.App\Controller\UserController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\UserController"/>
       <argument>App\Controller\UserController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
+    </service>
+    <service id=".service_locator..6XfnfV.App\Controller\UserVotesController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\UserVotesController"/>
+      <argument>App\Controller\UserVotesController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
@@ -8653,12 +8684,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.FGripx0"/>
+      <argument type="service" id=".service_locator.fd7cswe"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.FGripx0"/>
+      <argument type="service" id=".service_locator.fd7cswe"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8688,8 +8719,9 @@
     <service id=".errored..service_locator.KfwZsne.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.KfbR3DY.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
     <service id=".errored..service_locator.HpwlquH.App\Entity\Answer" class="App\Entity\Answer"/>
+    <service id=".errored..service_locator.qI1t_Vr.App\Entity\Question" class="App\Entity\Question"/>
     <service id=".errored..service_locator.t_C_3cc.App\Entity\Question" class="App\Entity\Question"/>
-    <service id=".errored..service_locator.trjgtck.App\Entity\Question" class="App\Entity\Question"/>
+    <service id=".errored..service_locator.cEee.qB.App\Entity\Question" class="App\Entity\Question"/>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
       <argument type="collection"/>
@@ -9707,7 +9739,7 @@
     <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.FGripx0"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.fd7cswe"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9719,10 +9751,10 @@
     <service id=".service_locator.XDGmiR3" alias=".1_ServiceLocator~.yWLThg"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.MPSanjN" alias=".service_locator.HpwlquH"/>
-    <service id=".service_locator.D2X2l4L" alias=".service_locator.trjgtck"/>
+    <service id=".service_locator.05rBVyI" alias=".service_locator.cEee.qB"/>
     <service id=".service_locator.kiizgfv" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.u6BTu4b" alias=".service_locator.pKcF_sp"/>
-    <service id=".service_locator.DUns_P." alias=".service_locator.FGripx0"/>
+    <service id=".service_locator.8tRrH16" alias=".service_locator.fd7cswe"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
@@ -9758,8 +9790,9 @@
     <service id=".service_locator.tRwM5e6" alias=".service_locator.OC2AG.K"/>
     <service id=".service_locator.Er0_7SX" alias=".service_locator.l2QwsaZ"/>
     <service id=".service_locator.Gkn6yz6" alias=".service_locator.Q_xsdXo"/>
+    <service id=".service_locator.I0lxG6H" alias=".service_locator.qI1t_Vr"/>
     <service id=".service_locator.akP90b3" alias=".service_locator.t_C_3cc"/>
-    <service id=".service_locator.bpisobJ" alias=".service_locator.trjgtck"/>
+    <service id=".service_locator.F9.oeTJ" alias=".service_locator.cEee.qB"/>
     <service id=".service_locator.oCSk1pU" alias=".service_locator.imEfKVM"/>
     <service id=".service_locator.kKNyb2j" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.kXCVHeG" alias=".service_locator.UDgw6Ol"/>

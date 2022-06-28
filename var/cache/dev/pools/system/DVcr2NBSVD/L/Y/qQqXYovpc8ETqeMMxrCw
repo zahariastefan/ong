@@ -1,0 +1,3 @@
+<?php //App%255CController%255CUserVotesController%2523checkVote
+
+return [PHP_INT_MAX, []];

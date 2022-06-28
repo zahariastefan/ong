@@ -3,8 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\Question;
+use App\Entity\UserVotes;
 use App\Repository\AnswerRepository;
 use App\Repository\QuestionRepository;
+use App\Repository\UserVotesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Pagerfanta\Doctrine\ORM\QueryAdapter;
 use Pagerfanta\Pagerfanta;
@@ -70,14 +72,24 @@ class QuestionController extends AbstractController
     /**
      * @Route("/questions/{slug}", name="app_question_show")
      */
-    public function show(Question $question)
+    public function show(Question $question, UserVotesRepository $repository)
     {
+        $user = $this->getUser();
+        $userId = $user->getId();
+        $postId = $question->getId();
+        $objUserVotes = new UserVotes();
+        $objUserVotesCurrent = $repository->findBy([
+            'user_id' => $userId,
+            'target_id' => $postId
+        ]);
+
         if ($this->isDebug) {
             $this->logger->info('We are in debug mode!');
         }
 
         return $this->render('question/show.html.twig', [
             'question' => $question,
+            'votes' => $objUserVotesCurrent[0]->getVote()
         ]);
     }
 
@@ -96,18 +108,64 @@ class QuestionController extends AbstractController
 
     /**
      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
-     * @IsGranted("ROLE_USER")
      */
-    public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager)
+    public function questionVote(UserVotesRepository $repository, Question $question, Request $request, EntityManagerInterface $entityManager)
     {
+        $objUserVotes = new UserVotes();
+
+        $user = $this->getUser();
+        $userId = $user->getId();
+        $postId = $_GET['question_id'];
+
+        $objUserVotesCurrent = $repository->findBy([
+            'user_id' => $userId,
+            'target_id' => $postId
+        ]);
+
         $direction = $request->request->get('direction');
 
-        if ($direction === 'up') {
-            $question->upVote();
-        } elseif ($direction === 'down') {
-            $question->downVote();
+        if($objUserVotesCurrent != null){//if already exist a record of this user id in User Votes
+            //check if user_id and target_id exist on same row based on id
+                $vote = $objUserVotesCurrent[0]->getVote();
+            switch (intval($vote)){
+                case -1:
+                    if ($direction === 'up') {
+                        $question->upVote();
+                        $objUserVotesCurrent[0]->setVote(intval(1));
+                    } else {
+                        $question->upVote();
+                        $objUserVotesCurrent[0]->setVote(0);
+                    }
+                    break;
+                case 0:
+                    if ($direction === 'up') {
+                        $question->upVote();
+                        $objUserVotesCurrent[0]->setVote(1);
+                    } else {
+                        $question->downVote();
+                        $objUserVotesCurrent[0]->setVote(-1);
+                    }
+                    break;
+                case 1:
+                    if ($direction === 'up') {
+                        $question->downVote();
+                        $objUserVotesCurrent[0]->setVote(0);
+                    } else {
+//                        dd($direction);
+                        $question->downVote();
+                        $objUserVotesCurrent[0]->setVote(-1);
+                    }
+                    break;
+            }
+        }else{
+            ($direction === 'up') ? $firstVote = 1 : $firstVote = -1;
+            $objUserVotes->setVote($firstVote);
+            $objUserVotes->setTargetId($postId);
+            $objUserVotes->setUserId($userId);
         }
 
+
+        $entityManager->persist($objUserVotesCurrent[0]);
         $entityManager->flush();
 
         return $this->redirectToRoute('app_question_show', [
