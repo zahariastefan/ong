@@ -5,7 +5,8 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ path('app_homepage') }}">
             <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
-                Organizație Neguvernamentală </p>
+                Stefan Zaharia Portfolio
+            </p>
         </a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar-collapsable" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
@@ -19,11 +20,17 @@
                     <a class="nav-link" href="{{ path('admin_dashboard') }}">Admin</a>
                 </li>
             {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('user_dashboard') }}">Profile</a>
-                    </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_donations') }}">Donatii</a>
+                    <a class="nav-link" href="{{ path('user_dashboard') }}">My Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_donations') }}">Donations</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_skills_page') }}">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact</a>
                 </li>
             </ul>
 

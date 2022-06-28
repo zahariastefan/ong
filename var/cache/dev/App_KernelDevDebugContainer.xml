@@ -407,6 +407,13 @@
         <argument type="service" id=".service_locator..6XfnfV.App\Controller\CommentController"/>
       </call>
     </service>
+    <service id="App\Controller\CommentCreatorController" class="App\Controller\CommentCreatorController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\CommentCreatorController"/>
+      </call>
+    </service>
     <service id="App\Controller\DonationsController" class="App\Controller\DonationsController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -426,6 +433,13 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator..6XfnfV.App\Controller\OnlyForBestsController"/>
+      </call>
+    </service>
+    <service id="App\Controller\PostCreatorController" class="App\Controller\PostCreatorController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\PostCreatorController"/>
       </call>
     </service>
     <service id="App\Controller\QuestionController" class="App\Controller\QuestionController" public="true" autowire="true" autoconfigure="true">
@@ -449,6 +463,13 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator..6XfnfV.App\Controller\SecurityController"/>
+      </call>
+    </service>
+    <service id="App\Controller\SkillsController" class="App\Controller\SkillsController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator..6XfnfV.App\Controller\SkillsController"/>
       </call>
     </service>
     <service id="App\Controller\UserController" class="App\Controller\UserController" public="true" autowire="true" autoconfigure="true">
@@ -7565,6 +7586,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\CommentController" class="App\Controller\CommentController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\CommentCreatorController" class="App\Controller\CommentCreatorController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\CommentCreatorController" class="App\Controller\CommentCreatorController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\CommentCreatorController" class="App\Controller\CommentCreatorController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\DonationsController" class="App\Controller\DonationsController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7574,6 +7598,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\OnlyForBestsController" class="App\Controller\OnlyForBestsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\OnlyForBestsController" class="App\Controller\OnlyForBestsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\OnlyForBestsController" class="App\Controller\OnlyForBestsController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\PostCreatorController" class="App\Controller\PostCreatorController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\PostCreatorController" class="App\Controller\PostCreatorController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\PostCreatorController" class="App\Controller\PostCreatorController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\QuestionController" class="App\Controller\QuestionController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7583,6 +7610,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\SecurityController" class="App\Controller\SecurityController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SkillsController" class="App\Controller\SkillsController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SkillsController" class="App\Controller\SkillsController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\SkillsController" class="App\Controller\SkillsController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -8380,6 +8410,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
+    <service id=".service_locator..6XfnfV.App\Controller\CommentCreatorController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\CommentCreatorController"/>
+      <argument>App\Controller\CommentCreatorController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
+    </service>
     <service id=".service_locator..6XfnfV.App\Controller\DonationsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\DonationsController"/>
       <argument>App\Controller\DonationsController</argument>
@@ -8398,6 +8434,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>
+    <service id=".service_locator..6XfnfV.App\Controller\PostCreatorController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\PostCreatorController"/>
+      <argument>App\Controller\PostCreatorController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
+    </service>
     <service id=".service_locator..6XfnfV.App\Controller\QuestionController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\QuestionController"/>
       <argument>App\Controller\QuestionController</argument>
@@ -8413,6 +8455,12 @@
     <service id=".service_locator..6XfnfV.App\Controller\SecurityController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\SecurityController"/>
       <argument>App\Controller\SecurityController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator..6XfnfV" method="withContext"/>
+    </service>
+    <service id=".service_locator..6XfnfV.App\Controller\SkillsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\SkillsController"/>
+      <argument>App\Controller\SkillsController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator..6XfnfV" method="withContext"/>
     </service>

@@ -88,29 +88,22 @@ class __TwigTemplate_5091503e6ac0c5b973f2d94ce3f8c62ec81909895cafaaef783c3449d09
             ";
         // line 23
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
-            // line 46
-            echo "
-                <form action=\"";
-            // line 47
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("answer_vote", ["id" => twig_get_attribute($this->env, $this->source, (isset($context["answer"]) || array_key_exists("answer", $context) ? $context["answer"] : (function () { throw new RuntimeError('Variable "answer" does not exist.', 47, $this->source); })()), "id", [], "any", false, false, false, 47), "slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 47, $this->source); })()), "slug", [], "any", false, false, false, 47)]), "html", null, true);
+            // line 24
+            echo "                <form action=\"";
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("answer_vote", ["id" => twig_get_attribute($this->env, $this->source, (isset($context["answer"]) || array_key_exists("answer", $context) ? $context["answer"] : (function () { throw new RuntimeError('Variable "answer" does not exist.', 24, $this->source); })()), "id", [], "any", false, false, false, 24), "slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 24, $this->source); })()), "slug", [], "any", false, false, false, 24)]), "html", null, true);
             echo "\" method=\"POST\">
                     <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
                         <button class=\"vote-up btn btn-link\" name=\"direction\" value=\"up\"><i class=\"far fa-arrow-alt-circle-up\"></i></button>
-
-
                         <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down\"></i></button>
-
-
                         <span>";
-            // line 55
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["answer"]) || array_key_exists("answer", $context) ? $context["answer"] : (function () { throw new RuntimeError('Variable "answer" does not exist.', 55, $this->source); })()), "votes", [], "any", false, false, false, 55), "html", null, true);
+            // line 28
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["answer"]) || array_key_exists("answer", $context) ? $context["answer"] : (function () { throw new RuntimeError('Variable "answer" does not exist.', 28, $this->source); })()), "votes", [], "any", false, false, false, 28), "html", null, true);
             echo "</span>
                     </div>
                 </form>
-
             ";
         }
-        // line 60
+        // line 32
         echo "        </div>
     </div>
 </li>
@@ -135,7 +128,7 @@ class __TwigTemplate_5091503e6ac0c5b973f2d94ce3f8c62ec81909895cafaaef783c3449d09
 
     public function getDebugInfo()
     {
-        return array (  114 => 60,  106 => 55,  95 => 47,  92 => 46,  90 => 23,  86 => 22,  80 => 19,  76 => 18,  70 => 15,  66 => 13,  60 => 10,  54 => 6,  52 => 5,  51 => 4,  48 => 3,  46 => 2,  43 => 1,);
+        return array (  107 => 32,  100 => 28,  92 => 24,  90 => 23,  86 => 22,  80 => 19,  76 => 18,  70 => 15,  66 => 13,  60 => 10,  54 => 6,  52 => 5,  51 => 4,  48 => 3,  46 => 2,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -163,41 +156,13 @@ class __TwigTemplate_5091503e6ac0c5b973f2d94ce3f8c62ec81909895cafaaef783c3449d09
         <div class=\"col-2 text-end\">
             <small>{{ answer.createdAt|ago }}</small>
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-{#                <div#}
-{#                        class=\"vote-arrows\"#}
-{#                        {{ stimulus_controller('answer-vote', {#}
-{#                            url: path('answer_vote', {#}
-{#                                id: answer.id#}
-{#                            })#}
-{#                        }) }}#}
-{#                >#}
-{#                    <button#}
-{#                            class=\"vote-up btn btn-link\"#}
-{#                            name=\"direction\"#}
-{#                            value=\"up\"#}
-{#                            {{ stimulus_action('answer-vote', 'clickVote') }}#}
-{#                    ><i class=\"far fa-arrow-alt-circle-up\"></i></button>#}
-{#                    <button#}
-{#                            class=\"vote-down btn btn-link\"#}
-{#                            name=\"direction\"#}
-{#                            value=\"down\"#}
-{#                            {{ stimulus_action('answer-vote', 'clickVote') }}#}
-{#                    ><i class=\"far fa-arrow-alt-circle-down\"></i></button>#}
-{#                    <span><span {{ stimulus_target('answer-vote', 'voteTotal') }}>{{ answer.votes }}</span></span>#}
-{#                </div>#}
-
                 <form action=\"{{ path('answer_vote', { id: answer.id, slug: question.slug }) }}\" method=\"POST\">
                     <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
                         <button class=\"vote-up btn btn-link\" name=\"direction\" value=\"up\"><i class=\"far fa-arrow-alt-circle-up\"></i></button>
-
-
                         <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down\"></i></button>
-
-
                         <span>{{ answer.votes }}</span>
                     </div>
                 </form>
-
             {% endif %}
         </div>
     </div>

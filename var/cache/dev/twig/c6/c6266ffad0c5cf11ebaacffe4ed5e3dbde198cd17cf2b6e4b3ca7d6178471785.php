@@ -173,22 +173,23 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             </div>
         </div>
     </div>
-
     <div class=\"d-flex justify-content-between my-4\">
-        <h2 class=\"\">Answers <span style=\"font-size:1.2rem;\">(";
-        // line 56
-        echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 56, $this->source); })()), "approvedAnswers", [], "any", false, false, false, 56)), "html", null, true);
-        echo ")</span></h2>
-        <button class=\"btn btn-sm btn-secondary\">Submit an Answer</button>
+        <form action=\"";
+        // line 55
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_comment_create");
+        echo "\">
+            <p><label for=\"post-comment\">Post a Comment:</label></p>
+            <textarea id=\"post-comment\" name=\"post-comment\" rows=\"4\" cols=\"50\" placeholder=\"Type your comment here\"></textarea>
+            <br>
+            <button type=\"submit\" value=\"Submit\" class=\"btn btn-sm btn-secondary\">Post the Comment</button>
+        </form>
     </div>
-
-
 
     <ul class=\"list-unstyled\">
         ";
-        // line 63
+        // line 64
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 63, $this->source); })()), "approvedAnswers", [], "any", false, false, false, 63));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 64, $this->source); })()), "approvedAnswers", [], "any", false, false, false, 64));
         $context['loop'] = [
           'parent' => $context['_parent'],
           'index0' => 0,
@@ -203,7 +204,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["answer"]) {
-            // line 64
+            // line 65
             echo "            ";
             echo twig_include($this->env, $context, "answer/_answer.html.twig");
             echo "
@@ -220,10 +221,9 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['answer'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 66
+        // line 67
         echo "    </ul>
 </div>
-
 ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -245,7 +245,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
 
     public function getDebugInfo()
     {
-        return array (  224 => 66,  207 => 64,  190 => 63,  180 => 56,  165 => 46,  161 => 45,  156 => 42,  152 => 40,  150 => 39,  148 => 38,  146 => 37,  142 => 36,  132 => 29,  125 => 25,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
+        return array (  225 => 67,  208 => 65,  191 => 64,  179 => 55,  165 => 46,  161 => 45,  156 => 42,  152 => 40,  150 => 39,  148 => 38,  146 => 37,  142 => 36,  132 => 29,  125 => 25,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -303,13 +303,14 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             </div>
         </div>
     </div>
-
     <div class=\"d-flex justify-content-between my-4\">
-        <h2 class=\"\">Answers <span style=\"font-size:1.2rem;\">({{ question.approvedAnswers|length }})</span></h2>
-        <button class=\"btn btn-sm btn-secondary\">Submit an Answer</button>
+        <form action=\"{{ path('app_comment_create') }}\">
+            <p><label for=\"post-comment\">Post a Comment:</label></p>
+            <textarea id=\"post-comment\" name=\"post-comment\" rows=\"4\" cols=\"50\" placeholder=\"Type your comment here\"></textarea>
+            <br>
+            <button type=\"submit\" value=\"Submit\" class=\"btn btn-sm btn-secondary\">Post the Comment</button>
+        </form>
     </div>
-
-
 
     <ul class=\"list-unstyled\">
         {% for answer in question.approvedAnswers %}
@@ -317,11 +318,6 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         {% endfor %}
     </ul>
 </div>
-
-{#    {% block javascripts %}#}
-{#        {{ parent() }}#}
-{#        <script src=\"{{ asset('js/question_show.js') }}\"></script>#}
-{#    {% endblock %}#}
 {% endblock %}
 ", "question/show.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\question\\show.html.twig");
     }

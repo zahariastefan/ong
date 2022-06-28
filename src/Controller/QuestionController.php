@@ -96,6 +96,7 @@ class QuestionController extends AbstractController
 
     /**
      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
+     * @IsGranted("ROLE_USER")
      */
     public function questionVote(Question $question, Request $request, EntityManagerInterface $entityManager)
     {
