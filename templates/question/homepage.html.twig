@@ -3,7 +3,7 @@
 {% block body %}
 <div class="jumbotron-img p-2 mb-2">
     <div class="container">
-        <h1 class="display-4">Posts and Comments</h1>
+        <h1 class="display-4">Welcome to my Blog</h1>
         {% if alertDisabled2fa %}
             <div class="alert alert-success">You Successfully Disabled Two Factors Authentication</div>
         {% endif %}
@@ -20,15 +20,15 @@
     {% endif %}
 
     <div class="row">
-        {% for question in pager %}
-        <div class="col-12 mb-3">
+        {% for question in posts %}
+        <div class="col-12 mb-3 card_preview_post_homepage">
             <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
                 <div class="q-container p-4">
                     <div class="row">
                         <div class="col-2 text-center">
                             <img src="{{ question.owner.avatarUri }}" width="100" height="100"  alt="{{ question.owner.avatarUri }} avatar">
                             <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
-                                <span>{{ question.votesString}} votes</span>
+                                <span>{{ question.likeNr + question.unLikeNr }} votes</span>
                             </div>
                             {% for questionTag in question.questionTags %}
                                 <span class="badge rounded-pill bg-light text-dark">{{ questionTag.tag.name }}</span>
@@ -36,24 +36,25 @@
                         </div>
                         <div class="col">
                             <a class="q-title" href="{{ path('app_question_show', { slug: question.slug }) }}"><h2>{{ question.name }}</h2></a>
-                            <div class="q-display p-3">
+                            <div class="q-display p-3 container_content_hmp">
                                 <i class="fa fa-quote-left mr-3"></i>
-                                <p class="d-inline">{{ question.question }}</p>
+                                <p class="d-inline paragraph_content_homepage">{{ question.question|slice(0, 250) }}</p>
+                                <i class="fa fa-quote-right mr-3"></i>
                                 <p class="pt-4"><strong>--{{ question.owner.displayName }}</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a class="answer-link" href="{{ path('app_question_show', { slug: question.slug }) }}" style="color: #fff;">
+                <a class="answer-link" href="{{ path('app_question_show', { slug: question.slug }) }}" >
                     <p class="q-display-response text-center p-3">
-                        <i class="fa fa-magic magic-wand"></i> {{ question.approvedAnswers|length }} answers
+                        <i class="fa fa-magic magic-wand"></i> {{ question.approvedAnswers|length }} comments
                     </p>
                 </a>
             </div>
         </div>
         {% endfor %}
 
-        {{ pagerfanta(pager) }}
+{#        {{ pagerfanta(pager) }}#}
     </div>
 </div>
 {% endblock %}

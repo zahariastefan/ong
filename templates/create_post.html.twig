@@ -1,1 +1,21 @@
-        HERE YOU CAN CREATE YOUR POST
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="container">
+        <form action="{{ path('app_load_post', { submitted: 1 }) }}" method="POST" class="d-grid">
+            <label for="post_title">Title</label>
+            <input type="text" placeholder="Type your title of Post..." name="post_title">
+
+            <label for="slug_post">Choose a Slug</label>
+            <input type="text" name="slug_post" placeholder="Type your Slug...">
+
+            <label for="content_field">Content</label>
+            <textarea name="content_field" id="content_field" cols="100" rows="10" placeholder="Type your Content Here..."></textarea>
+            <button type="submit">Create</button>
+        </form>
+    </div>
+
+
+{% endblock %}
+

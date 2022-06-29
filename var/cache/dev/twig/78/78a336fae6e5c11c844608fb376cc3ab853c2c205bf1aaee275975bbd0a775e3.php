@@ -67,7 +67,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         // line 4
         echo "<div class=\"jumbotron-img p-2 mb-2\">
     <div class=\"container\">
-        <h1 class=\"display-4\">Posts and Comments</h1>
+        <h1 class=\"display-4\">Welcome to my Blog</h1>
         ";
         // line 7
         if ((isset($context["alertDisabled2fa"]) || array_key_exists("alertDisabled2fa", $context) ? $context["alertDisabled2fa"] : (function () { throw new RuntimeError('Variable "alertDisabled2fa" does not exist.', 7, $this->source); })())) {
@@ -99,10 +99,10 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         ";
         // line 23
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 23, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["posts"]) || array_key_exists("posts", $context) ? $context["posts"] : (function () { throw new RuntimeError('Variable "posts" does not exist.', 23, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["question"]) {
             // line 24
-            echo "        <div class=\"col-12 mb-3\">
+            echo "        <div class=\"col-12 mb-3 card_preview_post_homepage\">
             <div style=\"box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);\">
                 <div class=\"q-container p-4\">
                     <div class=\"row\">
@@ -116,7 +116,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                             <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
                                 <span>";
             // line 31
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "votesString", [], "any", false, false, false, 31), "html", null, true);
+            echo twig_escape_filter($this->env, (twig_get_attribute($this->env, $this->source, $context["question"], "likeNr", [], "any", false, false, false, 31) + twig_get_attribute($this->env, $this->source, $context["question"], "unLikeNr", [], "any", false, false, false, 31)), "html", null, true);
             echo " votes</span>
                             </div>
                             ";
@@ -142,29 +142,30 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
             echo "\"><h2>";
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "name", [], "any", false, false, false, 38), "html", null, true);
             echo "</h2></a>
-                            <div class=\"q-display p-3\">
+                            <div class=\"q-display p-3 container_content_hmp\">
                                 <i class=\"fa fa-quote-left mr-3\"></i>
-                                <p class=\"d-inline\">";
+                                <p class=\"d-inline paragraph_content_homepage\">";
             // line 41
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "question", [], "any", false, false, false, 41), "html", null, true);
+            echo twig_escape_filter($this->env, twig_slice($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "question", [], "any", false, false, false, 41), 0, 250), "html", null, true);
             echo "</p>
+                                <i class=\"fa fa-quote-right mr-3\"></i>
                                 <p class=\"pt-4\"><strong>--";
-            // line 42
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 42), "displayName", [], "any", false, false, false, 42), "html", null, true);
+            // line 43
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 43), "displayName", [], "any", false, false, false, 43), "html", null, true);
             echo "</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
                 <a class=\"answer-link\" href=\"";
-            // line 47
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_show", ["slug" => twig_get_attribute($this->env, $this->source, $context["question"], "slug", [], "any", false, false, false, 47)]), "html", null, true);
-            echo "\" style=\"color: #fff;\">
+            // line 48
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_show", ["slug" => twig_get_attribute($this->env, $this->source, $context["question"], "slug", [], "any", false, false, false, 48)]), "html", null, true);
+            echo "\" >
                     <p class=\"q-display-response text-center p-3\">
                         <i class=\"fa fa-magic magic-wand\"></i> ";
-            // line 49
-            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "approvedAnswers", [], "any", false, false, false, 49)), "html", null, true);
-            echo " answers
+            // line 50
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "approvedAnswers", [], "any", false, false, false, 50)), "html", null, true);
+            echo " comments
                     </p>
                 </a>
             </div>
@@ -174,13 +175,11 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['question'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 55
-        echo "
-        ";
         // line 56
-        echo $this->env->getRuntime('Pagerfanta\Twig\Extension\PagerfantaRuntime')->renderPagerfanta((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 56, $this->source); })()));
         echo "
-    </div>
+";
+        // line 58
+        echo "    </div>
 </div>
 ";
         
@@ -203,7 +202,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
     public function getDebugInfo()
     {
-        return array (  181 => 56,  178 => 55,  166 => 49,  161 => 47,  153 => 42,  149 => 41,  141 => 38,  137 => 36,  128 => 34,  124 => 33,  119 => 31,  112 => 29,  105 => 24,  101 => 23,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  182 => 58,  179 => 56,  167 => 50,  162 => 48,  154 => 43,  149 => 41,  141 => 38,  137 => 36,  128 => 34,  124 => 33,  119 => 31,  112 => 29,  105 => 24,  101 => 23,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -213,7 +212,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 {% block body %}
 <div class=\"jumbotron-img p-2 mb-2\">
     <div class=\"container\">
-        <h1 class=\"display-4\">Posts and Comments</h1>
+        <h1 class=\"display-4\">Welcome to my Blog</h1>
         {% if alertDisabled2fa %}
             <div class=\"alert alert-success\">You Successfully Disabled Two Factors Authentication</div>
         {% endif %}
@@ -230,15 +229,15 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
     {% endif %}
 
     <div class=\"row\">
-        {% for question in pager %}
-        <div class=\"col-12 mb-3\">
+        {% for question in posts %}
+        <div class=\"col-12 mb-3 card_preview_post_homepage\">
             <div style=\"box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);\">
                 <div class=\"q-container p-4\">
                     <div class=\"row\">
                         <div class=\"col-2 text-center\">
                             <img src=\"{{ question.owner.avatarUri }}\" width=\"100\" height=\"100\"  alt=\"{{ question.owner.avatarUri }} avatar\">
                             <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
-                                <span>{{ question.votesString}} votes</span>
+                                <span>{{ question.likeNr + question.unLikeNr }} votes</span>
                             </div>
                             {% for questionTag in question.questionTags %}
                                 <span class=\"badge rounded-pill bg-light text-dark\">{{ questionTag.tag.name }}</span>
@@ -246,24 +245,25 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                         </div>
                         <div class=\"col\">
                             <a class=\"q-title\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\"><h2>{{ question.name }}</h2></a>
-                            <div class=\"q-display p-3\">
+                            <div class=\"q-display p-3 container_content_hmp\">
                                 <i class=\"fa fa-quote-left mr-3\"></i>
-                                <p class=\"d-inline\">{{ question.question }}</p>
+                                <p class=\"d-inline paragraph_content_homepage\">{{ question.question|slice(0, 250) }}</p>
+                                <i class=\"fa fa-quote-right mr-3\"></i>
                                 <p class=\"pt-4\"><strong>--{{ question.owner.displayName }}</strong></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <a class=\"answer-link\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\" style=\"color: #fff;\">
+                <a class=\"answer-link\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\" >
                     <p class=\"q-display-response text-center p-3\">
-                        <i class=\"fa fa-magic magic-wand\"></i> {{ question.approvedAnswers|length }} answers
+                        <i class=\"fa fa-magic magic-wand\"></i> {{ question.approvedAnswers|length }} comments
                     </p>
                 </a>
             </div>
         </div>
         {% endfor %}
 
-        {{ pagerfanta(pager) }}
+{#        {{ pagerfanta(pager) }}#}
     </div>
 </div>
 {% endblock %}

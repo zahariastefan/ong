@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="jumbotron-img p-2 mb-2">
+        <div class="container">
+            <h1 class="display-4">My Posts</h1>
+        </div>
+    </div>
+    {% for post in ownedPosts %}
+    <div class="col-12 mb-3">
+        <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
+            <div class="q-container p-4">
+                <div class="row">
+                    <div class="col-2 text-center">
+                        <img src="{{ post.owner.avatarUri }}" width="100" height="100"  alt="{{ post.owner.avatarUri }} avatar">
+                        <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
+                            <span>{{ post.votesString}} votes</span>
+                        </div>
+                        {% for questionTag in post.questionTags %}
+                            <span class="badge rounded-pill bg-light text-dark">{{ questionTag.tag.name }}</span>
+                        {% endfor %}
+                    </div>
+                    <div class="col">
+                        <div class="d-flex justify-content-between">
+
+                        <a class="q-title" href="{{ path('app_question_show', { slug: post.slug }) }}"><h2>{{ post.name }}</h2></a>
+                            {#                            <h1 class="q-title-show">{{ post.name }}</h1>#}
+                            {% if is_granted('EDIT', post) %}
+                                <a href="{{ path('app_question_edit', {
+                                    slug: post.slug
+                                }) }}" class="btn btn-secondary btn-sm mb-2">Edit</a>
+                            {% endif %}
+                        </div>
+                        <div class="q-display p-3">
+                            <i class="fa fa-quote-left mr-3"></i>
+                            <p class="d-inline">{{ post.question|slice(0, 250) }}</p>
+                            <p class="pt-4"><strong>--{{ post.owner.displayName }}</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="answer-link" href="{{ path('app_question_show', { slug: post.slug }) }}" style="color: #fff;">
+                <p class="q-display-response text-center p-3">
+                    <i class="fa fa-magic magic-wand"></i> {{ post.approvedAnswers|length }} answers
+                </p>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+{% endblock %}

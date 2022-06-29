@@ -36,16 +36,23 @@ class QuestionController extends AbstractController
      */
     public function homepage(Request $request, QuestionRepository $repository, int $page = 1)
     {
-        $queryBuilder = $repository->createAskedOrderedByNewestQueryBuilder();
+        $queryBuilder = $repository->findAll();
 
-        $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
-        $pagerfanta->setMaxPerPage(5);
-        $pagerfanta->setCurrentPage($page);
+//        dd($queryBuilder);
+//        $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
+//        $pagerfanta->setMaxPerPage(5);
+//        $pagerfanta->setCurrentPage($page);
 
         $alertDisabled2fa = $request->query->get('alertDisabled2fa');
         if(!isset($alertDisabled2fa)) $alertDisabled2fa =  false;
+
+
+        $totalVotes = [];
+
+
         return $this->render('question/homepage.html.twig', [
-            'pager' => $pagerfanta,
+//            'pager' => $pagerfanta,
+            'posts' => $queryBuilder,
             'alertDisabled2fa' =>$alertDisabled2fa
         ]);
     }
