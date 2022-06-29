@@ -8,3 +8,6 @@
 .disabled_arrow {
     color: grey;
 }
+.vote-arrows .btn:focus{
+    box-shadow: none !important;
+}

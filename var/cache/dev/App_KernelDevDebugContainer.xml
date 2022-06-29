@@ -8059,10 +8059,11 @@
         <argument key="repository" type="service_closure" id="App\Repository\QuestionRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.qI1t_Vr" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Fb94rcQ" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="question" type="service_closure" id=".errored..service_locator.qI1t_Vr.App\Entity\Question"/>
+        <argument key="question" type="service_closure" id=".errored..service_locator.Fb94rcQ.App\Entity\Question"/>
+        <argument key="questionRepository" type="service_closure" id="App\Repository\QuestionRepository"/>
         <argument key="repository" type="service_closure" id="App\Repository\UserVotesRepository"/>
       </argument>
     </service>
@@ -8115,7 +8116,7 @@
         <argument key="qrCodeGenerator" type="service_closure" id="scheb_two_factor.qr_code_generator"/>
       </argument>
     </service>
-    <service id=".service_locator.rrqLHgU" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.9L5Dg89" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
@@ -8128,9 +8129,10 @@
         <argument key="App\Controller\QuestionController::edit" type="service_closure" id=".service_locator.t_C_3cc"/>
         <argument key="App\Controller\QuestionController::homepage" type="service_closure" id=".service_locator.Q_xsdXo"/>
         <argument key="App\Controller\QuestionController::questionVote" type="service_closure" id=".service_locator.L1ESABr"/>
-        <argument key="App\Controller\QuestionController::show" type="service_closure" id=".service_locator.qI1t_Vr"/>
+        <argument key="App\Controller\QuestionController::show" type="service_closure" id=".service_locator.Fb94rcQ"/>
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.imEfKVM"/>
         <argument key="App\Controller\RegistrationController::verifyUserEmail" type="service_closure" id=".service_locator.LqAhyfd"/>
+        <argument key="App\Controller\SecurityController::disable2fa" type="service_closure" id=".service_locator.pKcF_sp"/>
         <argument key="App\Controller\SecurityController::displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.UBfdanz"/>
         <argument key="App\Controller\SecurityController::enable2fa" type="service_closure" id=".service_locator.pKcF_sp"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.UDgw6Ol"/>
@@ -8151,9 +8153,10 @@
         <argument key="App\Controller\QuestionController:edit" type="service_closure" id=".service_locator.t_C_3cc"/>
         <argument key="App\Controller\QuestionController:homepage" type="service_closure" id=".service_locator.Q_xsdXo"/>
         <argument key="App\Controller\QuestionController:questionVote" type="service_closure" id=".service_locator.L1ESABr"/>
-        <argument key="App\Controller\QuestionController:show" type="service_closure" id=".service_locator.qI1t_Vr"/>
+        <argument key="App\Controller\QuestionController:show" type="service_closure" id=".service_locator.Fb94rcQ"/>
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.imEfKVM"/>
         <argument key="App\Controller\RegistrationController:verifyUserEmail" type="service_closure" id=".service_locator.LqAhyfd"/>
+        <argument key="App\Controller\SecurityController:disable2fa" type="service_closure" id=".service_locator.pKcF_sp"/>
         <argument key="App\Controller\SecurityController:displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.UBfdanz"/>
         <argument key="App\Controller\SecurityController:enable2fa" type="service_closure" id=".service_locator.pKcF_sp"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.UDgw6Ol"/>
@@ -8673,12 +8676,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.rrqLHgU"/>
+      <argument type="service" id=".service_locator.9L5Dg89"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.rrqLHgU"/>
+      <argument type="service" id=".service_locator.9L5Dg89"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -8708,7 +8711,7 @@
     <service id=".errored..service_locator.KfwZsne.Symfony\Component\HttpFoundation\Response" class="Symfony\Component\HttpFoundation\Response"/>
     <service id=".errored..service_locator.KfbR3DY.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface"/>
     <service id=".errored..service_locator.HpwlquH.App\Entity\Answer" class="App\Entity\Answer"/>
-    <service id=".errored..service_locator.qI1t_Vr.App\Entity\Question" class="App\Entity\Question"/>
+    <service id=".errored..service_locator.Fb94rcQ.App\Entity\Question" class="App\Entity\Question"/>
     <service id=".errored..service_locator.t_C_3cc.App\Entity\Question" class="App\Entity\Question"/>
     <service id=".errored..service_locator.L1ESABr.App\Entity\Question" class="App\Entity\Question"/>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
@@ -9728,7 +9731,7 @@
     <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.rrqLHgU"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.9L5Dg89"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9743,7 +9746,7 @@
     <service id=".service_locator.iRKXayk" alias=".service_locator.L1ESABr"/>
     <service id=".service_locator.kiizgfv" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.u6BTu4b" alias=".service_locator.pKcF_sp"/>
-    <service id=".service_locator.jaJg.mn" alias=".service_locator.rrqLHgU"/>
+    <service id=".service_locator.3v8KGCT" alias=".service_locator.9L5Dg89"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
@@ -9779,7 +9782,7 @@
     <service id=".service_locator.tRwM5e6" alias=".service_locator.OC2AG.K"/>
     <service id=".service_locator.Er0_7SX" alias=".service_locator.l2QwsaZ"/>
     <service id=".service_locator.Gkn6yz6" alias=".service_locator.Q_xsdXo"/>
-    <service id=".service_locator.I0lxG6H" alias=".service_locator.qI1t_Vr"/>
+    <service id=".service_locator.PsZ_rgR" alias=".service_locator.Fb94rcQ"/>
     <service id=".service_locator.akP90b3" alias=".service_locator.t_C_3cc"/>
     <service id=".service_locator.8WfWiZE" alias=".service_locator.L1ESABr"/>
     <service id=".service_locator.oCSk1pU" alias=".service_locator.imEfKVM"/>

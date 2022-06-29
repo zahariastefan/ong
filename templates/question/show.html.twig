@@ -25,7 +25,7 @@
                                     <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
                                         <button class="vote-up btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up vote-direction  {% if votes == 1 and likes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}"></i></button>
                                         <span class="total-votes-up">{% if question.likeNr == '' %} 0 {% else %} {{ question.likeNr }} {% endif %}</span>
-                                        <button class="vote-down btn btn-link" name="direction" value="down"><i class="far fa-arrow-alt-circle-down vote-direction  {% if votes == 1 and unlikes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}"></i></button>
+                                        <button class="vote-down btn btn-link" name="direction" value="down"><i class="far fa-arrow-alt-circle-down vote-direction {% if votes == 1 and unlikes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}"></i></button>
                                         <span class="total-votes-down">{% if question.unlikeNr == '' %} 0 {% else %} {{ question.unlikeNr }}{% endif %}</span>
                                     </div>
 {#                                </form>#}
@@ -67,78 +67,80 @@
     </ul>
 </div>
     <script>
-
-        function ajaxRequest(direction) {
-            var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
-            var fullUrl   = window.location.origin + path;
-
-            console.log(direction);
-             $.ajax({
-                type: "POST",
-                url: fullUrl,
-                 data: {direction:direction},
-                success: function (data) {
-                    console.log('success');
-                }
+        $(document).ready(()=>{
+            $('.vote-up').click(()=> {
+                ajaxRequest('up');
             });
-        }
-
-
-        $('.vote-up').click(()=>{
-            var attributes = $('.vote-up i').attr('class');
-            var checkClass = attributes.includes('active_arrow');
-            var actualNr = ($('.total-votes-up').text()).replace(/[+-]/g,'');
-            var actualNrDOWN = ($('.total-votes-down').text()).replace(/[+-]/g,'');
-
-            console.log('up');
-            if(checkClass){
-                $('.vote-up i').removeClass('active_arrow');
-                $('.vote-up i').addClass('disabled_arrow');
-                $('.vote-down i').addClass('disabled_arrow');
-                $('.vote-down i').removeClass('active_arrow');
-                $('.total-votes-up').text(parseInt(actualNr) - 1);
-
-            }else{
-                $('.vote-up i').addClass('active_arrow');
-                $('.vote-up i').removeClass('disabled_arrow');
-                $('.vote-down i').addClass('disabled_arrow');
-                $('.total-votes-up').text(parseInt(actualNr) + 1);
-                if( $('.vote-down i').hasClass('active_arrow')){
-                    $('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+            $('.vote-down').click(()=> {
+                ajaxRequest('down');
+            });
+            function ajaxRequest(direction) {
+                var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
+                var fullUrl   = window.location.origin + path;
+                if({{checkIfLogged}} === 0) {
+                    $('.vote-arrows').click(()=>{
+                        window.location.replace(window.location.origin + '/login');
+                    });
+                }else{
+                    $.ajax({
+                        type: "POST",
+                        url: fullUrl,
+                        data: {direction:direction},
+                        complete: function (data) {
+                           console.log('success');
+                        }
+                    });
+                    likeAndDislike(direction);
                 }
-                $('.vote-down i').removeClass('active_arrow');
             }
-            ajaxRequest('up');
+            function likeAndDislike(direction){
+                if(direction === 'up'){
+                    var attributes = $('.vote-up i').attr('class');
+                    var checkClass = attributes.includes('active_arrow');
+                    var actualNr = ($('.total-votes-up').text()).replace(/[+-]/g,'');
+                    var actualNrDOWN = ($('.total-votes-down').text()).replace(/[+-]/g,'');
+                    if(checkClass){
+                        $('.vote-up i').removeClass('active_arrow');
+                        $('.vote-up i').addClass('disabled_arrow');
+                        $('.vote-down i').addClass('disabled_arrow');
+                        $('.vote-down i').removeClass('active_arrow');
+                        $('.total-votes-up').text(parseInt(actualNr) - 1);
 
-        });
+                    }else{
+                        $('.vote-up i').addClass('active_arrow');
+                        $('.vote-up i').removeClass('disabled_arrow');
+                        $('.vote-down i').addClass('disabled_arrow');
+                        $('.total-votes-up').text(parseInt(actualNr) + 1);
+                        if( $('.vote-down i').hasClass('active_arrow')){
+                            $('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+                        }
+                        $('.vote-down i').removeClass('active_arrow');
+                    }
+                }else{
+                    var attributes = $('.vote-down i').attr('class');
+                    var checkClass = attributes.includes('active_arrow');
+                    var actualNr = ($('.total-votes-down').text()).replace(/[+-]/g,'');
+                    var actualNrUP = ($('.total-votes-up').text()).replace(/[+-]/g,'');
 
-
-        $('.vote-down').click(()=>{
-            var attributes = $('.vote-down i').attr('class');
-            var checkClass = attributes.includes('active_arrow');
-            var actualNr = ($('.total-votes-down').text()).replace(/[+-]/g,'');
-            console.log('up');
-            var actualNrUP = ($('.total-votes-up').text()).replace(/[+-]/g,'');
-
-            if(checkClass){
-                $('.vote-down i').removeClass('active_arrow');
-                $('.vote-down i').addClass('disabled_arrow');
-                $('.vote-up i').removeClass('active_arrow');
-                $('.vote-up i').addClass('disabled_arrow');
-                $('.total-votes-down').text(parseInt(actualNr) - 1);
-            }else{
-                $('.vote-down i').addClass('active_arrow');
-                $('.vote-down i').removeClass('disabled_arrow');
-                $('.vote-up i').addClass('disabled_arrow');
-                $('.total-votes-down').text(parseInt(actualNr) + 1);
-                if( $('.vote-up i').hasClass('active_arrow')){
-                    $('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                    if(checkClass){
+                        $('.vote-down i').removeClass('active_arrow');
+                        $('.vote-down i').addClass('disabled_arrow');
+                        $('.vote-up i').removeClass('active_arrow');
+                        $('.vote-up i').addClass('disabled_arrow');
+                        $('.total-votes-down').text(parseInt(actualNr) - 1);
+                    }else{
+                        $('.vote-down i').addClass('active_arrow');
+                        $('.vote-down i').removeClass('disabled_arrow');
+                        $('.vote-up i').addClass('disabled_arrow');
+                        $('.total-votes-down').text(parseInt(actualNr) + 1);
+                        if( $('.vote-up i').hasClass('active_arrow')){
+                            $('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                        }
+                        $('.vote-up i').removeClass('active_arrow');
+                    }
                 }
-                $('.vote-up i').removeClass('active_arrow');
             }
-            ajaxRequest('down');
-        });
-
+            });
     </script>
 {% endblock %}
 

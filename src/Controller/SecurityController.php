@@ -10,6 +10,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class SecurityController extends BaseController
 {
@@ -35,6 +37,7 @@ class SecurityController extends BaseController
     }
     /**
      * @Route("/authenticate/2fa/enable", name="app_2fa_enable")
+     * @IsGranted("ROLE_USER")
      */
     public function enable2fa(TotpAuthenticatorInterface $totpAuthenticator, EntityManagerInterface $entityManager)
     {
@@ -47,6 +50,27 @@ class SecurityController extends BaseController
         }
 
         return $this->render('security/enable2fa.html.twig');
+    }
+
+    /**
+     * @Route("/authenticate/2fa/disable", name="app_2fa_disable")
+     * @IsGranted("ROLE_USER")
+     */
+    public function disable2fa(TotpAuthenticatorInterface $totpAuthenticator, EntityManagerInterface $entityManager)
+    {
+        $user = $this->getUser();
+
+        if ($user->isTotpAuthenticationEnabled()) {
+            $user->setTotpSecret(null);
+
+            $entityManager->flush();
+            $alertDisabled2fa = 1;
+        }
+
+        if(!isset($alertDisabled2fa)) $alertDisabled2fa = 1;
+        return $this->redirectToRoute('app_homepage',[
+            'alertDisabled2fa' => $alertDisabled2fa
+        ]);
     }
 
     /**

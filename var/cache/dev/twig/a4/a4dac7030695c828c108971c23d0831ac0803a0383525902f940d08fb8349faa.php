@@ -148,27 +148,33 @@ class __TwigTemplate_d21d8efe062c7ea38a48f159862cf94bc7add46dda9c5eb36b9f4dfcc9f
                             <li>
                                 <a class=\"dropdown-item\" href=\"";
                 // line 65
+                echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_2fa_disable");
+                echo "\">Disable 2fa</a>
+                            </li>
+                            <li>
+                                <a class=\"dropdown-item\" href=\"";
+                // line 68
                 echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_logout");
                 echo "\">Log Out</a>
                             </li>
                         ";
             }
-            // line 68
+            // line 71
             echo "                    </ul>
                 </div>
                 ";
         } else {
-            // line 71
+            // line 74
             echo "                <a class=\"nav-link text-black-50\" href=\"";
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_login");
             echo "\">Log In</a>
                 <a href=\"";
-            // line 72
+            // line 75
             echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_register");
             echo "\" class=\"btn btn-dark\">Sign up</a>
             ";
         }
-        // line 74
+        // line 77
         echo "
         </div>
     </div>
@@ -176,14 +182,14 @@ class __TwigTemplate_d21d8efe062c7ea38a48f159862cf94bc7add46dda9c5eb36b9f4dfcc9f
 
 
 ";
-        // line 80
+        // line 83
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 80, $this->source); })()), "flashes", [0 => "success"], "method", false, false, false, 80));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 83, $this->source); })()), "flashes", [0 => "success"], "method", false, false, false, 83));
         foreach ($context['_seq'] as $context["_key"] => $context["flash"]) {
-            // line 81
+            // line 84
             echo "    <div class=\"alert alert-success\">
         ";
-            // line 82
+            // line 85
             echo twig_escape_filter($this->env, $context["flash"], "html", null, true);
             echo "
     </div>
@@ -212,7 +218,7 @@ class __TwigTemplate_d21d8efe062c7ea38a48f159862cf94bc7add46dda9c5eb36b9f4dfcc9f
 
     public function getDebugInfo()
     {
-        return array (  187 => 82,  184 => 81,  180 => 80,  172 => 74,  167 => 72,  162 => 71,  157 => 68,  151 => 65,  145 => 62,  142 => 61,  137 => 58,  135 => 56,  132 => 55,  130 => 54,  124 => 51,  120 => 50,  109 => 41,  107 => 40,  94 => 30,  88 => 27,  82 => 24,  79 => 23,  73 => 20,  70 => 19,  68 => 18,  53 => 6,  47 => 3,  43 => 1,);
+        return array (  193 => 85,  190 => 84,  186 => 83,  178 => 77,  173 => 75,  168 => 74,  163 => 71,  157 => 68,  151 => 65,  145 => 62,  142 => 61,  137 => 58,  135 => 56,  132 => 55,  130 => 54,  124 => 51,  120 => 50,  109 => 41,  107 => 40,  94 => 30,  88 => 27,  82 => 24,  79 => 23,  73 => 20,  70 => 19,  68 => 18,  53 => 6,  47 => 3,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -279,6 +285,9 @@ class __TwigTemplate_d21d8efe062c7ea38a48f159862cf94bc7add46dda9c5eb36b9f4dfcc9f
                         {% else %}
                             <li>
                                 <a class=\"dropdown-item\" href=\"{{ path('app_2fa_enable') }}\">Enable 2fa</a>
+                            </li>
+                            <li>
+                                <a class=\"dropdown-item\" href=\"{{ path('app_2fa_disable') }}\">Disable 2fa</a>
                             </li>
                             <li>
                                 <a class=\"dropdown-item\" href=\"{{ path('app_logout') }}\">Log Out</a>

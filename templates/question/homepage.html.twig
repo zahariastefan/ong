@@ -4,11 +4,13 @@
 <div class="jumbotron-img p-2 mb-2">
     <div class="container">
         <h1 class="display-4">Posts and Comments</h1>
+        {% if alertDisabled2fa %}
+            <div class="alert alert-success">You Successfully Disabled Two Factors Authentication</div>
+        {% endif %}
 {#        <div class="lead">And even answers for those questions you didn't think to ask!</div>#}
     </div>
 </div>
 <div class="container">
-
     {% if is_granted('ROLE_ADMIN') %}
     <div class="row mb-3">
         <div class="col">
@@ -44,7 +46,7 @@
                 </div>
                 <a class="answer-link" href="{{ path('app_question_show', { slug: question.slug }) }}" style="color: #fff;">
                     <p class="q-display-response text-center p-3">
-                        <i class="fa fa-magic magic-wand"></i> {{ question.approvedAnswers|length}} answers
+                        <i class="fa fa-magic magic-wand"></i> {{ question.approvedAnswers|length }} answers
                     </p>
                 </a>
             </div>

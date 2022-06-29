@@ -140,7 +140,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             echo " ";
         }
         echo "</span>
-                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down vote-direction  ";
+                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down vote-direction ";
         // line 28
         if (((0 === twig_compare((isset($context["votes"]) || array_key_exists("votes", $context) ? $context["votes"] : (function () { throw new RuntimeError('Variable "votes" does not exist.', 28, $this->source); })()), 1)) && (0 === twig_compare((isset($context["unlikes"]) || array_key_exists("unlikes", $context) ? $context["unlikes"] : (function () { throw new RuntimeError('Variable "unlikes" does not exist.', 28, $this->source); })()), 1)))) {
             echo " active_arrow ";
@@ -252,81 +252,86 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         echo "    </ul>
 </div>
     <script>
-
-        function ajaxRequest(direction) {
-            var path = '";
-        // line 72
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_vote", ["slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 72, $this->source); })()), "slug", [], "any", false, false, false, 72), "question_id" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 72, $this->source); })()), "id", [], "any", false, false, false, 72)]), "html", null, true);
-        echo "';
-            var fullUrl   = window.location.origin + path;
-
-            console.log(direction);
-             \$.ajax({
-                type: \"POST\",
-                url: fullUrl,
-                 data: {direction:direction},
-                success: function (data) {
-                    console.log('success');
-                }
+        \$(document).ready(()=>{
+            \$('.vote-up').click(()=> {
+                ajaxRequest('up');
             });
-        }
-
-
-        \$('.vote-up').click(()=>{
-            var attributes = \$('.vote-up i').attr('class');
-            var checkClass = attributes.includes('active_arrow');
-            var actualNr = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
-            var actualNrDOWN = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
-
-            console.log('up');
-            if(checkClass){
-                \$('.vote-up i').removeClass('active_arrow');
-                \$('.vote-up i').addClass('disabled_arrow');
-                \$('.vote-down i').addClass('disabled_arrow');
-                \$('.vote-down i').removeClass('active_arrow');
-                \$('.total-votes-up').text(parseInt(actualNr) - 1);
-
-            }else{
-                \$('.vote-up i').addClass('active_arrow');
-                \$('.vote-up i').removeClass('disabled_arrow');
-                \$('.vote-down i').addClass('disabled_arrow');
-                \$('.total-votes-up').text(parseInt(actualNr) + 1);
-                if( \$('.vote-down i').hasClass('active_arrow')){
-                    \$('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+            \$('.vote-down').click(()=> {
+                ajaxRequest('down');
+            });
+            function ajaxRequest(direction) {
+                var path = '";
+        // line 78
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_vote", ["slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 78, $this->source); })()), "slug", [], "any", false, false, false, 78), "question_id" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 78, $this->source); })()), "id", [], "any", false, false, false, 78)]), "html", null, true);
+        echo "';
+                var fullUrl   = window.location.origin + path;
+                if(";
+        // line 80
+        echo twig_escape_filter($this->env, (isset($context["checkIfLogged"]) || array_key_exists("checkIfLogged", $context) ? $context["checkIfLogged"] : (function () { throw new RuntimeError('Variable "checkIfLogged" does not exist.', 80, $this->source); })()), "html", null, true);
+        echo " === 0) {
+                    \$('.vote-arrows').click(()=>{
+                        window.location.replace(window.location.origin + '/login');
+                    });
+                }else{
+                    \$.ajax({
+                        type: \"POST\",
+                        url: fullUrl,
+                        data: {direction:direction},
+                        complete: function (data) {
+                           console.log('success');
+                        }
+                    });
+                    likeAndDislike(direction);
                 }
-                \$('.vote-down i').removeClass('active_arrow');
             }
-            ajaxRequest('up');
+            function likeAndDislike(direction){
+                if(direction === 'up'){
+                    var attributes = \$('.vote-up i').attr('class');
+                    var checkClass = attributes.includes('active_arrow');
+                    var actualNr = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
+                    var actualNrDOWN = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+                    if(checkClass){
+                        \$('.vote-up i').removeClass('active_arrow');
+                        \$('.vote-up i').addClass('disabled_arrow');
+                        \$('.vote-down i').addClass('disabled_arrow');
+                        \$('.vote-down i').removeClass('active_arrow');
+                        \$('.total-votes-up').text(parseInt(actualNr) - 1);
 
-        });
+                    }else{
+                        \$('.vote-up i').addClass('active_arrow');
+                        \$('.vote-up i').removeClass('disabled_arrow');
+                        \$('.vote-down i').addClass('disabled_arrow');
+                        \$('.total-votes-up').text(parseInt(actualNr) + 1);
+                        if( \$('.vote-down i').hasClass('active_arrow')){
+                            \$('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+                        }
+                        \$('.vote-down i').removeClass('active_arrow');
+                    }
+                }else{
+                    var attributes = \$('.vote-down i').attr('class');
+                    var checkClass = attributes.includes('active_arrow');
+                    var actualNr = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+                    var actualNrUP = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
 
-
-        \$('.vote-down').click(()=>{
-            var attributes = \$('.vote-down i').attr('class');
-            var checkClass = attributes.includes('active_arrow');
-            var actualNr = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
-            console.log('up');
-            var actualNrUP = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
-
-            if(checkClass){
-                \$('.vote-down i').removeClass('active_arrow');
-                \$('.vote-down i').addClass('disabled_arrow');
-                \$('.vote-up i').removeClass('active_arrow');
-                \$('.vote-up i').addClass('disabled_arrow');
-                \$('.total-votes-down').text(parseInt(actualNr) - 1);
-            }else{
-                \$('.vote-down i').addClass('active_arrow');
-                \$('.vote-down i').removeClass('disabled_arrow');
-                \$('.vote-up i').addClass('disabled_arrow');
-                \$('.total-votes-down').text(parseInt(actualNr) + 1);
-                if( \$('.vote-up i').hasClass('active_arrow')){
-                    \$('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                    if(checkClass){
+                        \$('.vote-down i').removeClass('active_arrow');
+                        \$('.vote-down i').addClass('disabled_arrow');
+                        \$('.vote-up i').removeClass('active_arrow');
+                        \$('.vote-up i').addClass('disabled_arrow');
+                        \$('.total-votes-down').text(parseInt(actualNr) - 1);
+                    }else{
+                        \$('.vote-down i').addClass('active_arrow');
+                        \$('.vote-down i').removeClass('disabled_arrow');
+                        \$('.vote-up i').addClass('disabled_arrow');
+                        \$('.total-votes-down').text(parseInt(actualNr) + 1);
+                        if( \$('.vote-up i').hasClass('active_arrow')){
+                            \$('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                        }
+                        \$('.vote-up i').removeClass('active_arrow');
+                    }
                 }
-                \$('.vote-up i').removeClass('active_arrow');
             }
-            ajaxRequest('down');
-        });
-
+            });
     </script>
 ";
         
@@ -349,7 +354,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
 
     public function getDebugInfo()
     {
-        return array (  259 => 72,  252 => 67,  235 => 65,  218 => 64,  206 => 55,  192 => 46,  188 => 45,  183 => 42,  179 => 40,  177 => 39,  175 => 38,  173 => 37,  169 => 36,  163 => 32,  153 => 29,  145 => 28,  135 => 27,  127 => 26,  124 => 25,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
+        return array (  270 => 80,  265 => 78,  252 => 67,  235 => 65,  218 => 64,  206 => 55,  192 => 46,  188 => 45,  183 => 42,  179 => 40,  177 => 39,  175 => 38,  173 => 37,  169 => 36,  163 => 32,  153 => 29,  145 => 28,  135 => 27,  127 => 26,  124 => 25,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -381,7 +386,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
                                     <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
                                         <button class=\"vote-up btn btn-link\" name=\"direction\" value=\"up\"><i class=\"far fa-arrow-alt-circle-up vote-direction  {% if votes == 1 and likes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}\"></i></button>
                                         <span class=\"total-votes-up\">{% if question.likeNr == '' %} 0 {% else %} {{ question.likeNr }} {% endif %}</span>
-                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down vote-direction  {% if votes == 1 and unlikes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}\"></i></button>
+                                        <button class=\"vote-down btn btn-link\" name=\"direction\" value=\"down\"><i class=\"far fa-arrow-alt-circle-down vote-direction {% if votes == 1 and unlikes == 1 %} active_arrow {% else %} disabled_arrow {% endif %}\"></i></button>
                                         <span class=\"total-votes-down\">{% if question.unlikeNr == '' %} 0 {% else %} {{ question.unlikeNr }}{% endif %}</span>
                                     </div>
 {#                                </form>#}
@@ -423,78 +428,80 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
     </ul>
 </div>
     <script>
-
-        function ajaxRequest(direction) {
-            var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
-            var fullUrl   = window.location.origin + path;
-
-            console.log(direction);
-             \$.ajax({
-                type: \"POST\",
-                url: fullUrl,
-                 data: {direction:direction},
-                success: function (data) {
-                    console.log('success');
-                }
+        \$(document).ready(()=>{
+            \$('.vote-up').click(()=> {
+                ajaxRequest('up');
             });
-        }
-
-
-        \$('.vote-up').click(()=>{
-            var attributes = \$('.vote-up i').attr('class');
-            var checkClass = attributes.includes('active_arrow');
-            var actualNr = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
-            var actualNrDOWN = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
-
-            console.log('up');
-            if(checkClass){
-                \$('.vote-up i').removeClass('active_arrow');
-                \$('.vote-up i').addClass('disabled_arrow');
-                \$('.vote-down i').addClass('disabled_arrow');
-                \$('.vote-down i').removeClass('active_arrow');
-                \$('.total-votes-up').text(parseInt(actualNr) - 1);
-
-            }else{
-                \$('.vote-up i').addClass('active_arrow');
-                \$('.vote-up i').removeClass('disabled_arrow');
-                \$('.vote-down i').addClass('disabled_arrow');
-                \$('.total-votes-up').text(parseInt(actualNr) + 1);
-                if( \$('.vote-down i').hasClass('active_arrow')){
-                    \$('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+            \$('.vote-down').click(()=> {
+                ajaxRequest('down');
+            });
+            function ajaxRequest(direction) {
+                var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
+                var fullUrl   = window.location.origin + path;
+                if({{checkIfLogged}} === 0) {
+                    \$('.vote-arrows').click(()=>{
+                        window.location.replace(window.location.origin + '/login');
+                    });
+                }else{
+                    \$.ajax({
+                        type: \"POST\",
+                        url: fullUrl,
+                        data: {direction:direction},
+                        complete: function (data) {
+                           console.log('success');
+                        }
+                    });
+                    likeAndDislike(direction);
                 }
-                \$('.vote-down i').removeClass('active_arrow');
             }
-            ajaxRequest('up');
+            function likeAndDislike(direction){
+                if(direction === 'up'){
+                    var attributes = \$('.vote-up i').attr('class');
+                    var checkClass = attributes.includes('active_arrow');
+                    var actualNr = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
+                    var actualNrDOWN = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+                    if(checkClass){
+                        \$('.vote-up i').removeClass('active_arrow');
+                        \$('.vote-up i').addClass('disabled_arrow');
+                        \$('.vote-down i').addClass('disabled_arrow');
+                        \$('.vote-down i').removeClass('active_arrow');
+                        \$('.total-votes-up').text(parseInt(actualNr) - 1);
 
-        });
+                    }else{
+                        \$('.vote-up i').addClass('active_arrow');
+                        \$('.vote-up i').removeClass('disabled_arrow');
+                        \$('.vote-down i').addClass('disabled_arrow');
+                        \$('.total-votes-up').text(parseInt(actualNr) + 1);
+                        if( \$('.vote-down i').hasClass('active_arrow')){
+                            \$('.total-votes-down').text(parseInt(actualNrDOWN) - 1);
+                        }
+                        \$('.vote-down i').removeClass('active_arrow');
+                    }
+                }else{
+                    var attributes = \$('.vote-down i').attr('class');
+                    var checkClass = attributes.includes('active_arrow');
+                    var actualNr = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
+                    var actualNrUP = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
 
-
-        \$('.vote-down').click(()=>{
-            var attributes = \$('.vote-down i').attr('class');
-            var checkClass = attributes.includes('active_arrow');
-            var actualNr = (\$('.total-votes-down').text()).replace(/[+-]/g,'');
-            console.log('up');
-            var actualNrUP = (\$('.total-votes-up').text()).replace(/[+-]/g,'');
-
-            if(checkClass){
-                \$('.vote-down i').removeClass('active_arrow');
-                \$('.vote-down i').addClass('disabled_arrow');
-                \$('.vote-up i').removeClass('active_arrow');
-                \$('.vote-up i').addClass('disabled_arrow');
-                \$('.total-votes-down').text(parseInt(actualNr) - 1);
-            }else{
-                \$('.vote-down i').addClass('active_arrow');
-                \$('.vote-down i').removeClass('disabled_arrow');
-                \$('.vote-up i').addClass('disabled_arrow');
-                \$('.total-votes-down').text(parseInt(actualNr) + 1);
-                if( \$('.vote-up i').hasClass('active_arrow')){
-                    \$('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                    if(checkClass){
+                        \$('.vote-down i').removeClass('active_arrow');
+                        \$('.vote-down i').addClass('disabled_arrow');
+                        \$('.vote-up i').removeClass('active_arrow');
+                        \$('.vote-up i').addClass('disabled_arrow');
+                        \$('.total-votes-down').text(parseInt(actualNr) - 1);
+                    }else{
+                        \$('.vote-down i').addClass('active_arrow');
+                        \$('.vote-down i').removeClass('disabled_arrow');
+                        \$('.vote-up i').addClass('disabled_arrow');
+                        \$('.total-votes-down').text(parseInt(actualNr) + 1);
+                        if( \$('.vote-up i').hasClass('active_arrow')){
+                            \$('.total-votes-up').text(parseInt(actualNrUP) - 1);
+                        }
+                        \$('.vote-up i').removeClass('active_arrow');
+                    }
                 }
-                \$('.vote-up i').removeClass('active_arrow');
             }
-            ajaxRequest('down');
-        });
-
+            });
     </script>
 {% endblock %}
 

@@ -26,6 +26,7 @@ return [
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/authenticate/2fa/enable' => [[['_route' => 'app_2fa_enable', '_controller' => 'App\\Controller\\SecurityController::enable2fa'], null, null, null, false, false, null]],
+        '/authenticate/2fa/disable' => [[['_route' => 'app_2fa_disable', '_controller' => 'App\\Controller\\SecurityController::disable2fa'], null, null, null, false, false, null]],
         '/authentication/2fa/qr-code' => [[['_route' => 'app_qr_code', '_controller' => 'App\\Controller\\SecurityController::displayGoogleAuthenticatorQrCode'], null, null, null, false, false, null]],
         '/skills-list' => [[['_route' => 'app_skills_page', '_controller' => 'App\\Controller\\SkillsController::skillsPage'], null, null, null, false, false, null]],
         '/api/me' => [[['_route' => 'app_user_api_me', '_controller' => 'App\\Controller\\UserController::apiMe'], null, null, null, false, false, null]],
