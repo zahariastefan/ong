@@ -26,6 +26,7 @@
         "scheb/2fa-totp": "^5.13",
         "sensio/framework-extra-bundle": "^6.1",
         "stripe/stripe-php": "^8.6",
+        "symfony/apache-pack": "^1.0",
         "symfony/asset": "5.4.*",
         "symfony/console": "*",
         "symfony/doctrine-messenger": "5.4.*",
@@ -104,7 +105,7 @@
     },
     "extra": {
         "symfony": {
-            "allow-contrib": false,
+            "allow-contrib": true,
             "require": "5.4.*"
         }
     },

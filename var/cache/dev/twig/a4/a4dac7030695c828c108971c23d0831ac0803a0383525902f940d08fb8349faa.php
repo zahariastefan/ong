@@ -309,6 +309,6 @@ class __TwigTemplate_d21d8efe062c7ea38a48f159862cf94bc7add46dda9c5eb36b9f4dfcc9f
     <div class=\"alert alert-success\">
         {{ flash }}
     </div>
-{% endfor %}", "navbar.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\navbar.html.twig");
+{% endfor %}", "navbar.html.twig", "C:\\xampp\\htdocs\\ong5\\templates\\navbar.html.twig");
     }
 }

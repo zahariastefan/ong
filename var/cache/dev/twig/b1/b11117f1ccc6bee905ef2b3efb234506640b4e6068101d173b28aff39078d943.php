@@ -244,6 +244,6 @@ $context["post"], "slug", [], "any", false, false, false, 31)]), "html", null, t
     </div>
     {% endfor %}
 
-{% endblock %}", "profile.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\profile.html.twig");
+{% endblock %}", "profile.html.twig", "C:\\xampp\\htdocs\\ong5\\templates\\profile.html.twig");
     }
 }

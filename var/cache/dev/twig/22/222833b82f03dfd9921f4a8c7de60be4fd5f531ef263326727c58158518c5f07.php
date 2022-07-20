@@ -760,6 +760,6 @@ class __TwigTemplate_4fccb9e22e3008460e258d03b4811eb35c4980d6759e58fc382b684b0b9
         </div>
     {% endfor %}
 {% endblock %}
-", "@WebProfiler/Collector/mailer.html.twig", "C:\\ONG symfony 5 new\\ong5\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\mailer.html.twig");
+", "@WebProfiler/Collector/mailer.html.twig", "C:\\xampp\\htdocs\\ong5\\vendor\\symfony\\web-profiler-bundle\\Resources\\views\\Collector\\mailer.html.twig");
     }
 }

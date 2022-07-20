@@ -57,6 +57,7 @@ class Question
      */
     private $answers;
 
+
     /**
      * @ORM\OneToMany(targetEntity=QuestionTag::class, mappedBy="question")
      */
@@ -71,7 +72,7 @@ class Question
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $like_nr = 0;
+    private $like_nr = 1;
 
     /**
      * @ORM\Column(type="integer", nullable=true)

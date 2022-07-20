@@ -36,8 +36,9 @@ class QuestionController extends AbstractController
      */
     public function homepage(Request $request, QuestionRepository $repository, int $page = 1)
     {
-        $queryBuilder = $repository->findAll();
+        $queryBuilder = $repository->findAllAskedOrderedByNewest();
 
+//        dd($queryBuilder);
 //        dd($queryBuilder);
 //        $pagerfanta = new Pagerfanta(new QueryAdapter($queryBuilder));
 //        $pagerfanta->setMaxPerPage(5);
@@ -48,6 +49,8 @@ class QuestionController extends AbstractController
 
 
         $totalVotes = [];
+
+
 
 
         return $this->render('question/homepage.html.twig', [
@@ -143,9 +146,9 @@ class QuestionController extends AbstractController
      */
     public function questionVote(UserVotesRepository $repository, Question $question, QuestionRepository $questionRepository, Request $request, EntityManagerInterface $entityManager, $slug)
     {
+        $objUserVotes = new UserVotes();
         $user = $this->getUser();
         $direction = $_POST['direction'];
-        $objUserVotes = new UserVotes();
         $questionBySlug = $questionRepository->findBy([
             'slug' => $slug
         ]);
@@ -161,7 +164,7 @@ class QuestionController extends AbstractController
             'target_id' => $postId,
         ]);
 
-        if(!empty($objUserVotesCurrent)){//now one of two SURELY exist
+        if(!empty($objUserVotesCurrent)){//if this exist mean that a record is already MADE in DB
             $like = $objUserVotesCurrent[0]->getLikeNr();
             $unlike = $objUserVotesCurrent[0]->getUnlikeNr();
 
@@ -169,7 +172,7 @@ class QuestionController extends AbstractController
             if(!$like && !$unlike){ // remove the possibility to have a record without like or unlike
                 if($direction === 'up') {
                     $objUserVotesCurrent[0]->setLikeNr(1);
-                    if($totalLikes > 0){//scoatem si din Question unlike_nr
+                    if($totalLikes > 0){// we change also Question Table -> unlike_nr
                         $questionBySlug[0]->setlikeNr(intval($totalLikes) + 1);
                     }else if($totalLikes == 0 || $totalLikes == null){
                         $questionBySlug[0]->setLikeNr(1);

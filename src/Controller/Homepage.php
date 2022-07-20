@@ -73,7 +73,10 @@ class Homepage extends AbstractController
         $stripe = new \Stripe\StripeClient(
             'sk_test_51L07e8JoD3aKcbAtG5HqC3HnNt3lCULigczbHG0vB84rby0eDtAp5u8nSEq8dfaNDj4uFzZjOgVUE8doDuRfFejX00um8jm5mu'
         );
-        $YOUR_DOMAIN = 'http://127.0.0.1:8000';
+
+       (isset($_SERVER['HTTPS'])) ? $http = 'http://' : $http = 'https://';
+
+        $YOUR_DOMAIN = $http.$_SERVER['HTTP_HOST'];
 
 //        $price = $_POST['price'];
         $price = $request->request->get('price'); //this is info from POST['price']

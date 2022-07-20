@@ -77,20 +77,20 @@
             function ajaxRequest(direction) {
                 var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
                 var fullUrl   = window.location.origin + path;
-                if({{checkIfLogged}} === 0) {
+                if({{checkIfLogged}} === 0) { // redirection if not logged in
                     $('.vote-arrows').click(()=>{
                         window.location.replace(window.location.origin + '/login');
                     });
-                }else{
+                }else{ //if logged , DB changes
                     $.ajax({
                         type: "POST",
                         url: fullUrl,
                         data: {direction:direction},
                         complete: function (data) {
-                           console.log('success');
+                           console.log(fullUrl);
                         }
                     });
-                    likeAndDislike(direction);
+                    likeAndDislike(direction); //front-end temporary changed, usefull until first reload
                 }
             }
             function likeAndDislike(direction){
@@ -99,13 +99,15 @@
                     var checkClass = attributes.includes('active_arrow');
                     var actualNr = ($('.total-votes-up').text()).replace(/[+-]/g,'');
                     var actualNrDOWN = ($('.total-votes-down').text()).replace(/[+-]/g,'');
-                    if(checkClass){
+                    if(checkClass){ // if already voted
+                        //up vote
                         $('.vote-up i').removeClass('active_arrow');
                         $('.vote-up i').addClass('disabled_arrow');
+                        //down vote
                         $('.vote-down i').addClass('disabled_arrow');
                         $('.vote-down i').removeClass('active_arrow');
+                        //decrement with 1
                         $('.total-votes-up').text(parseInt(actualNr) - 1);
-
                     }else{
                         $('.vote-up i').addClass('active_arrow');
                         $('.vote-up i').removeClass('disabled_arrow');

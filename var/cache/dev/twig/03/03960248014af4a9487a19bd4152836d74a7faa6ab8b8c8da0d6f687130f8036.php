@@ -195,6 +195,6 @@ class __TwigTemplate_32abce0fefb9b7f1474ebd7c80d78f545f2193e58888cb61e5dcef799d4
             <button type=\"submit\" id=\"checkout-button\">Checkout</button>
         </form>
     {% endfor %}
-{% endblock %}", "donations.html.twig", "C:\\ONG symfony 5 new\\ong5\\templates\\donations.html.twig");
+{% endblock %}", "donations.html.twig", "C:\\xampp\\htdocs\\ong5\\templates\\donations.html.twig");
     }
 }
