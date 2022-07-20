@@ -50,19 +50,20 @@ return [
                     .'|edit/([^/]++)(*:133)'
                     .'|([^/]++)/vote(*:154)'
                 .')'
+                .'|/answer/([^/]++)/vote(*:184)'
                 .'|/_(?'
-                    .'|error/(\\d+)(?:\\.([^/]++))?(*:194)'
-                    .'|wdt/([^/]++)(*:214)'
+                    .'|error/(\\d+)(?:\\.([^/]++))?(*:223)'
+                    .'|wdt/([^/]++)(*:243)'
                     .'|profiler/([^/]++)(?'
                         .'|/(?'
-                            .'|search/results(*:260)'
-                            .'|router(*:274)'
+                            .'|search/results(*:289)'
+                            .'|router(*:303)'
                             .'|exception(?'
-                                .'|(*:294)'
-                                .'|\\.css(*:307)'
+                                .'|(*:323)'
+                                .'|\\.css(*:336)'
                             .')'
                         .')'
-                        .'|(*:317)'
+                        .'|(*:346)'
                     .')'
                 .')'
             .')/?$}sDu',
@@ -74,13 +75,14 @@ return [
         112 => [[['_route' => 'app_question_show', '_controller' => 'App\\Controller\\QuestionController::show'], ['slug'], null, null, false, true, null]],
         133 => [[['_route' => 'app_question_edit', '_controller' => 'App\\Controller\\QuestionController::edit'], ['slug'], null, null, false, true, null]],
         154 => [[['_route' => 'app_question_vote', '_controller' => 'App\\Controller\\QuestionController::questionVote'], ['slug'], ['POST' => 0], null, false, false, null]],
-        194 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
-        214 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
-        260 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
-        274 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
-        294 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
-        307 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        317 => [
+        184 => [[['_route' => 'app_answer_vote', '_controller' => 'App\\Controller\\QuestionController::answerVote'], ['answerId'], ['POST' => 0], null, false, false, null]],
+        223 => [[['_route' => '_preview_error', '_controller' => 'error_controller::preview', '_format' => 'html'], ['code', '_format'], null, null, false, true, null]],
+        243 => [[['_route' => '_wdt', '_controller' => 'web_profiler.controller.profiler::toolbarAction'], ['token'], null, null, false, true, null]],
+        289 => [[['_route' => '_profiler_search_results', '_controller' => 'web_profiler.controller.profiler::searchResultsAction'], ['token'], null, null, false, false, null]],
+        303 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
+        323 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
+        336 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
+        346 => [
             [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
             [null, null, null, null, false, false, 0],
         ],

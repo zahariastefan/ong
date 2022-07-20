@@ -213,10 +213,14 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
     </div>
 
     <ul class=\"list-unstyled\">
+
         ";
-        // line 64
+        // line 65
+        $context["myVal"] = 0;
+        // line 66
+        echo "        ";
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 64, $this->source); })()), "approvedAnswers", [], "any", false, false, false, 64));
+        $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 66, $this->source); })()), "approvedAnswers", [], "any", false, false, false, 66));
         $context['loop'] = [
           'parent' => $context['_parent'],
           'index0' => 0,
@@ -231,9 +235,14 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             $context['loop']['last'] = 1 === $length;
         }
         foreach ($context['_seq'] as $context["_key"] => $context["answer"]) {
-            // line 65
+            // line 67
             echo "            ";
-            echo twig_include($this->env, $context, "answer/_answer.html.twig");
+            $context["myVal"] = ((isset($context["myVal"]) || array_key_exists("myVal", $context) ? $context["myVal"] : (function () { throw new RuntimeError('Variable "myVal" does not exist.', 67, $this->source); })()) + 1);
+            // line 69
+            echo "            ";
+            echo twig_include($this->env, $context, "answer/_answer.html.twig", ["nr" =>             // line 70
+(isset($context["myVal"]) || array_key_exists("myVal", $context) ? $context["myVal"] : (function () { throw new RuntimeError('Variable "myVal" does not exist.', 70, $this->source); })())]);
+            // line 71
             echo "
         ";
             ++$context['loop']['index0'];
@@ -248,7 +257,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['answer'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 67
+        // line 73
         echo "    </ul>
 </div>
     <script>
@@ -261,13 +270,14 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             });
             function ajaxRequest(direction) {
                 var path = '";
-        // line 78
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_vote", ["slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 78, $this->source); })()), "slug", [], "any", false, false, false, 78), "question_id" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 78, $this->source); })()), "id", [], "any", false, false, false, 78)]), "html", null, true);
+        // line 84
+        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_vote", ["slug" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 84, $this->source); })()), "slug", [], "any", false, false, false, 84), "question_id" => twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 84, $this->source); })()), "id", [], "any", false, false, false, 84)]), "html", null, true);
         echo "';
                 var fullUrl   = window.location.origin + path;
+                console.log('Hello from question page');
                 if(";
-        // line 80
-        echo twig_escape_filter($this->env, (isset($context["checkIfLogged"]) || array_key_exists("checkIfLogged", $context) ? $context["checkIfLogged"] : (function () { throw new RuntimeError('Variable "checkIfLogged" does not exist.', 80, $this->source); })()), "html", null, true);
+        // line 87
+        echo twig_escape_filter($this->env, (isset($context["checkIfLogged"]) || array_key_exists("checkIfLogged", $context) ? $context["checkIfLogged"] : (function () { throw new RuntimeError('Variable "checkIfLogged" does not exist.', 87, $this->source); })()), "html", null, true);
         echo " === 0) { // redirection if not logged in
                     \$('.vote-arrows').click(()=>{
                         window.location.replace(window.location.origin + '/login');
@@ -356,7 +366,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
 
     public function getDebugInfo()
     {
-        return array (  270 => 80,  265 => 78,  252 => 67,  235 => 65,  218 => 64,  206 => 55,  192 => 46,  188 => 45,  183 => 42,  179 => 40,  177 => 39,  175 => 38,  173 => 37,  169 => 36,  163 => 32,  153 => 29,  145 => 28,  135 => 27,  127 => 26,  124 => 25,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
+        return array (  280 => 87,  274 => 84,  261 => 73,  246 => 71,  244 => 70,  242 => 69,  239 => 67,  221 => 66,  219 => 65,  206 => 55,  192 => 46,  188 => 45,  183 => 42,  179 => 40,  177 => 39,  175 => 38,  173 => 37,  169 => 36,  163 => 32,  153 => 29,  145 => 28,  135 => 27,  127 => 26,  124 => 25,  121 => 23,  117 => 21,  112 => 19,  109 => 18,  107 => 17,  99 => 14,  89 => 6,  79 => 5,  59 => 3,  36 => 1,);
     }
 
     public function getSourceContext()
@@ -424,8 +434,14 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
     </div>
 
     <ul class=\"list-unstyled\">
+
+        {% set myVal = 0 %}
         {% for answer in question.approvedAnswers %}
-            {{ include('answer/_answer.html.twig') }}
+            {% set myVal = myVal + 1 %}
+{#            {{ dump(answer.likeNrByUser) }}#}
+            {{ include('answer/_answer.html.twig', {
+                nr: myVal
+            }) }}
         {% endfor %}
     </ul>
 </div>
@@ -440,6 +456,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
             function ajaxRequest(direction) {
                 var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
                 var fullUrl   = window.location.origin + path;
+                console.log('Hello from question page');
                 if({{checkIfLogged}} === 0) { // redirection if not logged in
                     \$('.vote-arrows').click(()=>{
                         window.location.replace(window.location.origin + '/login');

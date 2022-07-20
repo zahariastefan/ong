@@ -50,6 +50,16 @@ class Answer
      */
     private $status = self::STATUS_NEEDS_APPROVAL;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $like_nr;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $unlike_nr;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -131,5 +141,29 @@ class Answer
     public function isApproved(): bool
     {
         return $this->status === self::STATUS_APPROVED;
+    }
+
+    public function getLikeNr(): ?int
+    {
+        return $this->like_nr;
+    }
+
+    public function setLikeNr(?int $like_nr): self
+    {
+        $this->like_nr = $like_nr;
+
+        return $this;
+    }
+
+    public function getUnlikeNr(): ?int
+    {
+        return $this->unlike_nr;
+    }
+
+    public function setUnlikeNr(?int $unlike_nr): self
+    {
+        $this->unlike_nr = $unlike_nr;
+
+        return $this;
     }
 }

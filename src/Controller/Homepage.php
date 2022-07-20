@@ -74,7 +74,7 @@ class Homepage extends AbstractController
             'sk_test_51L07e8JoD3aKcbAtG5HqC3HnNt3lCULigczbHG0vB84rby0eDtAp5u8nSEq8dfaNDj4uFzZjOgVUE8doDuRfFejX00um8jm5mu'
         );
 
-       (isset($_SERVER['HTTPS'])) ? $http = 'http://' : $http = 'https://';
+       (isset($_SERVER['HTTPS'])) ? $http = 'https://' : $http = 'http://';
 
         $YOUR_DOMAIN = $http.$_SERVER['HTTP_HOST'];
 

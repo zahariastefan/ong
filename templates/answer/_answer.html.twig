@@ -20,15 +20,98 @@
         </div>
         <div class="col-2 text-end">
             <small>{{ answer.createdAt|ago }}</small>
-            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <form action="{{ path('answer_vote', { id: answer.id, slug: question.slug }) }}" method="POST">
-                    <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
-                        <button class="vote-up btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up"></i></button>
-                        <button class="vote-down btn btn-link" name="direction" value="down"><i class="far fa-arrow-alt-circle-down"></i></button>
-                        <span>{{ answer.votes }}</span>
+                    <div class="vote-arrows{{ nr}} vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
+                        {%  if answer.vote is defined %}
+                        {% set vote = answer.vote %}
+                        {% else %}
+                        {% set vote = 0 %}
+                        {% endif %}
+                        <button class="vote-up{{ nr }} btn btn-link" name="direction" value="up"><i class="far fa-arrow-alt-circle-up {% if vote == 1 and answer.likeNrByUser == 1 %} active_arrow {% else %} disabled_arrow {% endif %}"></i></button>
+                        <span class="total-votes-up{{ nr }}">{% if  answer.likeNr == '' %} 0 {% else %} {{ answer.likeNr }} {% endif %}</span>
+                        <button class="vote-down{{ nr }}  btn btn-link" name="direction" value="down"><i class="far fa-arrow-alt-circle-down {% if vote == 1 and answer.unlikeNrByUser == 1 %} active_arrow {% else %} disabled_arrow {% endif %}"></i></button>
+                        <span class="total-votes-down{{ nr }}">{% if  answer.unlikeNr == '' %} 0 {% else %} {{ answer.unlikeNr }} {% endif %}</span>
                     </div>
-                </form>
-            {% endif %}
         </div>
     </div>
 </li>
+<script>
+    $(document).ready(()=>{
+        $('.vote-up{{ nr }}').click(()=> {
+            ajaxRequest('up');
+        });
+        $('.vote-down{{ nr }}').click(()=> {
+            ajaxRequest('down');
+        });
+        function ajaxRequest(direction) {
+            var path = '{{ path('app_answer_vote', { answerId: answer.id}) }}';
+            var fullUrl   = window.location.origin + path;
+            if({{checkIfLogged}} === 0) { // redirection if not logged in
+                $('.vote-arrows{{ nr }}').click(()=>{
+                    window.location.replace(window.location.origin + '/login');
+                });
+            }else{ //if logged , DB changes
+                $.ajax({
+                    type: "POST",
+                    url: fullUrl,
+                    data: {direction:direction},
+                    complete: function (data) {
+                        console.log(fullUrl);
+                    }
+                });
+                likeAndDislike(direction); //front-end temporary changed, usefull until first reload
+            }
+        }
+        function likeAndDislike(direction){
+            if(direction === 'up'){
+                $currentClass = ($($(this)[0].document.activeElement)[0].className).split(" ")[0];
+                var attributes = $('.vote-up{{ nr }} i').attr('class');
+                var checkClass = attributes.includes('active_arrow');
+                var actualNr = ($('.total-votes-up{{ nr }}').text()).replace(/[+-]/g,'');
+                console.log('actualNr');
+                console.log($('.total-votes-up{{ nr }}').text());
+                var actualNrDOWN = ($('.total-votes-down{{ nr }}').text()).replace(/[+-]/g,'');
+                if(checkClass){ // if already voted
+                    //up vote
+                    $('.vote-up{{nr}} i').removeClass('active_arrow');
+                    $('.vote-up{{nr}} i').addClass('disabled_arrow');
+                    //down vote
+                    $('.vote-down{{nr}} i').addClass('disabled_arrow');
+                    $('.vote-down{{nr}} i').removeClass('active_arrow');
+                    //decrement with 1
+                    $('.total-votes-up{{nr}}').text(parseInt(actualNr) - 1);
+                }else{
+                    $('.vote-up{{nr}} i').addClass('active_arrow');
+                    $('.vote-up{{nr}} i').removeClass('disabled_arrow');
+                    $('.vote-down{{nr}} i').addClass('disabled_arrow');
+                    $('.total-votes-up{{nr}}').text(parseInt(actualNr) + 1);
+                    if( $('.vote-down{{nr}} i').hasClass('active_arrow')){
+                        $('.total-votes-down{{nr}}').text(parseInt(actualNrDOWN) - 1);
+                    }
+                    $('.vote-down{{nr}} i').removeClass('active_arrow');
+                }
+            }else{
+                var attributes = $('.vote-down{{nr}} i').attr('class');
+                var checkClass = attributes.includes('active_arrow');
+                var actualNr = ($('.total-votes-down{{nr}}').text()).replace(/[+-]/g,'');
+                var actualNrUP = ($('.total-votes-up{{nr}}').text()).replace(/[+-]/g,'');
+
+                if(checkClass){
+                    $('.vote-down{{nr}} i').removeClass('active_arrow');
+                    $('.vote-down{{nr}} i').addClass('disabled_arrow');
+                    $('.vote-up{{nr}} i').removeClass('active_arrow');
+                    $('.vote-up{{nr}} i').addClass('disabled_arrow');
+                    $('.total-votes-down{{nr}}').text(parseInt(actualNr) - 1);
+                }else{
+                    $('.vote-down{{nr}} i').addClass('active_arrow');
+                    $('.vote-down{{nr}} i').removeClass('disabled_arrow');
+                    $('.vote-up{{nr}} i').addClass('disabled_arrow');
+                    $('.total-votes-down{{nr}}').text(parseInt(actualNr) + 1);
+                    if( $('.vote-up{{nr}} i').hasClass('active_arrow')){
+                        $('.total-votes-up{{nr}}').text(parseInt(actualNrUP) - 1);
+                    }
+                    $('.vote-up{{nr}} i').removeClass('active_arrow');
+                }
+            }
+        }
+    });
+</script>

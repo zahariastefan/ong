@@ -21,6 +21,7 @@ return [
     'app_question_new' => [[], ['_controller' => 'App\\Controller\\QuestionController::new'], [], [['text', '/questions/new']], [], [], []],
     'app_question_show' => [['slug'], ['_controller' => 'App\\Controller\\QuestionController::show'], [], [['variable', '/', '[^/]++', 'slug', true], ['text', '/questions']], [], [], []],
     'app_question_edit' => [['slug'], ['_controller' => 'App\\Controller\\QuestionController::edit'], [], [['variable', '/', '[^/]++', 'slug', true], ['text', '/questions/edit']], [], [], []],
+    'app_answer_vote' => [['answerId'], ['_controller' => 'App\\Controller\\QuestionController::answerVote'], [], [['text', '/vote'], ['variable', '/', '[^/]++', 'answerId', true], ['text', '/answer']], [], [], []],
     'app_question_vote' => [['slug'], ['_controller' => 'App\\Controller\\QuestionController::questionVote'], [], [['text', '/vote'], ['variable', '/', '[^/]++', 'slug', true], ['text', '/questions']], [], [], []],
     'app_register' => [[], ['_controller' => 'App\\Controller\\RegistrationController::register'], [], [['text', '/register']], [], [], []],
     'app_verify_email' => [[], ['_controller' => 'App\\Controller\\RegistrationController::verifyUserEmail'], [], [['text', '/verify']], [], [], []],

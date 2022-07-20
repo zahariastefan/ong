@@ -61,8 +61,14 @@
     </div>
 
     <ul class="list-unstyled">
+
+        {% set myVal = 0 %}
         {% for answer in question.approvedAnswers %}
-            {{ include('answer/_answer.html.twig') }}
+            {% set myVal = myVal + 1 %}
+{#            {{ dump(answer.likeNrByUser) }}#}
+            {{ include('answer/_answer.html.twig', {
+                nr: myVal
+            }) }}
         {% endfor %}
     </ul>
 </div>
@@ -77,6 +83,7 @@
             function ajaxRequest(direction) {
                 var path = '{{ path('app_question_vote', { slug: question.slug, question_id: question.id }) }}';
                 var fullUrl   = window.location.origin + path;
+                console.log('Hello from question page');
                 if({{checkIfLogged}} === 0) { // redirection if not logged in
                     $('.vote-arrows').click(()=>{
                         window.location.replace(window.location.origin + '/login');
