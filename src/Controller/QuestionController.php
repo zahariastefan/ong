@@ -90,7 +90,7 @@ class QuestionController extends AbstractController
     public function show($slug, Question $question, QuestionRepository $questionRepository, UserVotesRepository $repository)
     {
         $user = $this->getUser();
-
+        $questionRepository->findAllAskedOrderedByNewest();
         $postId = $question->getId();
 
         if(!empty($user)) {//if logged in
@@ -109,7 +109,8 @@ class QuestionController extends AbstractController
                 $like =0;
                 $unLike =0;
             }
-        }else{
+        }
+        else{
             $vote = 0;
             $checkIfLogged=0;
             $like =0;

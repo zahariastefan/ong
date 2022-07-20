@@ -57,7 +57,6 @@ class Question
      */
     private $answers;
 
-
     /**
      * @ORM\OneToMany(targetEntity=QuestionTag::class, mappedBy="question")
      */

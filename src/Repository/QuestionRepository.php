@@ -25,20 +25,30 @@ class QuestionRepository extends ServiceEntityRepository
      */
     public function findAllAskedOrderedByNewest()
     {
-//        return $this->addIsAskedQueryBuilder()
-//            ->orderBy('q.askedAt', 'DESC')
-////            ->leftJoin('q.questionTags', 'question_tag')
-////            ->innerJoin('question_tag.tag', 'tag')
-//            ->addSelect(['question_tag'])
-//            >getQuery()
-//                ->getResult()
-//        ;
-
         return $this->addIsAskedQueryBuilder()
             ->orderBy('q.askedAt', 'DESC')
             ->leftJoin('q.questionTags', 'question_tag')
             ->innerJoin('question_tag.tag', 'tag')
-            ->addSelect(['question_tag', 'tag'])
+            ->innerJoin('q.answers', 'answers')
+            ->innerJoin('q.owner', 'user')
+            ->addSelect(['question_tag', 'tag', 'answers', 'user'])
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
+     * @return Question[] Returns an array of Question objects
+     */
+    public function findAllAskedOrderedByNewest2()
+    {
+        return $this->addIsAskedQueryBuilder()
+            ->orderBy('q.askedAt', 'DESC')
+            ->leftJoin('q.questionTags', 'question_tag')
+            ->innerJoin('question_tag.tag', 'tag')
+            ->innerJoin('q.answers', 'answers')
+            ->innerJoin('q.owner', 'user')
+            ->addSelect(['question_tag', 'tag', 'answers', 'verified'])
             ->getQuery()
             ->getResult()
             ;
