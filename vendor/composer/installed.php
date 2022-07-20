@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '395875e2332241aa0b1e1932f3c479b336229375',
+        'reference' => '2dc20548235ee5cfb147ec2c6a907eac8df15d4d',
         'name' => '__root__',
         'dev' => true,
     ),
@@ -16,7 +16,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '395875e2332241aa0b1e1932f3c479b336229375',
+            'reference' => '2dc20548235ee5cfb147ec2c6a907eac8df15d4d',
             'dev_requirement' => false,
         ),
         'babdev/pagerfanta-bundle' => array(

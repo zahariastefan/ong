@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Question;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\DBAL\Query;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -23,7 +24,7 @@ class QuestionRepository extends ServiceEntityRepository
     /**
      * @return Question[] Returns an array of Question objects
      */
-    public function findAllAskedOrderedByNewest()
+    public function findAllAskedOrderedByNewest(): QueryBuilder
     {
         return $this->addIsAskedQueryBuilder()
             ->orderBy('q.askedAt', 'DESC')
@@ -32,25 +33,6 @@ class QuestionRepository extends ServiceEntityRepository
             ->innerJoin('q.answers', 'answers')
             ->innerJoin('q.owner', 'user')
             ->addSelect(['question_tag', 'tag', 'answers', 'user'])
-            ->getQuery()
-            ->getResult()
-            ;
-    }
-
-    /**
-     * @return Question[] Returns an array of Question objects
-     */
-    public function findAllAskedOrderedByNewest2()
-    {
-        return $this->addIsAskedQueryBuilder()
-            ->orderBy('q.askedAt', 'DESC')
-            ->leftJoin('q.questionTags', 'question_tag')
-            ->innerJoin('question_tag.tag', 'tag')
-            ->innerJoin('q.answers', 'answers')
-            ->innerJoin('q.owner', 'user')
-            ->addSelect(['question_tag', 'tag', 'answers', 'verified'])
-            ->getQuery()
-            ->getResult()
             ;
     }
 

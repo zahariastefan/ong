@@ -99,7 +99,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         ";
         // line 23
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["posts"]) || array_key_exists("posts", $context) ? $context["posts"] : (function () { throw new RuntimeError('Variable "posts" does not exist.', 23, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 23, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["question"]) {
             // line 24
             echo "        <div class=\"col-12 mb-3 card_preview_post_homepage\">
@@ -177,9 +177,11 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         $context = array_intersect_key($context, $_parent) + $_parent;
         // line 56
         echo "
-";
-        // line 58
-        echo "    </div>
+        ";
+        // line 57
+        echo $this->env->getRuntime('Pagerfanta\Twig\Extension\PagerfantaRuntime')->renderPagerfanta((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 57, $this->source); })()));
+        echo "
+    </div>
 </div>
 ";
         
@@ -202,7 +204,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
     public function getDebugInfo()
     {
-        return array (  182 => 58,  179 => 56,  167 => 50,  162 => 48,  154 => 43,  149 => 41,  141 => 38,  137 => 36,  128 => 34,  124 => 33,  119 => 31,  112 => 29,  105 => 24,  101 => 23,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  182 => 57,  179 => 56,  167 => 50,  162 => 48,  154 => 43,  149 => 41,  141 => 38,  137 => 36,  128 => 34,  124 => 33,  119 => 31,  112 => 29,  105 => 24,  101 => 23,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -229,7 +231,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
     {% endif %}
 
     <div class=\"row\">
-        {% for question in posts %}
+        {% for question in pager %}
         <div class=\"col-12 mb-3 card_preview_post_homepage\">
             <div style=\"box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);\">
                 <div class=\"q-container p-4\">
@@ -263,7 +265,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         </div>
         {% endfor %}
 
-{#        {{ pagerfanta(pager) }}#}
+        {{ pagerfanta(pager) }}
     </div>
 </div>
 {% endblock %}
