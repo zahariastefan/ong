@@ -313,6 +313,7 @@ public function homepage(Request $request, QuestionRepository $repository, int $
             $objUserVotesAnswers->setVote(1);
             $objUserVotesAnswers->setTargetId($answerId);
             $objUserVotesAnswers->setUserId($userId);
+            $objUserVotesAnswers->setCreatedAt(new \DateTimeImmutable());
             $entityManager->persist($objUserVotesAnswers);
         }
         $entityManager->flush();
