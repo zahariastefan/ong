@@ -64,11 +64,6 @@ class __TwigTemplate_328c565938cabff75cded3f330d31ac8d351270cd0f19d24df7e9e81687
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 4
-        echo "    ";
-        echo twig_escape_filter($this->env, (isset($context["location_name"]) || array_key_exists("location_name", $context) ? $context["location_name"] : (function () { throw new RuntimeError('Variable "location_name" does not exist.', 4, $this->source); })()), "html", null, true);
-        echo "
-";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -89,7 +84,7 @@ class __TwigTemplate_328c565938cabff75cded3f330d31ac8d351270cd0f19d24df7e9e81687
 
     public function getDebugInfo()
     {
-        return array (  68 => 4,  58 => 3,  35 => 1,);
+        return array (  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -97,7 +92,6 @@ class __TwigTemplate_328c565938cabff75cded3f330d31ac8d351270cd0f19d24df7e9e81687
         return new Source("{% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ location_name }}
 {% endblock %}", "trip/trip-create.html.twig", "C:\\xampp\\htdocs\\ong5\\templates\\trip\\trip-create.html.twig");
     }
 }

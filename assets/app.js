@@ -29,3 +29,13 @@ require('bootstrap');
 // $(document).ready(function() {
 //     $('[data-toggle="popover"]').popover();
 // });
+
+
+// //clicking on outside of modal with City List
+$('#fadeInOutModal').click(function(e) {
+    if (!$(e.target).closest('.modal-content').length) {
+        // alert('click outside!');
+        $('.cities-listing').show();
+        $('#modal-title').text('Choose City');
+    }
+});

@@ -34,6 +34,7 @@ return [
     'app_skills_page' => [[], ['_controller' => 'App\\Controller\\SkillsController::skillsPage'], [], [['text', '/skills-list']], [], [], []],
     'app_trip_create' => [[], ['_controller' => 'App\\Controller\\TripCreatorController::createTrip'], [], [['text', '/create-trip']], [], [], []],
     'app_locations' => [[], ['_controller' => 'App\\Controller\\TripCreatorController::getLocation'], [], [['text', '/locations']], [], [], []],
+    'app_activities' => [[], ['_controller' => 'App\\Controller\\TripCreatorController::getActivities'], [], [['text', '/activities}']], [], [], []],
     'app_user_api_me' => [[], ['_controller' => 'App\\Controller\\UserController::apiMe'], [], [['text', '/api/me']], [], [], []],
     'user_dashboard' => [[], ['_controller' => 'App\\Controller\\UserController::profile'], [], [['text', '/profile']], [], [], []],
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],

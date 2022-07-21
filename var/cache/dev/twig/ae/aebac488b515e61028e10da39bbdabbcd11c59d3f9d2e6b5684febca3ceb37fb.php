@@ -41,31 +41,29 @@ class __TwigTemplate_692e07fe2a53d31dea65120d560a4de721a68b776050947b78a5e4d750c
 
         // line 1
         echo "<!-- Modal -->
-<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+<div class=\"modal fade\" id=\"fadeInOutModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
     <div class=\"modal-dialog\" role=\"document\">
         <div class=\"modal-content\">
             <div class=\"modal-header\">
-                <h5 class=\"modal-title\" id=\"exampleModalLabel\">Choose a City</h5>
-                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+                <h5 class=\"modal-title\" id=\"modal-title\">Choose a City <span></span></h5>
+                <button type=\"button\" class=\"close close-modal-x-button\" data-dismiss=\"modal\" aria-label=\"Close\">
                     <span aria-hidden=\"true\">&times;</span>
                 </button>
             </div>
-            <form action=\"";
-        // line 11
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_trip_create");
-        echo "\" id=\"form-modal-body\">
-                <div class=\"modal-body\">
-
+";
+        // line 12
+        echo "                <div class=\"modal-body\">
+                    <div class=\"cities-listing\"></div>
+                    <div class=\"activities-list\"></div>
                 </div>
+                <p>Date: <input type=\"text\" id=\"datepicker\"></p>
                 <button type=\"submit\" class=\"hidden-button\" style=\"display: none\"></button>
-            </form>
-
+";
+        // line 19
+        echo "
             <div class=\"modal-footer\">
-                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
-                <button type=\"button\" class=\"btn btn-primary\"><a href=\"";
-        // line 20
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_trip_create");
-        echo "\" style=\"color: white; text-decoration: none\">Next</a> </button>
+                <button type=\"button\" class=\"btn btn-secondary\" >Close</button>
+                <button type=\"button\" class=\"btn btn-primary\">Next</button>
             </div>
         </div>
     </div>
@@ -83,38 +81,35 @@ class __TwigTemplate_692e07fe2a53d31dea65120d560a4de721a68b776050947b78a5e4d750c
         return "trip/modal-create-trip.html.twig";
     }
 
-    public function isTraitable()
-    {
-        return false;
-    }
-
     public function getDebugInfo()
     {
-        return array (  67 => 20,  55 => 11,  43 => 1,);
+        return array (  63 => 19,  55 => 12,  43 => 1,);
     }
 
     public function getSourceContext()
     {
         return new Source("<!-- Modal -->
-<div class=\"modal fade\" id=\"exampleModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
+<div class=\"modal fade\" id=\"fadeInOutModal\" tabindex=\"-1\" role=\"dialog\" aria-labelledby=\"exampleModalLabel\" aria-hidden=\"true\">
     <div class=\"modal-dialog\" role=\"document\">
         <div class=\"modal-content\">
             <div class=\"modal-header\">
-                <h5 class=\"modal-title\" id=\"exampleModalLabel\">Choose a City</h5>
-                <button type=\"button\" class=\"close\" data-dismiss=\"modal\" aria-label=\"Close\">
+                <h5 class=\"modal-title\" id=\"modal-title\">Choose a City <span></span></h5>
+                <button type=\"button\" class=\"close close-modal-x-button\" data-dismiss=\"modal\" aria-label=\"Close\">
                     <span aria-hidden=\"true\">&times;</span>
                 </button>
             </div>
-            <form action=\"{{ path('app_trip_create') }}\" id=\"form-modal-body\">
+{#            <form action=\"{{ path('app_trip_create') }}\" id=\"form-modal-body\">#}
                 <div class=\"modal-body\">
-
+                    <div class=\"cities-listing\"></div>
+                    <div class=\"activities-list\"></div>
                 </div>
+                <p>Date: <input type=\"text\" id=\"datepicker\"></p>
                 <button type=\"submit\" class=\"hidden-button\" style=\"display: none\"></button>
-            </form>
+{#            </form>#}
 
             <div class=\"modal-footer\">
-                <button type=\"button\" class=\"btn btn-secondary\" data-dismiss=\"modal\">Close</button>
-                <button type=\"button\" class=\"btn btn-primary\"><a href=\"{{ path('app_trip_create') }}\" style=\"color: white; text-decoration: none\">Next</a> </button>
+                <button type=\"button\" class=\"btn btn-secondary\" >Close</button>
+                <button type=\"button\" class=\"btn btn-primary\">Next</button>
             </div>
         </div>
     </div>

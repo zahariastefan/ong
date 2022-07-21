@@ -2,9 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Activities;
 use App\Entity\Answer;
 use App\Entity\Question;
 use App\Entity\Tag;
+use App\Factory\ActivitiesFactory;
 use App\Factory\AnswerFactory;
 use App\Factory\CitiesFactory;
 use App\Factory\QuestionFactory;
@@ -18,6 +20,14 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager)
     {
+
+        ActivitiesFactory::createMany(40);
+
+        CitiesFactory::createMany(20, function() {
+            return [
+                'activities' => ActivitiesFactory::randomRange(5, 10)
+            ];
+        });
 
         UserFactory::createOne([
             'email' => 'abraca_admin@example.com',
@@ -60,7 +70,22 @@ class AppFixtures extends Fixture
         })->needsApproval()->many(20)->create();
 
 
-        CitiesFactory::createMany(20);
+//        CitiesFactory::createMany(20);
+//
+//
+//        $city = CitiesFactory::createOne();
+//
+//        $activity = new Activities();
+//        $activity->setActivity('Basket');
+//
+//        $activity2 = new Activities();
+//        $activity2->setActivity('Football');
+//
+//        $city->addActivity($activity);
+//        $city->addActivity($activity2);
+//
+//        $manager->persist($activity);
+//        $manager->persist($activity2);
 
 
         $manager->flush();

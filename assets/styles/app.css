@@ -20,6 +20,14 @@
     cursor: pointer;
     color: blue;
 }
+
+.activities-list, .modal-body{
+    height: 45vw;
+}
+.modal-body{
+    overflow-y: scroll;
+
+}
 /*.card_preview_post_homepage {*/
 /*    height: 250px !important;*/
 /*    box-shadow: 2px 3px 9px 4px rgb(0 0 0 / 4%);*/

@@ -98,7 +98,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         <div class=\"col-2\">
             <div class=\"btn-group\">
                 <!-- Button trigger modal -->
-                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">
+                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#fadeInOutModal\">
                     New Trip
                 </button>            </div>
         </div>
@@ -217,27 +217,84 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                 url: fullUrl,
                 // data: {direction:direction},
                 complete: function (data) {
-                    // console.log(data.responseJSON);
+                    \$('#new-trip').unbind('click'); // use unbind because click was called each time and incremented the ajax request
                     var array = data.responseJSON;
-                    console.log(array.length);
+                    // console.log(array);
                     for(var x = 0;x < array.length; x++){
-                        \$('.modal-body').append('' +
-                            '<form action=\"";
-        // line 93
-        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_trip_create");
-        echo "\" id=\"form-modal-body'+x+'\">' +
-                            '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
-                            '<input name =\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >' +
+                        \$('.cities-listing').append('' +
+                            ";
+        // line 94
+        echo "                            '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
+                            '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >' +
                             '<button type=\"submit\" class=\"city-location'+x+'\" style=\"display:none\"></button>' +
-                            '</form>');
+                            // '</form>' +
+                            '');
+                    }
+
+                    getCities();
+                    //get current element and pass the data to the action page from form
+                    function getCities(){ //created function to use unbind because click was called each time and incremented the ajax request
+                        \$('p[class^=\"city\"]').click((event)=>{
+                            var id = \$(event.target).attr('id');
+
+
+
+                            //Choose Location for the trip
+                            var locationName = \$(event.target).text();
+                            \$('#modal-title').text(locationName);
+                            \$('.modal-footer .btn-secondary').text('Back');
+                            \$('.cities-listing').hide();
+                            //click Back First time
+                            \$('.modal-footer .btn-secondary').click(()=>{
+                                \$('.cities-listing').show();
+                                \$('#modal-title').text('Choose City');
+                            });
+                            //clicking the X for close the modal
+                            \$('.close-modal-x-button').click(()=>{
+                                \$('.cities-listing').show();
+                                \$('#modal-title').text('Choose City');
+                            });
+                            // //clicking on outside modal => app.js
+                            var path = '";
+        // line 125
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_activities");
+        echo "';
+                            var fullUrl   = window.location.origin + path;
+                            var jsonLocation = \$('.'+id).val();
+                            \$.ajax({
+                                type: \"POST\",
+                                url: fullUrl,
+                                data: {jsonLocation: jsonLocation},
+                                complete: function (data) {
+                                    console.log('data');
+                                    console.log(data.responseJSON);
+                                    jQuery.event.trigger( \"ajaxStop\" );
+                                    \$('p[class^=\"city\"]').unbind('click');
+                                    getCities();
+                                    for(var y=0;y<data.responseJSON.length;y++){
+                                        \$('.activities-list').append('' +
+                                            '<p class=\"activity-name-p activity-name'+y+'\">'+data.responseJSON[y].activity+' '+data.responseJSON[y].price +' \$</p>');
+                                    }
+                                    \$('.activity-name-p').click((e)=>{
+                                        var activityName = \$(e.target).text();
+                                        console.log(locationName);
+                                        \$('#modal-title').html('<p>'+locationName + '<br> Choosen activity: ' + activityName+'</p>');
+                                    });
+
+                                    \$('.modal-footer .btn-primary').click(()=>{
+                                        window.location.replace(window.location.origin+'/create-trip?{\"cityName\":\"'+locationName+'\"}');
+                                    });
+                                }
+                            });
+
+                            // \$('.activities-list').append('' +
+                            // '' +
+                            // '');
+                            //showing list of activities
+
+                        });
 
                     }
-                    \$('p[class^=\"city\"]').click((event)=>{
-                        var id = \$(event.target).attr('id');
-                        \$('.'+id).trigger('click');
-                        console.log(id);
-                        // \$(event.target).append('<input name =\"city'+x+'\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >');
-                    });
                 }
             });
         });
@@ -266,7 +323,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
     public function getDebugInfo()
     {
-        return array (  227 => 93,  210 => 79,  200 => 72,  190 => 65,  187 => 64,  175 => 58,  170 => 56,  162 => 51,  157 => 49,  149 => 46,  145 => 44,  136 => 42,  132 => 41,  127 => 39,  120 => 37,  113 => 32,  109 => 31,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  260 => 125,  227 => 94,  210 => 79,  200 => 72,  190 => 65,  187 => 64,  175 => 58,  170 => 56,  162 => 51,  157 => 49,  149 => 46,  145 => 44,  136 => 42,  132 => 41,  127 => 39,  120 => 37,  113 => 32,  109 => 31,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -295,7 +352,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         <div class=\"col-2\">
             <div class=\"btn-group\">
                 <!-- Button trigger modal -->
-                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#exampleModal\">
+                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#fadeInOutModal\">
                     New Trip
                 </button>            </div>
         </div>
@@ -358,24 +415,80 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                 url: fullUrl,
                 // data: {direction:direction},
                 complete: function (data) {
-                    // console.log(data.responseJSON);
+                    \$('#new-trip').unbind('click'); // use unbind because click was called each time and incremented the ajax request
                     var array = data.responseJSON;
-                    console.log(array.length);
+                    // console.log(array);
                     for(var x = 0;x < array.length; x++){
-                        \$('.modal-body').append('' +
-                            '<form action=\"{{ path(\"app_trip_create\") }}\" id=\"form-modal-body'+x+'\">' +
+                        \$('.cities-listing').append('' +
+                            {#'<form action=\"{{ path(\"app_trip_create\") }}\" id=\"form-modal-body'+x+'\">' +#}
                             '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
-                            '<input name =\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >' +
+                            '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >' +
                             '<button type=\"submit\" class=\"city-location'+x+'\" style=\"display:none\"></button>' +
-                            '</form>');
+                            // '</form>' +
+                            '');
+                    }
+
+                    getCities();
+                    //get current element and pass the data to the action page from form
+                    function getCities(){ //created function to use unbind because click was called each time and incremented the ajax request
+                        \$('p[class^=\"city\"]').click((event)=>{
+                            var id = \$(event.target).attr('id');
+
+
+
+                            //Choose Location for the trip
+                            var locationName = \$(event.target).text();
+                            \$('#modal-title').text(locationName);
+                            \$('.modal-footer .btn-secondary').text('Back');
+                            \$('.cities-listing').hide();
+                            //click Back First time
+                            \$('.modal-footer .btn-secondary').click(()=>{
+                                \$('.cities-listing').show();
+                                \$('#modal-title').text('Choose City');
+                            });
+                            //clicking the X for close the modal
+                            \$('.close-modal-x-button').click(()=>{
+                                \$('.cities-listing').show();
+                                \$('#modal-title').text('Choose City');
+                            });
+                            // //clicking on outside modal => app.js
+                            var path = '{{ path('app_activities') }}';
+                            var fullUrl   = window.location.origin + path;
+                            var jsonLocation = \$('.'+id).val();
+                            \$.ajax({
+                                type: \"POST\",
+                                url: fullUrl,
+                                data: {jsonLocation: jsonLocation},
+                                complete: function (data) {
+                                    console.log('data');
+                                    console.log(data.responseJSON);
+                                    jQuery.event.trigger( \"ajaxStop\" );
+                                    \$('p[class^=\"city\"]').unbind('click');
+                                    getCities();
+                                    for(var y=0;y<data.responseJSON.length;y++){
+                                        \$('.activities-list').append('' +
+                                            '<p class=\"activity-name-p activity-name'+y+'\">'+data.responseJSON[y].activity+' '+data.responseJSON[y].price +' \$</p>');
+                                    }
+                                    \$('.activity-name-p').click((e)=>{
+                                        var activityName = \$(e.target).text();
+                                        console.log(locationName);
+                                        \$('#modal-title').html('<p>'+locationName + '<br> Choosen activity: ' + activityName+'</p>');
+                                    });
+
+                                    \$('.modal-footer .btn-primary').click(()=>{
+                                        window.location.replace(window.location.origin+'/create-trip?{\"cityName\":\"'+locationName+'\"}');
+                                    });
+                                }
+                            });
+
+                            // \$('.activities-list').append('' +
+                            // '' +
+                            // '');
+                            //showing list of activities
+
+                        });
 
                     }
-                    \$('p[class^=\"city\"]').click((event)=>{
-                        var id = \$(event.target).attr('id');
-                        \$('.'+id).trigger('click');
-                        console.log(id);
-                        // \$(event.target).append('<input name =\"city'+x+'\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >');
-                    });
                 }
             });
         });

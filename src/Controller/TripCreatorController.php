@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Activities;
+use App\Entity\Cities;
+use App\Repository\ActivitiesRepository;
 use App\Repository\CitiesRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +19,10 @@ class TripCreatorController extends AbstractController
     /**
      * @Route("/create-trip", name="app_trip_create")
      */
-    public function createTrip(Request $request)
+    public function createTrip(Request $request, CitiesRepository $citiesRepository)
     {
-        $jsonGet = $request->query->get('location_name');
-        return $this->render('trip/trip-create.html.twig', [
-            'location_name' => $jsonGet
-        ]);
+
+        return $this->render('trip/trip-create.html.twig');
     }
 
     /**
@@ -42,5 +43,31 @@ class TripCreatorController extends AbstractController
             $arrayLocations[] = $elements;
         }
         return new JsonResponse($arrayLocations);
+    }
+
+    /**
+     * @Route("/activities}", name="app_activities")
+     */
+    public function getActivities(CitiesRepository $citiesRepository, Request $request)
+    {
+        $jsonLocation = $request->request->get('jsonLocation');
+        $cityName = json_decode($jsonLocation)->city;
+        $countryName = json_decode($jsonLocation)->country;
+        $getCityObject = $citiesRepository->findBy([
+            'city' => $cityName,
+            'country' => $countryName
+        ]);
+        $getActivitiesByCity = $getCityObject[0]->getActivities()->toArray();
+        $formattedData = [];
+        foreach ($getActivitiesByCity as $singleActivity){
+            $elements = [];
+            $elements['id'] = $singleActivity->getId();
+            $elements['activity'] = $singleActivity->getActivity();
+            $elements['altitude'] = ($singleActivity->getCity()->toArray())[0]->getAltitude();
+            $elements['latitude'] = ($singleActivity->getCity()->toArray())[0]->getLatitude();
+            $elements['price'] = $singleActivity->getPrice();
+            $formattedData[]=$elements;
+        }
+        return new JsonResponse($formattedData);
     }
 }
