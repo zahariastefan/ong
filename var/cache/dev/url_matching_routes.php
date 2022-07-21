@@ -30,6 +30,8 @@ return [
         '/authenticate/2fa/disable' => [[['_route' => 'app_2fa_disable', '_controller' => 'App\\Controller\\SecurityController::disable2fa'], null, null, null, false, false, null]],
         '/authentication/2fa/qr-code' => [[['_route' => 'app_qr_code', '_controller' => 'App\\Controller\\SecurityController::displayGoogleAuthenticatorQrCode'], null, null, null, false, false, null]],
         '/skills-list' => [[['_route' => 'app_skills_page', '_controller' => 'App\\Controller\\SkillsController::skillsPage'], null, null, null, false, false, null]],
+        '/create-trip' => [[['_route' => 'app_trip_create', '_controller' => 'App\\Controller\\TripCreatorController::createTrip'], null, null, null, false, false, null]],
+        '/locations' => [[['_route' => 'app_locations', '_controller' => 'App\\Controller\\TripCreatorController::getLocation'], null, null, null, false, false, null]],
         '/api/me' => [[['_route' => 'app_user_api_me', '_controller' => 'App\\Controller\\UserController::apiMe'], null, null, null, false, false, null]],
         '/profile' => [[['_route' => 'user_dashboard', '_controller' => 'App\\Controller\\UserController::profile'], null, null, null, false, false, null]],
         '/2fa' => [[['_route' => '2fa_login', '_controller' => 'scheb_two_factor.form_controller::form'], null, null, null, false, false, null]],

@@ -6,6 +6,7 @@ use App\Entity\Answer;
 use App\Entity\Question;
 use App\Entity\Tag;
 use App\Factory\AnswerFactory;
+use App\Factory\CitiesFactory;
 use App\Factory\QuestionFactory;
 use App\Factory\QuestionTagFactory;
 use App\Factory\TagFactory;
@@ -58,6 +59,8 @@ class AppFixtures extends Fixture
             ];
         })->needsApproval()->many(20)->create();
 
+
+        CitiesFactory::createMany(20);
 
 
         $manager->flush();

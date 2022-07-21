@@ -472,6 +472,13 @@
         <argument type="service" id=".service_locator.YGRC_XS.App\Controller\SkillsController"/>
       </call>
     </service>
+    <service id="App\Controller\TripCreatorController" class="App\Controller\TripCreatorController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.YGRC_XS.App\Controller\TripCreatorController"/>
+      </call>
+    </service>
     <service id="App\Controller\UserController" class="App\Controller\UserController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -490,6 +497,9 @@
       <tag name="foundry.factory"/>
     </service>
     <service id="App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" autoconfigure="true">
+      <tag name="foundry.factory"/>
+    </service>
+    <service id="App\Factory\CitiesFactory" class="App\Factory\CitiesFactory" autowire="true" autoconfigure="true">
       <tag name="foundry.factory"/>
     </service>
     <service id="App\Factory\ProductsFactory" class="App\Factory\ProductsFactory" autowire="true" autoconfigure="true">
@@ -519,6 +529,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\CauzeRepository" class="App\Repository\CauzeRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\CitiesRepository" class="App\Repository\CitiesRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -4694,7 +4708,7 @@
       <factory class="Doctrine\ORM\EntityManager" method="create"/>
     </service>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.Vor5Byd"/>
+      <argument type="service" id=".service_locator.1lyDMCw"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -7622,6 +7636,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\SkillsController" class="App\Controller\SkillsController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\SkillsController" class="App\Controller\SkillsController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\SkillsController" class="App\Controller\SkillsController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\TripCreatorController" class="App\Controller\TripCreatorController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\TripCreatorController" class="App\Controller\TripCreatorController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\TripCreatorController" class="App\Controller\TripCreatorController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -7633,6 +7650,8 @@
     <service id=".abstract.instanceof.App\Factory\AnswerFactory" class="App\Factory\AnswerFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Factory\CauzeFactory" class="App\Factory\CauzeFactory" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\CitiesFactory" class="App\Factory\CitiesFactory" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Factory\CitiesFactory" class="App\Factory\CitiesFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\ProductsFactory" class="App\Factory\ProductsFactory" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Factory\ProductsFactory" class="App\Factory\ProductsFactory" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Zenstruck\Foundry\ModelFactory.0.App\Factory\QuestionFactory" class="App\Factory\QuestionFactory" autowire="true" abstract="true"/>
@@ -7651,6 +7670,8 @@
     <service id=".abstract.instanceof.App\Repository\AnswerRepository" class="App\Repository\AnswerRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CauzeRepository" class="App\Repository\CauzeRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\CauzeRepository" class="App\Repository\CauzeRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\CitiesRepository" class="App\Repository\CitiesRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\CitiesRepository" class="App\Repository\CitiesRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\OwnerRepository" class="App\Repository\OwnerRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\OwnerRepository" class="App\Repository\OwnerRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\ProductsRepository" class="App\Repository\ProductsRepository" autowire="true" abstract="true"/>
@@ -8133,13 +8154,20 @@
         <argument key="qrCodeGenerator" type="service_closure" id="scheb_two_factor.qr_code_generator"/>
       </argument>
     </service>
+    <service id=".service_locator.tu31i1." class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="repository" type="service_closure" id="App\Repository\CitiesRepository"/>
+      </argument>
+    </service>
     <service id=".service_locator._nU1_Up" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="questionRepository" type="service_closure" id="App\Repository\QuestionRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.9X12pho" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.955fdHN" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
@@ -8162,6 +8190,7 @@
         <argument key="App\Controller\SecurityController::enable2fa" type="service_closure" id=".service_locator.pKcF_sp"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.UDgw6Ol"/>
         <argument key="App\Controller\SecurityController::logout" type="service_closure" id=".service_locator.UDgw6Ol"/>
+        <argument key="App\Controller\TripCreatorController::getLocation" type="service_closure" id=".service_locator.tu31i1."/>
         <argument key="App\Controller\UserController::profile" type="service_closure" id=".service_locator._nU1_Up"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
@@ -8189,6 +8218,7 @@
         <argument key="App\Controller\SecurityController:enable2fa" type="service_closure" id=".service_locator.pKcF_sp"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.UDgw6Ol"/>
         <argument key="App\Controller\SecurityController:logout" type="service_closure" id=".service_locator.UDgw6Ol"/>
+        <argument key="App\Controller\TripCreatorController:getLocation" type="service_closure" id=".service_locator.tu31i1."/>
         <argument key="App\Controller\UserController:profile" type="service_closure" id=".service_locator._nU1_Up"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.KfbR3DY"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.KfbR3DY"/>
@@ -8343,11 +8373,12 @@
         <argument key="doctrine.orm.messenger.doctrine_schema_subscriber" type="service_closure" id="doctrine.orm.messenger.doctrine_schema_subscriber"/>
       </argument>
     </service>
-    <service id=".service_locator.Vor5Byd" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.1lyDMCw" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AnswerRepository" type="service_closure" id="App\Repository\AnswerRepository"/>
         <argument key="App\Repository\CauzeRepository" type="service_closure" id="App\Repository\CauzeRepository"/>
+        <argument key="App\Repository\CitiesRepository" type="service_closure" id="App\Repository\CitiesRepository"/>
         <argument key="App\Repository\OwnerRepository" type="service_closure" id="App\Repository\OwnerRepository"/>
         <argument key="App\Repository\ProductsRepository" type="service_closure" id="App\Repository\ProductsRepository"/>
         <argument key="App\Repository\QuestionRepository" type="service_closure" id="App\Repository\QuestionRepository"/>
@@ -8514,6 +8545,12 @@
     <service id=".service_locator.YGRC_XS.App\Controller\SkillsController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\SkillsController"/>
       <argument>App\Controller\SkillsController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.YGRC_XS" method="withContext"/>
+    </service>
+    <service id=".service_locator.YGRC_XS.App\Controller\TripCreatorController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\TripCreatorController"/>
+      <argument>App\Controller\TripCreatorController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YGRC_XS" method="withContext"/>
     </service>
@@ -8706,12 +8743,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.9X12pho"/>
+      <argument type="service" id=".service_locator.955fdHN"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.9X12pho"/>
+      <argument type="service" id=".service_locator.955fdHN"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -9761,7 +9798,7 @@
     <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.9X12pho"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.955fdHN"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9778,7 +9815,8 @@
     <service id=".service_locator.iRKXayk" alias=".service_locator.L1ESABr"/>
     <service id=".service_locator.kiizgfv" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.u6BTu4b" alias=".service_locator.pKcF_sp"/>
-    <service id=".service_locator.dmwEaC4" alias=".service_locator.9X12pho"/>
+    <service id=".service_locator.8k8dBlb" alias=".service_locator.tu31i1."/>
+    <service id=".service_locator.RKsivnM" alias=".service_locator.955fdHN"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
@@ -9823,6 +9861,7 @@
     <service id=".service_locator.kXCVHeG" alias=".service_locator.UDgw6Ol"/>
     <service id=".service_locator.UckXCgB" alias=".service_locator.pKcF_sp"/>
     <service id=".service_locator.NLYc7TA" alias=".service_locator.UBfdanz"/>
+    <service id=".service_locator.6jtqltA" alias=".service_locator.tu31i1."/>
     <service id=".service_locator.FN7LCwj" alias=".service_locator._nU1_Up"/>
     <service id=".service_locator.4Pckrsg" alias=".service_locator.YGRC_XS"/>
     <service id=".service_locator.L0rFhJm" alias=".service_locator.GVyCdgr"/>

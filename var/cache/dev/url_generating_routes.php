@@ -32,6 +32,8 @@ return [
     'app_2fa_disable' => [[], ['_controller' => 'App\\Controller\\SecurityController::disable2fa'], [], [['text', '/authenticate/2fa/disable']], [], [], []],
     'app_qr_code' => [[], ['_controller' => 'App\\Controller\\SecurityController::displayGoogleAuthenticatorQrCode'], [], [['text', '/authentication/2fa/qr-code']], [], [], []],
     'app_skills_page' => [[], ['_controller' => 'App\\Controller\\SkillsController::skillsPage'], [], [['text', '/skills-list']], [], [], []],
+    'app_trip_create' => [[], ['_controller' => 'App\\Controller\\TripCreatorController::createTrip'], [], [['text', '/create-trip']], [], [], []],
+    'app_locations' => [[], ['_controller' => 'App\\Controller\\TripCreatorController::getLocation'], [], [['text', '/locations']], [], [], []],
     'app_user_api_me' => [[], ['_controller' => 'App\\Controller\\UserController::apiMe'], [], [['text', '/api/me']], [], [], []],
     'user_dashboard' => [[], ['_controller' => 'App\\Controller\\UserController::profile'], [], [['text', '/profile']], [], [], []],
     '_preview_error' => [['code', '_format'], ['_controller' => 'error_controller::preview', '_format' => 'html'], ['code' => '\\d+'], [['variable', '.', '[^/]++', '_format', true], ['variable', '/', '\\d+', 'code', true], ['text', '/_error']], [], [], []],

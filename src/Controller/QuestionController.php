@@ -323,7 +323,7 @@ public function homepage(Request $request, QuestionRepository $repository, int $
 
 
 
-        /**
+    /**
      * @Route("/questions/{slug}/vote", name="app_question_vote", methods="POST")
      */
     public function questionVote(UserVotesRepository $repository, Question $question, QuestionRepository $questionRepository, Request $request, EntityManagerInterface $entityManager, $slug)
