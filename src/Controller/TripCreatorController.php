@@ -24,6 +24,7 @@ class TripCreatorController extends AbstractController
 
         $location = $request->query->get('location');
         $activity = $request->query->get('activity');
+        $date = $request->query->get('date');
 
 //        $get = $_GET;
 //        $jsonData = str_replace('_',' ',$get);
@@ -31,7 +32,8 @@ class TripCreatorController extends AbstractController
         return $this->render('trip/trip-create.html.twig',
         [
             'location' => $location,
-            'activity' => $activity
+            'activity' => $activity,
+            'date' => $date
         ]);
     }
 

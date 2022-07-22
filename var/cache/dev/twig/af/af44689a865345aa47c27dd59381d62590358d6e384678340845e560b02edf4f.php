@@ -72,6 +72,10 @@ class __TwigTemplate_328c565938cabff75cded3f330d31ac8d351270cd0f19d24df7e9e81687
         echo $this->extensions['Symfony\Bridge\Twig\Extension\DumpExtension']->dump($this->env, $context, (isset($context["activity"]) || array_key_exists("activity", $context) ? $context["activity"] : (function () { throw new RuntimeError('Variable "activity" does not exist.', 5, $this->source); })()));
         echo "
 ";
+        // line 6
+        echo $this->extensions['Symfony\Bridge\Twig\Extension\DumpExtension']->dump($this->env, $context, (isset($context["date"]) || array_key_exists("date", $context) ? $context["date"] : (function () { throw new RuntimeError('Variable "date" does not exist.', 6, $this->source); })()));
+        echo "
+";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
 
@@ -92,7 +96,7 @@ class __TwigTemplate_328c565938cabff75cded3f330d31ac8d351270cd0f19d24df7e9e81687
 
     public function getDebugInfo()
     {
-        return array (  72 => 5,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  76 => 6,  72 => 5,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -102,6 +106,7 @@ class __TwigTemplate_328c565938cabff75cded3f330d31ac8d351270cd0f19d24df7e9e81687
 {% block body %}
 {{ dump(location) }}
 {{ dump(activity) }}
+{{ dump(date) }}
 {% endblock %}", "trip/trip-create.html.twig", "C:\\xampp\\htdocs\\ong5\\templates\\trip\\trip-create.html.twig");
     }
 }

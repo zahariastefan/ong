@@ -40,6 +40,8 @@ $('#fadeInOutModal').click(function(e) {
         $('.activity-name-p').hide();
         $('.activities-list').hide();
         $('.datepicker-p').hide();
+        $('.activities-list').empty();
+
 
 
     }

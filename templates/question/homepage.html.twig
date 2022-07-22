@@ -23,7 +23,7 @@
             <div class="btn-group">
                 <!-- Button trigger modal -->
                 <button type="button" id="new-trip" class="btn btn-primary" data-toggle="modal" data-target="#fadeInOutModal">
-                    New Trip
+                    New Activity
                 </button>            </div>
         </div>
 
@@ -33,7 +33,7 @@
                     <div style="box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);">
                         <div class="q-container p-4">
                             <div class="row">
-                                <div class="col-2 text-center">
+                                <div class="col-3 text-center">
                                     <img src="{{ question.owner.avatarUri }}" width="100" height="100"  alt="{{ question.owner.avatarUri }} avatar">
                                     <div class="vote-arrows vote-arrows-alt flex-fill pt-2" style="min-width: 90px;">
                                         <span>{{ question.likeNr + question.unLikeNr }} votes</span>
@@ -42,7 +42,7 @@
                                         <span class="badge rounded-pill bg-light text-dark">{{ questionTag.tag.name }}</span>
                                     {% endfor %}
                                 </div>
-                                <div class="col">
+                                <div class="col-9">
                                     <a class="q-title" href="{{ path('app_question_show', { slug: question.slug }) }}"><h2>{{ question.name }}</h2></a>
                                     <div class="q-display p-3 container_content_hmp">
                                         <i class="fa fa-quote-left mr-3"></i>
@@ -87,24 +87,28 @@
             $.ajax({
                 type: "POST",
                 url: fullUrl,
-                // data: {direction:direction},
                 complete: function (data) {
                     $('#new-trip').unbind('click'); // use unbind because click was called each time and incremented the ajax request
                     var array = data.responseJSON;
-                    // console.log(array);
                     for(var x = 0;x < array.length; x++){
                         $('.cities-listing').append('' +
-                            {#'<form action="{{ path("app_trip_create") }}" id="form-modal-body'+x+'">' +#}
+                            '<div class="design_cities-listing'+x+'" id="design_cities-listing'+x+'">' +
+                            '<img src="/images/country.png" alt="" width="200" height="100" id="city-location'+x+'">' +
                             '<p class="city-location" id="city-location'+x+'">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
                             '<input name="location_name" type="hidden" class="city-location'+x+'" value=\'{"city":"'+array[x]['city']+ '","country":"' +array[x]['country'] +'"}\' >' +
                             '<button type="submit" class="city-location'+x+'" style="display:none"></button>' +
-                            // '</form>' +
-                            '');
+                            '</div>');
                     }
+                    $('div[class^="design_cities"] img').click((e)=> {
+                        var idDiv = $(e.target).attr('id');
+                        console.log(idDiv);
+                        $('p#'+ idDiv).click();
+                    });
 
                     getCities();
                     //get current element and pass the data to the action page from form
                     function getCities(){ //created function to use unbind because click was called each time and incremented the ajax request
+
                         $('p[class^="city"]').click((event)=>{
                             var id = $(event.target).attr('id');
                             //Choose Location for the trip
@@ -114,13 +118,15 @@
                             $('.cities-listing').hide();
                             $('.activities-list').show();
 
-                            //click Back First time
+                            //click Back time
                             $('.modal-footer .btn-secondary').click(()=>{
                                 $('.cities-listing').show();
                                 $('#modal-title').text('Choose City');
                                 $('.activity-name-p').hide();
                                 $('.activities-list').hide();
                                 $('.datepicker-p').hide();
+                                $('.activities-list').empty();
+
 
                             });
                             //clicking the X for close the modal
@@ -130,6 +136,7 @@
                                 $('.activity-name-p').hide();
                                 $('.activities-list').hide();
                                 $('.datepicker-p').hide();
+                                $('.activities-list').empty();
 
                             });
                             // //clicking on outside modal => app.js
@@ -146,9 +153,11 @@
                                     getCities();
                                     for(var y=0;y<data.responseJSON.length;y++){
                                         $('.activities-list').append('' +
+                                            '<div class="design_cities-listing'+x+'" id="design_cities-listing'+x+'">' +
+                                            '<img src="/images/activity.png" alt="" width="200" height="100" id="activity-details'+y+'">' +
                                             '<p class="activity-name-p activity-details-p'+y+'" id="activity-details'+y+'">'+data.responseJSON[y].activity+' Price: '+data.responseJSON[y].price+'$</p>' +
                                             '<input name="activity_det" type="hidden" class="activity-details'+y+'" value=\'{"activity":"'+data.responseJSON[y].activity+ '","price":"' +data.responseJSON[y].price +'"}\' >' +
-                                            '');
+                                            '</div>');
                                     }
                                     var activityValue;
                                     var date;
@@ -182,6 +191,13 @@
                                             alert('Please select a desired date');
                                         }
                                     });
+
+                                    $('div[class^="design_cities"] img').click((e)=> {
+                                        var idDiv = $(e.target).attr('id');
+                                        console.log(idDiv);
+                                        $('p#'+ idDiv).click();
+                                    });
+
                                     // todo => get this data from API for each clicked Activity!
                                     var availableData;
 
@@ -207,9 +223,6 @@
                 }
             });
         });
-
-
-
     </script>
 {% endblock %}
 

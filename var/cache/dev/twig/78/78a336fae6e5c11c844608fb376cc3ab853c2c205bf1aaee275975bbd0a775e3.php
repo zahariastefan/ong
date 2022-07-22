@@ -99,7 +99,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
             <div class=\"btn-group\">
                 <!-- Button trigger modal -->
                 <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#fadeInOutModal\">
-                    New Trip
+                    New Activity
                 </button>            </div>
         </div>
 
@@ -114,7 +114,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                     <div style=\"box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);\">
                         <div class=\"q-container p-4\">
                             <div class=\"row\">
-                                <div class=\"col-2 text-center\">
+                                <div class=\"col-3 text-center\">
                                     <img src=\"";
             // line 37
             echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 37), "avatarUri", [], "any", false, false, false, 37), "html", null, true);
@@ -143,7 +143,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
             $context = array_intersect_key($context, $_parent) + $_parent;
             // line 44
             echo "                                </div>
-                                <div class=\"col\">
+                                <div class=\"col-9\">
                                     <a class=\"q-title\" href=\"";
             // line 46
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_show", ["slug" => twig_get_attribute($this->env, $this->source, $context["question"], "slug", [], "any", false, false, false, 46)]), "html", null, true);
@@ -219,25 +219,28 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
             \$.ajax({
                 type: \"POST\",
                 url: fullUrl,
-                // data: {direction:direction},
                 complete: function (data) {
                     \$('#new-trip').unbind('click'); // use unbind because click was called each time and incremented the ajax request
                     var array = data.responseJSON;
-                    // console.log(array);
                     for(var x = 0;x < array.length; x++){
                         \$('.cities-listing').append('' +
-                            ";
-        // line 98
-        echo "                            '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
+                            '<div class=\"design_cities-listing'+x+'\" id=\"design_cities-listing'+x+'\">' +
+                            '<img src=\"/images/country.png\" alt=\"\" width=\"200\" height=\"100\" id=\"city-location'+x+'\">' +
+                            '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
                             '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\",\"country\":\"' +array[x]['country'] +'\"}\\' >' +
                             '<button type=\"submit\" class=\"city-location'+x+'\" style=\"display:none\"></button>' +
-                            // '</form>' +
-                            '');
+                            '</div>');
                     }
+                    \$('div[class^=\"design_cities\"] img').click((e)=> {
+                        var idDiv = \$(e.target).attr('id');
+                        console.log(idDiv);
+                        \$('p#'+ idDiv).click();
+                    });
 
                     getCities();
                     //get current element and pass the data to the action page from form
                     function getCities(){ //created function to use unbind because click was called each time and incremented the ajax request
+
                         \$('p[class^=\"city\"]').click((event)=>{
                             var id = \$(event.target).attr('id');
                             //Choose Location for the trip
@@ -247,13 +250,15 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                             \$('.cities-listing').hide();
                             \$('.activities-list').show();
 
-                            //click Back First time
+                            //click Back time
                             \$('.modal-footer .btn-secondary').click(()=>{
                                 \$('.cities-listing').show();
                                 \$('#modal-title').text('Choose City');
                                 \$('.activity-name-p').hide();
                                 \$('.activities-list').hide();
                                 \$('.datepicker-p').hide();
+                                \$('.activities-list').empty();
+
 
                             });
                             //clicking the X for close the modal
@@ -263,11 +268,12 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                 \$('.activity-name-p').hide();
                                 \$('.activities-list').hide();
                                 \$('.datepicker-p').hide();
+                                \$('.activities-list').empty();
 
                             });
                             // //clicking on outside modal => app.js
                             var path = '";
-        // line 136
+        // line 143
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_activities");
         echo "';
                             var fullUrl   = window.location.origin + path;
@@ -282,9 +288,11 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                     getCities();
                                     for(var y=0;y<data.responseJSON.length;y++){
                                         \$('.activities-list').append('' +
+                                            '<div class=\"design_cities-listing'+x+'\" id=\"design_cities-listing'+x+'\">' +
+                                            '<img src=\"/images/activity.png\" alt=\"\" width=\"200\" height=\"100\" id=\"activity-details'+y+'\">' +
                                             '<p class=\"activity-name-p activity-details-p'+y+'\" id=\"activity-details'+y+'\">'+data.responseJSON[y].activity+' Price: '+data.responseJSON[y].price+'\$</p>' +
                                             '<input name=\"activity_det\" type=\"hidden\" class=\"activity-details'+y+'\" value=\\'{\"activity\":\"'+data.responseJSON[y].activity+ '\",\"price\":\"' +data.responseJSON[y].price +'\"}\\' >' +
-                                            '');
+                                            '</div>');
                                     }
                                     var activityValue;
                                     var date;
@@ -318,6 +326,13 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                             alert('Please select a desired date');
                                         }
                                     });
+
+                                    \$('div[class^=\"design_cities\"] img').click((e)=> {
+                                        var idDiv = \$(e.target).attr('id');
+                                        console.log(idDiv);
+                                        \$('p#'+ idDiv).click();
+                                    });
+
                                     // todo => get this data from API for each clicked Activity!
                                     var availableData;
 
@@ -343,9 +358,6 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                 }
             });
         });
-
-
-
     </script>
 ";
         
@@ -368,7 +380,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
     public function getDebugInfo()
     {
-        return array (  271 => 136,  231 => 98,  211 => 80,  200 => 72,  190 => 65,  187 => 64,  175 => 58,  170 => 56,  162 => 51,  157 => 49,  149 => 46,  145 => 44,  136 => 42,  132 => 41,  127 => 39,  120 => 37,  113 => 32,  109 => 31,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  277 => 143,  211 => 80,  200 => 72,  190 => 65,  187 => 64,  175 => 58,  170 => 56,  162 => 51,  157 => 49,  149 => 46,  145 => 44,  136 => 42,  132 => 41,  127 => 39,  120 => 37,  113 => 32,  109 => 31,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -398,7 +410,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
             <div class=\"btn-group\">
                 <!-- Button trigger modal -->
                 <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#fadeInOutModal\">
-                    New Trip
+                    New Activity
                 </button>            </div>
         </div>
 
@@ -408,7 +420,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                     <div style=\"box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);\">
                         <div class=\"q-container p-4\">
                             <div class=\"row\">
-                                <div class=\"col-2 text-center\">
+                                <div class=\"col-3 text-center\">
                                     <img src=\"{{ question.owner.avatarUri }}\" width=\"100\" height=\"100\"  alt=\"{{ question.owner.avatarUri }} avatar\">
                                     <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
                                         <span>{{ question.likeNr + question.unLikeNr }} votes</span>
@@ -417,7 +429,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                         <span class=\"badge rounded-pill bg-light text-dark\">{{ questionTag.tag.name }}</span>
                                     {% endfor %}
                                 </div>
-                                <div class=\"col\">
+                                <div class=\"col-9\">
                                     <a class=\"q-title\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\"><h2>{{ question.name }}</h2></a>
                                     <div class=\"q-display p-3 container_content_hmp\">
                                         <i class=\"fa fa-quote-left mr-3\"></i>
@@ -462,24 +474,28 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
             \$.ajax({
                 type: \"POST\",
                 url: fullUrl,
-                // data: {direction:direction},
                 complete: function (data) {
                     \$('#new-trip').unbind('click'); // use unbind because click was called each time and incremented the ajax request
                     var array = data.responseJSON;
-                    // console.log(array);
                     for(var x = 0;x < array.length; x++){
                         \$('.cities-listing').append('' +
-                            {#'<form action=\"{{ path(\"app_trip_create\") }}\" id=\"form-modal-body'+x+'\">' +#}
+                            '<div class=\"design_cities-listing'+x+'\" id=\"design_cities-listing'+x+'\">' +
+                            '<img src=\"/images/country.png\" alt=\"\" width=\"200\" height=\"100\" id=\"city-location'+x+'\">' +
                             '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
                             '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\",\"country\":\"' +array[x]['country'] +'\"}\\' >' +
                             '<button type=\"submit\" class=\"city-location'+x+'\" style=\"display:none\"></button>' +
-                            // '</form>' +
-                            '');
+                            '</div>');
                     }
+                    \$('div[class^=\"design_cities\"] img').click((e)=> {
+                        var idDiv = \$(e.target).attr('id');
+                        console.log(idDiv);
+                        \$('p#'+ idDiv).click();
+                    });
 
                     getCities();
                     //get current element and pass the data to the action page from form
                     function getCities(){ //created function to use unbind because click was called each time and incremented the ajax request
+
                         \$('p[class^=\"city\"]').click((event)=>{
                             var id = \$(event.target).attr('id');
                             //Choose Location for the trip
@@ -489,13 +505,15 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                             \$('.cities-listing').hide();
                             \$('.activities-list').show();
 
-                            //click Back First time
+                            //click Back time
                             \$('.modal-footer .btn-secondary').click(()=>{
                                 \$('.cities-listing').show();
                                 \$('#modal-title').text('Choose City');
                                 \$('.activity-name-p').hide();
                                 \$('.activities-list').hide();
                                 \$('.datepicker-p').hide();
+                                \$('.activities-list').empty();
+
 
                             });
                             //clicking the X for close the modal
@@ -505,6 +523,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                 \$('.activity-name-p').hide();
                                 \$('.activities-list').hide();
                                 \$('.datepicker-p').hide();
+                                \$('.activities-list').empty();
 
                             });
                             // //clicking on outside modal => app.js
@@ -521,9 +540,11 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                     getCities();
                                     for(var y=0;y<data.responseJSON.length;y++){
                                         \$('.activities-list').append('' +
+                                            '<div class=\"design_cities-listing'+x+'\" id=\"design_cities-listing'+x+'\">' +
+                                            '<img src=\"/images/activity.png\" alt=\"\" width=\"200\" height=\"100\" id=\"activity-details'+y+'\">' +
                                             '<p class=\"activity-name-p activity-details-p'+y+'\" id=\"activity-details'+y+'\">'+data.responseJSON[y].activity+' Price: '+data.responseJSON[y].price+'\$</p>' +
                                             '<input name=\"activity_det\" type=\"hidden\" class=\"activity-details'+y+'\" value=\\'{\"activity\":\"'+data.responseJSON[y].activity+ '\",\"price\":\"' +data.responseJSON[y].price +'\"}\\' >' +
-                                            '');
+                                            '</div>');
                                     }
                                     var activityValue;
                                     var date;
@@ -557,6 +578,13 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                             alert('Please select a desired date');
                                         }
                                     });
+
+                                    \$('div[class^=\"design_cities\"] img').click((e)=> {
+                                        var idDiv = \$(e.target).attr('id');
+                                        console.log(idDiv);
+                                        \$('p#'+ idDiv).click();
+                                    });
+
                                     // todo => get this data from API for each clicked Activity!
                                     var availableData;
 
@@ -582,9 +610,6 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                 }
             });
         });
-
-
-
     </script>
 {% endblock %}
 

@@ -2,6 +2,8 @@
 @import '~@fortawesome/fontawesome-free/css/all.css';
 @import '~@fontsource/roboto-condensed';
 
+body { height: 100%; width: 100%; margin: 0; }
+
 .active_arrow {
     color: blue;
 }
@@ -25,8 +27,8 @@ p[id^="activity-details"]{
     color: blue;
 }
 
-.activities-list, .modal-body{
-    height: 45vw;
+.modal-content{
+    height: 70vh;
 }
 .modal-body{
     overflow-y: scroll;
@@ -48,6 +50,24 @@ p[id^="activity-details"]{
     color: blue;
     font-size: 18px;
     text-transform: capitalize;
+}
+
+.cities-listing > div > img,
+.activities-list > div > img{
+    object-fit: cover;
+    cursor: pointer;
+    color: blue;
+}
+.cities-listing > div,
+.activities-list > div{
+    width: 50%;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+.cities-listing, .activities-list{
+    flex-wrap: wrap;
+    display: inline-flex;
 }
 /*.card_preview_post_homepage {*/
 /*    height: 250px !important;*/
