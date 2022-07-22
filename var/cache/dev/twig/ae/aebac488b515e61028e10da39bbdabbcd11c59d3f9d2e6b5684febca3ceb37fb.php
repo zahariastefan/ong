@@ -45,21 +45,23 @@ class __TwigTemplate_692e07fe2a53d31dea65120d560a4de721a68b776050947b78a5e4d750c
     <div class=\"modal-dialog\" role=\"document\">
         <div class=\"modal-content\">
             <div class=\"modal-header\">
-                <h5 class=\"modal-title\" id=\"modal-title\">Choose a City <span></span></h5>
+                <h5 class=\"modal-title\" id=\"modal-title\">Choose a City</h5>
                 <button type=\"button\" class=\"close close-modal-x-button\" data-dismiss=\"modal\" aria-label=\"Close\">
                     <span aria-hidden=\"true\">&times;</span>
                 </button>
             </div>
 ";
         // line 12
-        echo "                <div class=\"modal-body\">
-                    <div class=\"cities-listing\"></div>
-                    <div class=\"activities-list\"></div>
+        echo "
+            <div class=\"modal-body\">
+                <p class=\"datepicker-p\">Select from available date: <input type=\"text\" id=\"datepicker\" required></p>
+
+                <div class=\"cities-listing\"></div>
+                <div class=\"activities-list\"></div>
                 </div>
-                <p>Date: <input type=\"text\" id=\"datepicker\"></p>
                 <button type=\"submit\" class=\"hidden-button\" style=\"display: none\"></button>
 ";
-        // line 19
+        // line 21
         echo "
             <div class=\"modal-footer\">
                 <button type=\"button\" class=\"btn btn-secondary\" >Close</button>
@@ -83,7 +85,7 @@ class __TwigTemplate_692e07fe2a53d31dea65120d560a4de721a68b776050947b78a5e4d750c
 
     public function getDebugInfo()
     {
-        return array (  63 => 19,  55 => 12,  43 => 1,);
+        return array (  65 => 21,  55 => 12,  43 => 1,);
     }
 
     public function getSourceContext()
@@ -93,17 +95,19 @@ class __TwigTemplate_692e07fe2a53d31dea65120d560a4de721a68b776050947b78a5e4d750c
     <div class=\"modal-dialog\" role=\"document\">
         <div class=\"modal-content\">
             <div class=\"modal-header\">
-                <h5 class=\"modal-title\" id=\"modal-title\">Choose a City <span></span></h5>
+                <h5 class=\"modal-title\" id=\"modal-title\">Choose a City</h5>
                 <button type=\"button\" class=\"close close-modal-x-button\" data-dismiss=\"modal\" aria-label=\"Close\">
                     <span aria-hidden=\"true\">&times;</span>
                 </button>
             </div>
 {#            <form action=\"{{ path('app_trip_create') }}\" id=\"form-modal-body\">#}
-                <div class=\"modal-body\">
-                    <div class=\"cities-listing\"></div>
-                    <div class=\"activities-list\"></div>
+
+            <div class=\"modal-body\">
+                <p class=\"datepicker-p\">Select from available date: <input type=\"text\" id=\"datepicker\" required></p>
+
+                <div class=\"cities-listing\"></div>
+                <div class=\"activities-list\"></div>
                 </div>
-                <p>Date: <input type=\"text\" id=\"datepicker\"></p>
                 <button type=\"submit\" class=\"hidden-button\" style=\"display: none\"></button>
 {#            </form>#}
 

@@ -56,39 +56,39 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
         // line 8
         echo "        ";
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 14
+        // line 16
         echo "
         ";
-        // line 15
+        // line 17
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 33
+        // line 36
         echo "        <title>Buy cool new product</title>
 
 
     </head>
     <body
             ";
-        // line 38
+        // line 41
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
-            // line 39
+            // line 42
             echo "                ";
             echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\StimulusTwigExtension']->renderStimulusController($this->env, "user-api", ["url" => $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_user_api_me")]);
-            // line 41
+            // line 44
             echo "
             ";
         }
-        // line 43
+        // line 46
         echo "    >
     ";
-        // line 44
-        $this->loadTemplate("navbar.html.twig", "base.html.twig", 44)->display($context);
-        // line 45
+        // line 47
+        $this->loadTemplate("navbar.html.twig", "base.html.twig", 47)->display($context);
+        // line 48
         echo "    ";
         $this->displayBlock('body', $context, $blocks);
-        // line 47
+        // line 50
         echo "    ";
-        $this->loadTemplate("footer.html.twig", "base.html.twig", 47)->display($context);
-        // line 48
+        $this->loadTemplate("footer.html.twig", "base.html.twig", 50)->display($context);
+        // line 51
         echo "    </body>
 </html>
 ";
@@ -133,8 +133,12 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
         echo "            ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackLinkTags("app");
         echo "
-            <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css\">
-
+";
+        // line 11
+        echo "            <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css\">
+";
+        // line 13
+        echo "            <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">
 
         ";
         
@@ -145,7 +149,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 
     }
 
-    // line 15
+    // line 17
     public function block_javascripts($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -155,23 +159,27 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "javascripts"));
 
-        // line 16
+        // line 18
         echo "            ";
         echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\EntryFilesTwigExtension']->renderWebpackScriptTags("app");
         echo "
-            <script src=\"https://code.jquery.com/jquery-3.6.0.js\" integrity=\"sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=\" crossorigin=\"anonymous\"></script>
-            <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>
+";
+        // line 20
+        echo "            <script src=\"https://code.jquery.com/jquery-3.6.0.js\" integrity=\"sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=\" crossorigin=\"anonymous\"></script>
+";
+        // line 22
+        echo "            <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>
             <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js\" integrity=\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\" crossorigin=\"anonymous\"></script>
-            <script src=\"https://code.jquery.com/ui/1.13.2/jquery-ui.js\"></script>
+";
+        // line 25
+        echo "            <script src=\"https://code.jquery.com/ui/1.13.2/jquery-ui.js\"></script>
+
             <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
             <script src=\"https://js.stripe.com/v3/\"></script>
-            <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.9.1/jquery.timepicker.min.css\" integrity=\"sha512-UimcIlYKETYXXjgBbgq45ZXCLXI+d1O43cZXVTdhtCYYGomJVM2Ahz+L19UEWBIH4f/A/qmlvCaOWiaNMcaw3w==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />
             <script>
 
                 \$('.dropdown-toggle').dropdown();
-                \$( function() {
-                    \$( \"#datepicker\" ).datepicker();
-                } );
+
 
             </script>
         ";
@@ -183,7 +191,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 
     }
 
-    // line 45
+    // line 48
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -193,7 +201,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 46
+        // line 49
         echo "    ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -215,7 +223,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 
     public function getDebugInfo()
     {
-        return array (  197 => 46,  187 => 45,  159 => 16,  149 => 15,  133 => 9,  123 => 8,  104 => 5,  92 => 48,  89 => 47,  86 => 45,  84 => 44,  81 => 43,  77 => 41,  74 => 39,  72 => 38,  65 => 33,  63 => 15,  60 => 14,  57 => 8,  53 => 5,  47 => 1,);
+        return array (  205 => 49,  195 => 48,  175 => 25,  171 => 22,  168 => 20,  163 => 18,  153 => 17,  141 => 13,  138 => 11,  133 => 9,  123 => 8,  104 => 5,  92 => 51,  89 => 50,  86 => 48,  84 => 47,  81 => 46,  77 => 44,  74 => 42,  72 => 41,  65 => 36,  63 => 17,  60 => 16,  57 => 8,  53 => 5,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -229,26 +237,29 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
            and uncomment the following Encore helpers to start using Symfony UX #}
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
+{#            datepicker#}
             <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css\">
-
+{#            bootstrap#}
+            <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">
 
         {% endblock %}
 
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+{#            jquery#}
             <script src=\"https://code.jquery.com/jquery-3.6.0.js\" integrity=\"sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=\" crossorigin=\"anonymous\"></script>
+{#            <script src=\"https://code.jquery.com/jquery-3.4.1.slim.min.js\" integrity=\"sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n\" crossorigin=\"anonymous\"></script>#}
             <script src=\"https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js\" integrity=\"sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo\" crossorigin=\"anonymous\"></script>
             <script src=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js\" integrity=\"sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6\" crossorigin=\"anonymous\"></script>
+{#            datepicker#}
             <script src=\"https://code.jquery.com/ui/1.13.2/jquery-ui.js\"></script>
+
             <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
             <script src=\"https://js.stripe.com/v3/\"></script>
-            <link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/jquery-timepicker/1.9.1/jquery.timepicker.min.css\" integrity=\"sha512-UimcIlYKETYXXjgBbgq45ZXCLXI+d1O43cZXVTdhtCYYGomJVM2Ahz+L19UEWBIH4f/A/qmlvCaOWiaNMcaw3w==\" crossorigin=\"anonymous\" referrerpolicy=\"no-referrer\" />
             <script>
 
                 \$('.dropdown-toggle').dropdown();
-                \$( function() {
-                    \$( \"#datepicker\" ).datepicker();
-                } );
+
 
             </script>
         {% endblock %}

@@ -16,7 +16,11 @@
     color: grey;
 }
 
-.city-location:hover{
+p[id^="activity-details"]{
+    text-transform: capitalize;
+}
+
+.city-location:hover, .activity-name-p:hover{
     cursor: pointer;
     color: blue;
 }
@@ -26,7 +30,24 @@
 }
 .modal-body{
     overflow-y: scroll;
+}
 
+.css-p-generated{
+    font-size: 15px;
+}
+
+#modal-title{
+    margin: 0;
+    line-height: 13px;
+}
+#modal-title p{
+    margin: 0 !important;
+}
+
+.css-p-generated span{
+    color: blue;
+    font-size: 18px;
+    text-transform: capitalize;
 }
 /*.card_preview_post_homepage {*/
 /*    height: 250px !important;*/

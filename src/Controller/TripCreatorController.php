@@ -22,7 +22,17 @@ class TripCreatorController extends AbstractController
     public function createTrip(Request $request, CitiesRepository $citiesRepository)
     {
 
-        return $this->render('trip/trip-create.html.twig');
+        $location = $request->query->get('location');
+        $activity = $request->query->get('activity');
+
+//        $get = $_GET;
+//        $jsonData = str_replace('_',' ',$get);
+
+        return $this->render('trip/trip-create.html.twig',
+        [
+            'location' => $location,
+            'activity' => $activity
+        ]);
     }
 
     /**

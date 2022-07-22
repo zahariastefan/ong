@@ -37,5 +37,10 @@ $('#fadeInOutModal').click(function(e) {
         // alert('click outside!');
         $('.cities-listing').show();
         $('#modal-title').text('Choose City');
+        $('.activity-name-p').hide();
+        $('.activities-list').hide();
+        $('.datepicker-p').hide();
+
+
     }
 });

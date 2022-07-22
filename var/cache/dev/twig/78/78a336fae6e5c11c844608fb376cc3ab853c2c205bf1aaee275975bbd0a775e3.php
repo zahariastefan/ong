@@ -202,14 +202,18 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
 </div>
     <script>
+
         \$('#myModal').on('shown.bs.modal', function () {
             \$('#myInput').trigger('focus')
         });
         var path = '";
-        // line 79
+        // line 80
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_locations");
         echo "';
         var fullUrl   = window.location.origin + path;
+
+        \$('.datepicker-p').hide();
+        \$('.activities-list').hide();
 
         \$('#new-trip').click(()=>{
             \$.ajax({
@@ -223,9 +227,9 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                     for(var x = 0;x < array.length; x++){
                         \$('.cities-listing').append('' +
                             ";
-        // line 94
+        // line 98
         echo "                            '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
-                            '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >' +
+                            '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\",\"country\":\"' +array[x]['country'] +'\"}\\' >' +
                             '<button type=\"submit\" class=\"city-location'+x+'\" style=\"display:none\"></button>' +
                             // '</form>' +
                             '');
@@ -236,27 +240,34 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                     function getCities(){ //created function to use unbind because click was called each time and incremented the ajax request
                         \$('p[class^=\"city\"]').click((event)=>{
                             var id = \$(event.target).attr('id');
-
-
-
                             //Choose Location for the trip
                             var locationName = \$(event.target).text();
                             \$('#modal-title').text(locationName);
                             \$('.modal-footer .btn-secondary').text('Back');
                             \$('.cities-listing').hide();
+                            \$('.activities-list').show();
+
                             //click Back First time
                             \$('.modal-footer .btn-secondary').click(()=>{
                                 \$('.cities-listing').show();
                                 \$('#modal-title').text('Choose City');
+                                \$('.activity-name-p').hide();
+                                \$('.activities-list').hide();
+                                \$('.datepicker-p').hide();
+
                             });
                             //clicking the X for close the modal
                             \$('.close-modal-x-button').click(()=>{
                                 \$('.cities-listing').show();
                                 \$('#modal-title').text('Choose City');
+                                \$('.activity-name-p').hide();
+                                \$('.activities-list').hide();
+                                \$('.datepicker-p').hide();
+
                             });
                             // //clicking on outside modal => app.js
                             var path = '";
-        // line 125
+        // line 136
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_activities");
         echo "';
                             var fullUrl   = window.location.origin + path;
@@ -266,34 +277,68 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                 url: fullUrl,
                                 data: {jsonLocation: jsonLocation},
                                 complete: function (data) {
-                                    console.log('data');
-                                    console.log(data.responseJSON);
                                     jQuery.event.trigger( \"ajaxStop\" );
                                     \$('p[class^=\"city\"]').unbind('click');
                                     getCities();
                                     for(var y=0;y<data.responseJSON.length;y++){
                                         \$('.activities-list').append('' +
-                                            '<p class=\"activity-name-p activity-name'+y+'\">'+data.responseJSON[y].activity+' '+data.responseJSON[y].price +' \$</p>');
+                                            '<p class=\"activity-name-p activity-details-p'+y+'\" id=\"activity-details'+y+'\">'+data.responseJSON[y].activity+' Price: '+data.responseJSON[y].price+'\$</p>' +
+                                            '<input name=\"activity_det\" type=\"hidden\" class=\"activity-details'+y+'\" value=\\'{\"activity\":\"'+data.responseJSON[y].activity+ '\",\"price\":\"' +data.responseJSON[y].price +'\"}\\' >' +
+                                            '');
                                     }
-                                    \$('.activity-name-p').click((e)=>{
+                                    var activityValue;
+                                    var date;
+                                    \$('p[id^=\"activity-details\"]').click((e)=>{
                                         var activityName = \$(e.target).text();
-                                        console.log(locationName);
-                                        \$('#modal-title').html('<p>'+locationName + '<br> Choosen activity: ' + activityName+'</p>');
+                                        var activityId = \$(e.target).attr('id');
+                                        activityValue = \$('.'+activityId).val();
+                                        //TODO => get the available dates from API!!!
+                                        if(activityName === 'football Price: 95\$'){
+                                            availableData = ['2022-07-23'];
+                                        }else if(activityName === 'football Price: 95\$'){
+                                            availableData = ['2022-07-28'];
+                                        }else if(activityName === 'karate Price: 51\$'){
+                                            availableData = ['2022-07-26'];
+                                        }else if(activityName === 'weight lifting Price: 38\$'){
+                                            availableData = ['2022-07-25'];
+                                        }
+                                        else{
+                                            availableData = [\"2022-07-29\",\"2022-07-27\"];
+                                        }
+                                        \$('#modal-title').html('<p>'+locationName + '</p><br><p class=\"css-p-generated\"> Choosen activity: <span>' + activityName+'</span></p>');
+                                        \$('.datepicker-p').show();
+                                        date = \$('#datepicker').val();
+                                        console.log(date);
                                     });
-
                                     \$('.modal-footer .btn-primary').click(()=>{
-                                        window.location.replace(window.location.origin+'/create-trip?{\"cityName\":\"'+locationName+'\"}');
+                                        date = \$('#datepicker').val();
+                                        if(date !== ''){
+                                            window.location.replace(window.location.origin+'/create-trip?location='+jsonLocation+'&activity='+activityValue+'&date='+date);
+                                        }else{
+                                            alert('Please select a desired date');
+                                        }
+                                    });
+                                    // todo => get this data from API for each clicked Activity!
+                                    var availableData;
+
+                                    \$( function() {
+                                        \$('#datepicker').datepicker({
+                                            dateFormat: \"yy-mm-dd\",
+                                            beforeShowDay: function(date) {
+                                                if(\$.inArray(\$.datepicker.formatDate('yy-mm-dd', date ), availableData) > -1)
+                                                {
+                                                    return [true,\"\",\"Booked out\"];
+                                                }
+                                                else
+                                                {
+                                                    return [false,'',\"available\"];
+                                                }
+                                            }
+                                        });
                                     });
                                 }
                             });
-
-                            // \$('.activities-list').append('' +
-                            // '' +
-                            // '');
-                            //showing list of activities
-
                         });
-
                     }
                 }
             });
@@ -323,7 +368,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
     public function getDebugInfo()
     {
-        return array (  260 => 125,  227 => 94,  210 => 79,  200 => 72,  190 => 65,  187 => 64,  175 => 58,  170 => 56,  162 => 51,  157 => 49,  149 => 46,  145 => 44,  136 => 42,  132 => 41,  127 => 39,  120 => 37,  113 => 32,  109 => 31,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  271 => 136,  231 => 98,  211 => 80,  200 => 72,  190 => 65,  187 => 64,  175 => 58,  170 => 56,  162 => 51,  157 => 49,  149 => 46,  145 => 44,  136 => 42,  132 => 41,  127 => 39,  120 => 37,  113 => 32,  109 => 31,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -403,11 +448,15 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
 </div>
     <script>
+
         \$('#myModal').on('shown.bs.modal', function () {
             \$('#myInput').trigger('focus')
         });
         var path = '{{ path('app_locations') }}';
         var fullUrl   = window.location.origin + path;
+
+        \$('.datepicker-p').hide();
+        \$('.activities-list').hide();
 
         \$('#new-trip').click(()=>{
             \$.ajax({
@@ -422,7 +471,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                         \$('.cities-listing').append('' +
                             {#'<form action=\"{{ path(\"app_trip_create\") }}\" id=\"form-modal-body'+x+'\">' +#}
                             '<p class=\"city-location\" id=\"city-location'+x+'\">'+array[x]['city']+' ('+array[x]['country']+')</p>' +
-                            '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\" , \"country\": \"' +array[x]['country'] +'\"} \\' >' +
+                            '<input name=\"location_name\" type=\"hidden\" class=\"city-location'+x+'\" value=\\'{\"city\":\"'+array[x]['city']+ '\",\"country\":\"' +array[x]['country'] +'\"}\\' >' +
                             '<button type=\"submit\" class=\"city-location'+x+'\" style=\"display:none\"></button>' +
                             // '</form>' +
                             '');
@@ -433,23 +482,30 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                     function getCities(){ //created function to use unbind because click was called each time and incremented the ajax request
                         \$('p[class^=\"city\"]').click((event)=>{
                             var id = \$(event.target).attr('id');
-
-
-
                             //Choose Location for the trip
                             var locationName = \$(event.target).text();
                             \$('#modal-title').text(locationName);
                             \$('.modal-footer .btn-secondary').text('Back');
                             \$('.cities-listing').hide();
+                            \$('.activities-list').show();
+
                             //click Back First time
                             \$('.modal-footer .btn-secondary').click(()=>{
                                 \$('.cities-listing').show();
                                 \$('#modal-title').text('Choose City');
+                                \$('.activity-name-p').hide();
+                                \$('.activities-list').hide();
+                                \$('.datepicker-p').hide();
+
                             });
                             //clicking the X for close the modal
                             \$('.close-modal-x-button').click(()=>{
                                 \$('.cities-listing').show();
                                 \$('#modal-title').text('Choose City');
+                                \$('.activity-name-p').hide();
+                                \$('.activities-list').hide();
+                                \$('.datepicker-p').hide();
+
                             });
                             // //clicking on outside modal => app.js
                             var path = '{{ path('app_activities') }}';
@@ -460,34 +516,68 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                 url: fullUrl,
                                 data: {jsonLocation: jsonLocation},
                                 complete: function (data) {
-                                    console.log('data');
-                                    console.log(data.responseJSON);
                                     jQuery.event.trigger( \"ajaxStop\" );
                                     \$('p[class^=\"city\"]').unbind('click');
                                     getCities();
                                     for(var y=0;y<data.responseJSON.length;y++){
                                         \$('.activities-list').append('' +
-                                            '<p class=\"activity-name-p activity-name'+y+'\">'+data.responseJSON[y].activity+' '+data.responseJSON[y].price +' \$</p>');
+                                            '<p class=\"activity-name-p activity-details-p'+y+'\" id=\"activity-details'+y+'\">'+data.responseJSON[y].activity+' Price: '+data.responseJSON[y].price+'\$</p>' +
+                                            '<input name=\"activity_det\" type=\"hidden\" class=\"activity-details'+y+'\" value=\\'{\"activity\":\"'+data.responseJSON[y].activity+ '\",\"price\":\"' +data.responseJSON[y].price +'\"}\\' >' +
+                                            '');
                                     }
-                                    \$('.activity-name-p').click((e)=>{
+                                    var activityValue;
+                                    var date;
+                                    \$('p[id^=\"activity-details\"]').click((e)=>{
                                         var activityName = \$(e.target).text();
-                                        console.log(locationName);
-                                        \$('#modal-title').html('<p>'+locationName + '<br> Choosen activity: ' + activityName+'</p>');
+                                        var activityId = \$(e.target).attr('id');
+                                        activityValue = \$('.'+activityId).val();
+                                        //TODO => get the available dates from API!!!
+                                        if(activityName === 'football Price: 95\$'){
+                                            availableData = ['2022-07-23'];
+                                        }else if(activityName === 'football Price: 95\$'){
+                                            availableData = ['2022-07-28'];
+                                        }else if(activityName === 'karate Price: 51\$'){
+                                            availableData = ['2022-07-26'];
+                                        }else if(activityName === 'weight lifting Price: 38\$'){
+                                            availableData = ['2022-07-25'];
+                                        }
+                                        else{
+                                            availableData = [\"2022-07-29\",\"2022-07-27\"];
+                                        }
+                                        \$('#modal-title').html('<p>'+locationName + '</p><br><p class=\"css-p-generated\"> Choosen activity: <span>' + activityName+'</span></p>');
+                                        \$('.datepicker-p').show();
+                                        date = \$('#datepicker').val();
+                                        console.log(date);
                                     });
-
                                     \$('.modal-footer .btn-primary').click(()=>{
-                                        window.location.replace(window.location.origin+'/create-trip?{\"cityName\":\"'+locationName+'\"}');
+                                        date = \$('#datepicker').val();
+                                        if(date !== ''){
+                                            window.location.replace(window.location.origin+'/create-trip?location='+jsonLocation+'&activity='+activityValue+'&date='+date);
+                                        }else{
+                                            alert('Please select a desired date');
+                                        }
+                                    });
+                                    // todo => get this data from API for each clicked Activity!
+                                    var availableData;
+
+                                    \$( function() {
+                                        \$('#datepicker').datepicker({
+                                            dateFormat: \"yy-mm-dd\",
+                                            beforeShowDay: function(date) {
+                                                if(\$.inArray(\$.datepicker.formatDate('yy-mm-dd', date ), availableData) > -1)
+                                                {
+                                                    return [true,\"\",\"Booked out\"];
+                                                }
+                                                else
+                                                {
+                                                    return [false,'',\"available\"];
+                                                }
+                                            }
+                                        });
                                     });
                                 }
                             });
-
-                            // \$('.activities-list').append('' +
-                            // '' +
-                            // '');
-                            //showing list of activities
-
                         });
-
                     }
                 }
             });

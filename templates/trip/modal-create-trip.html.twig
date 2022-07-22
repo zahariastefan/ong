@@ -3,17 +3,19 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="modal-title">Choose a City <span></span></h5>
+                <h5 class="modal-title" id="modal-title">Choose a City</h5>
                 <button type="button" class="close close-modal-x-button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
 {#            <form action="{{ path('app_trip_create') }}" id="form-modal-body">#}
-                <div class="modal-body">
-                    <div class="cities-listing"></div>
-                    <div class="activities-list"></div>
+
+            <div class="modal-body">
+                <p class="datepicker-p">Select from available date: <input type="text" id="datepicker" required></p>
+
+                <div class="cities-listing"></div>
+                <div class="activities-list"></div>
                 </div>
-                <p>Date: <input type="text" id="datepicker"></p>
                 <button type="submit" class="hidden-button" style="display: none"></button>
 {#            </form>#}
 
