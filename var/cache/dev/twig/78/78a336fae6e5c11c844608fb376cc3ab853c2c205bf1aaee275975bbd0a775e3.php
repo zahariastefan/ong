@@ -67,7 +67,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         // line 4
         echo "<div class=\"jumbotron-img p-2 mb-2\">
     <div class=\"container\">
-        <h1 class=\"display-4 text-center\">Welcome to my Blog</h1>
+        <h1 class=\"display-4 text-center\">Welcome to my Tech Blog</h1>
         ";
         // line 7
         if ((isset($context["alertDisabled2fa"]) || array_key_exists("alertDisabled2fa", $context) ? $context["alertDisabled2fa"] : (function () { throw new RuntimeError('Variable "alertDisabled2fa" does not exist.', 7, $this->source); })())) {
@@ -79,100 +79,100 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         echo "    </div>
 </div>
 <div class=\"container\">
-    ";
-        // line 14
-        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
-            // line 15
-            echo "        <div class=\"col mb-3\">
-            <div class=\"col\">
-                <a class=\"btn btn-question\" href=\"";
-            // line 17
-            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_post_create");
-            echo "\">Create a Post</a>
-            </div>
-        </div>
-    ";
-        }
-        // line 21
-        echo "    <div class=\"row\">
+    <div class=\"row\">
         <div class=\"col-2\">
             <div class=\"btn-group\">
                 <!-- Button trigger modal -->
-                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#fadeInOutModal\">
+                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\"
+                        data-target=\"#fadeInOutModal\">
                     New Activity
-                </button>            </div>
-        </div>
-
+                </button>
+            </div>
+            ";
+        // line 23
+        if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("ROLE_ADMIN")) {
+            // line 24
+            echo "                <a class=\"btn btn-question\" href=\"";
+            echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_post_create");
+            echo "\">Create a Post</a>
+            ";
+        }
+        // line 26
+        echo "        </div>
         <div class=\"col-8\">
             ";
-        // line 31
+        // line 28
         $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 31, $this->source); })()));
+        $context['_seq'] = twig_ensure_traversable((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 28, $this->source); })()));
         foreach ($context['_seq'] as $context["_key"] => $context["question"]) {
-            // line 32
+            // line 29
             echo "                <div class=\"col-12 mb-3 card_preview_post_homepage\">
                     <div style=\"box-shadow: 2px 3px 9px 4px rgba(0,0,0,0.04);\">
                         <div class=\"q-container p-4\">
                             <div class=\"row\">
                                 <div class=\"col-3 text-center\">
                                     <img src=\"";
-            // line 37
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 37), "avatarUri", [], "any", false, false, false, 37), "html", null, true);
-            echo "\" width=\"100\" height=\"100\"  alt=\"";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 37), "avatarUri", [], "any", false, false, false, 37), "html", null, true);
+            // line 34
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 34), "avatarUri", [], "any", false, false, false, 34), "html", null, true);
+            echo "\" width=\"100\" height=\"100\"
+                                         alt=\"";
+            // line 35
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 35), "avatarUri", [], "any", false, false, false, 35), "html", null, true);
             echo " avatar\">
                                     <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
                                         <span>";
-            // line 39
-            echo twig_escape_filter($this->env, (twig_get_attribute($this->env, $this->source, $context["question"], "likeNr", [], "any", false, false, false, 39) + twig_get_attribute($this->env, $this->source, $context["question"], "unLikeNr", [], "any", false, false, false, 39)), "html", null, true);
+            // line 37
+            echo twig_escape_filter($this->env, (twig_get_attribute($this->env, $this->source, $context["question"], "likeNr", [], "any", false, false, false, 37) + twig_get_attribute($this->env, $this->source, $context["question"], "unLikeNr", [], "any", false, false, false, 37)), "html", null, true);
             echo " votes</span>
                                     </div>
                                     ";
-            // line 41
+            // line 39
             $context['_parent'] = $context;
-            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, $context["question"], "questionTags", [], "any", false, false, false, 41));
+            $context['_seq'] = twig_ensure_traversable(twig_get_attribute($this->env, $this->source, $context["question"], "questionTags", [], "any", false, false, false, 39));
             foreach ($context['_seq'] as $context["_key"] => $context["questionTag"]) {
-                // line 42
+                // line 40
                 echo "                                        <span class=\"badge rounded-pill bg-light text-dark\">";
-                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["questionTag"], "tag", [], "any", false, false, false, 42), "name", [], "any", false, false, false, 42), "html", null, true);
+                echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["questionTag"], "tag", [], "any", false, false, false, 40), "name", [], "any", false, false, false, 40), "html", null, true);
                 echo "</span>
                                     ";
             }
             $_parent = $context['_parent'];
             unset($context['_seq'], $context['_iterated'], $context['_key'], $context['questionTag'], $context['_parent'], $context['loop']);
             $context = array_intersect_key($context, $_parent) + $_parent;
-            // line 44
+            // line 42
             echo "                                </div>
                                 <div class=\"col-9\">
                                     <a class=\"q-title\" href=\"";
-            // line 46
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_show", ["slug" => twig_get_attribute($this->env, $this->source, $context["question"], "slug", [], "any", false, false, false, 46)]), "html", null, true);
-            echo "\"><h2>";
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "name", [], "any", false, false, false, 46), "html", null, true);
+            // line 44
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_show", ["slug" => twig_get_attribute($this->env, $this->source, $context["question"], "slug", [], "any", false, false, false, 44)]), "html", null, true);
+            echo "\">
+                                        <h2>";
+            // line 45
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "name", [], "any", false, false, false, 45), "html", null, true);
             echo "</h2></a>
                                     <div class=\"q-display p-3 container_content_hmp\">
                                         <i class=\"fa fa-quote-left mr-3\"></i>
                                         <p class=\"d-inline paragraph_content_homepage\">";
-            // line 49
-            echo twig_escape_filter($this->env, twig_slice($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "question", [], "any", false, false, false, 49), 0, 250), "html", null, true);
+            // line 48
+            echo twig_escape_filter($this->env, twig_slice($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "question", [], "any", false, false, false, 48), 0, 250), "html", null, true);
             echo "</p>
                                         <i class=\"fa fa-quote-right mr-3\"></i>
                                         <p class=\"pt-4\"><strong>--";
-            // line 51
-            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 51), "displayName", [], "any", false, false, false, 51), "html", null, true);
+            // line 50
+            echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, $context["question"], "owner", [], "any", false, false, false, 50), "displayName", [], "any", false, false, false, 50), "html", null, true);
             echo "</strong></p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <a class=\"answer-link\" href=\"";
-            // line 56
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_show", ["slug" => twig_get_attribute($this->env, $this->source, $context["question"], "slug", [], "any", false, false, false, 56)]), "html", null, true);
-            echo "\" >
+            // line 55
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_question_show", ["slug" => twig_get_attribute($this->env, $this->source, $context["question"], "slug", [], "any", false, false, false, 55)]), "html", null, true);
+            echo "\">
                             <p class=\"q-display-response bg-info text-center p-3\">
                                 <i class=\"fa fa-magic magic-wand\"></i> ";
-            // line 58
-            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "approvedAnswers", [], "any", false, false, false, 58)), "html", null, true);
+            // line 57
+            echo twig_escape_filter($this->env, twig_length_filter($this->env, twig_get_attribute($this->env, $this->source, $context["question"], "approvedAnswers", [], "any", false, false, false, 57)), "html", null, true);
             echo " comments
                             </p>
                         </a>
@@ -183,20 +183,30 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
         $_parent = $context['_parent'];
         unset($context['_seq'], $context['_iterated'], $context['_key'], $context['question'], $context['_parent'], $context['loop']);
         $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 64
+        // line 63
         echo "
             ";
-        // line 65
-        echo $this->env->getRuntime('Pagerfanta\Twig\Extension\PagerfantaRuntime')->renderPagerfanta((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 65, $this->source); })()));
+        // line 64
+        echo $this->env->getRuntime('Pagerfanta\Twig\Extension\PagerfantaRuntime')->renderPagerfanta((isset($context["pager"]) || array_key_exists("pager", $context) ? $context["pager"] : (function () { throw new RuntimeError('Variable "pager" does not exist.', 64, $this->source); })()));
         echo "
         </div>
-
-        <div class=\"col-2\">Hello</div>
+        <div class=\"col-2\">
+            <form method=\"get\">
+                <input type=\"search\"
+                       name=\"search_term\"
+                       placeholder=\"Search...\"
+                       value=\"";
+        // line 71
+        echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, twig_get_attribute($this->env, $this->source, (isset($context["app"]) || array_key_exists("app", $context) ? $context["app"] : (function () { throw new RuntimeError('Variable "app" does not exist.', 71, $this->source); })()), "request", [], "any", false, false, false, 71), "query", [], "any", false, false, false, 71), "get", [0 => "search_term"], "method", false, false, false, 71), "html", null, true);
+        echo "\"
+                >
+            </form>
+        </div>
 
     </div>
 
     ";
-        // line 72
+        // line 78
         echo twig_include($this->env, $context, "trip/modal-create-trip.html.twig");
         echo "
 
@@ -207,7 +217,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
             \$('#myInput').trigger('focus')
         });
         var path = '";
-        // line 80
+        // line 86
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_locations");
         echo "';
         var fullUrl   = window.location.origin + path;
@@ -273,7 +283,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                             });
                             // //clicking on outside modal => app.js
                             var path = '";
-        // line 143
+        // line 149
         echo $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_activities");
         echo "';
                             var fullUrl   = window.location.origin + path;
@@ -358,6 +368,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                 }
             });
         });
+
     </script>
 ";
         
@@ -380,7 +391,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
     public function getDebugInfo()
     {
-        return array (  277 => 143,  211 => 80,  200 => 72,  190 => 65,  187 => 64,  175 => 58,  170 => 56,  162 => 51,  157 => 49,  149 => 46,  145 => 44,  136 => 42,  132 => 41,  127 => 39,  120 => 37,  113 => 32,  109 => 31,  97 => 21,  90 => 17,  86 => 15,  84 => 14,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
+        return array (  287 => 149,  221 => 86,  210 => 78,  200 => 71,  190 => 64,  187 => 63,  175 => 57,  170 => 55,  162 => 50,  157 => 48,  151 => 45,  147 => 44,  143 => 42,  134 => 40,  130 => 39,  125 => 37,  120 => 35,  116 => 34,  109 => 29,  105 => 28,  101 => 26,  95 => 24,  93 => 23,  79 => 11,  75 => 8,  73 => 7,  68 => 4,  58 => 3,  35 => 1,);
     }
 
     public function getSourceContext()
@@ -390,7 +401,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 {% block body %}
 <div class=\"jumbotron-img p-2 mb-2\">
     <div class=\"container\">
-        <h1 class=\"display-4 text-center\">Welcome to my Blog</h1>
+        <h1 class=\"display-4 text-center\">Welcome to my Tech Blog</h1>
         {% if alertDisabled2fa %}
             <div class=\"alert alert-success\">You Successfully Disabled Two Factors Authentication</div>
         {% endif %}
@@ -398,22 +409,19 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
     </div>
 </div>
 <div class=\"container\">
-    {% if is_granted('ROLE_ADMIN') %}
-        <div class=\"col mb-3\">
-            <div class=\"col\">
-                <a class=\"btn btn-question\" href=\"{{ path('app_post_create') }}\">Create a Post</a>
-            </div>
-        </div>
-    {% endif %}
     <div class=\"row\">
         <div class=\"col-2\">
             <div class=\"btn-group\">
                 <!-- Button trigger modal -->
-                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\" data-target=\"#fadeInOutModal\">
+                <button type=\"button\" id=\"new-trip\" class=\"btn btn-primary\" data-toggle=\"modal\"
+                        data-target=\"#fadeInOutModal\">
                     New Activity
-                </button>            </div>
+                </button>
+            </div>
+            {% if is_granted('ROLE_ADMIN') %}
+                <a class=\"btn btn-question\" href=\"{{ path('app_post_create') }}\">Create a Post</a>
+            {% endif %}
         </div>
-
         <div class=\"col-8\">
             {% for question in pager %}
                 <div class=\"col-12 mb-3 card_preview_post_homepage\">
@@ -421,7 +429,8 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                         <div class=\"q-container p-4\">
                             <div class=\"row\">
                                 <div class=\"col-3 text-center\">
-                                    <img src=\"{{ question.owner.avatarUri }}\" width=\"100\" height=\"100\"  alt=\"{{ question.owner.avatarUri }} avatar\">
+                                    <img src=\"{{ question.owner.avatarUri }}\" width=\"100\" height=\"100\"
+                                         alt=\"{{ question.owner.avatarUri }} avatar\">
                                     <div class=\"vote-arrows vote-arrows-alt flex-fill pt-2\" style=\"min-width: 90px;\">
                                         <span>{{ question.likeNr + question.unLikeNr }} votes</span>
                                     </div>
@@ -430,7 +439,8 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                     {% endfor %}
                                 </div>
                                 <div class=\"col-9\">
-                                    <a class=\"q-title\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\"><h2>{{ question.name }}</h2></a>
+                                    <a class=\"q-title\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\">
+                                        <h2>{{ question.name }}</h2></a>
                                     <div class=\"q-display p-3 container_content_hmp\">
                                         <i class=\"fa fa-quote-left mr-3\"></i>
                                         <p class=\"d-inline paragraph_content_homepage\">{{ question.question|slice(0, 250) }}</p>
@@ -440,7 +450,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                                 </div>
                             </div>
                         </div>
-                        <a class=\"answer-link\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\" >
+                        <a class=\"answer-link\" href=\"{{ path('app_question_show', { slug: question.slug }) }}\">
                             <p class=\"q-display-response bg-info text-center p-3\">
                                 <i class=\"fa fa-magic magic-wand\"></i> {{ question.approvedAnswers|length }} comments
                             </p>
@@ -451,8 +461,15 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
 
             {{ pagerfanta(pager) }}
         </div>
-
-        <div class=\"col-2\">Hello</div>
+        <div class=\"col-2\">
+            <form method=\"get\">
+                <input type=\"search\"
+                       name=\"search_term\"
+                       placeholder=\"Search...\"
+                       value=\"{{ app.request.query.get('search_term') }}\"
+                >
+            </form>
+        </div>
 
     </div>
 
@@ -610,6 +627,7 @@ class __TwigTemplate_0475203979d8e3090294a8017763b81c1197a7170dd4c7d3165abd66a8c
                 }
             });
         });
+
     </script>
 {% endblock %}
 

@@ -19,6 +19,7 @@ return [
         '/cancel' => [[['_route' => 'app_homepage_cancel', '_controller' => 'App\\Controller\\Homepage::cancel'], null, null, null, false, false, null]],
         '/boss' => [[['_route' => 'app_onlyforbests_new', '_controller' => 'App\\Controller\\OnlyForBestsController::new'], null, null, null, false, false, null]],
         '/create-post' => [[['_route' => 'app_post_create', '_controller' => 'App\\Controller\\PostCreatorController::loadPost'], null, null, null, false, false, null]],
+        '/get-text-html' => [[['_route' => 'app_post_html', '_controller' => 'App\\Controller\\PostCreatorController::getTextHTML'], null, null, null, false, false, null]],
         '/load-post' => [[['_route' => 'app_load_post', '_controller' => 'App\\Controller\\PostCreatorController::postCreate'], null, null, null, false, false, null]],
         '/questions/new' => [[['_route' => 'app_question_new', '_controller' => 'App\\Controller\\QuestionController::new'], null, null, null, false, false, null]],
         '/register' => [[['_route' => 'app_register', '_controller' => 'App\\Controller\\RegistrationController::register'], null, null, null, false, false, null]],

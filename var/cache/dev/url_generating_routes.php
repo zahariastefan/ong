@@ -16,6 +16,7 @@ return [
     'app_homepage_cancel' => [[], ['_controller' => 'App\\Controller\\Homepage::cancel'], [], [['text', '/cancel']], [], [], []],
     'app_onlyforbests_new' => [[], ['_controller' => 'App\\Controller\\OnlyForBestsController::new'], [], [['text', '/boss']], [], [], []],
     'app_post_create' => [[], ['_controller' => 'App\\Controller\\PostCreatorController::loadPost'], [], [['text', '/create-post']], [], [], []],
+    'app_post_html' => [[], ['_controller' => 'App\\Controller\\PostCreatorController::getTextHTML'], [], [['text', '/get-text-html']], [], [], []],
     'app_load_post' => [[], ['_controller' => 'App\\Controller\\PostCreatorController::postCreate'], [], [['text', '/load-post']], [], [], []],
     'app_homepage' => [['page'], ['page' => 1, '_controller' => 'App\\Controller\\QuestionController::homepage'], ['page' => '\\d+'], [['variable', '/', '\\d+', 'page', true]], [], [], []],
     'app_question_new' => [[], ['_controller' => 'App\\Controller\\QuestionController::new'], [], [['text', '/questions/new']], [], [], []],

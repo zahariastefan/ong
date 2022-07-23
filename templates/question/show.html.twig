@@ -42,7 +42,7 @@
                             </div>
                             <div class="q-display p-3">
                                 <i class="fa fa-quote-left mr-3"></i>
-                                <p class="d-inline">{{ question.question }}</p>
+                                <p class="d-inline question_content">{{ question.question }}</p>
                                 <p class="pt-4"><strong>--{{ question.owner.displayName }} ({{ question.owner.email }})</strong></p>
                             </div>
                         </div>
@@ -150,6 +150,15 @@
                 }
             }
             });
+
+        var question = $('.question_content').text();
+        var result = question.indexOf("<");
+        console.log(result);
+        if(result === 0){//that means are containing tags
+            var question_content = $('.question_content').text();
+            $('.question_content').html(question_content);
+        }
+
     </script>
 {% endblock %}
 

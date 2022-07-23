@@ -39,11 +39,16 @@ class QuestionController extends AbstractController
 public function homepage(Request $request, QuestionRepository $repository, int $page = 1,EntityManagerInterface $entityManager)
     {
 
-        $queryBuilder = $repository->findAllAskedOrderedByNewest();
+//        dd($request->query->get('search_term'));
+
+        $queryBuilder = $repository->findAllAskedOrderedByNewest(
+            $request->query->get('search_term')
+        );
+//        dd($queryBuilder->getQuery()->getResult());
         $pagerfanta = new Pagerfanta(
             new QueryAdapter($queryBuilder
             ));
-        $pagerfanta->setMaxPerPage(5);
+        $pagerfanta->setMaxPerPage(6);
         $pagerfanta->setCurrentPage($page);
 
         $alertDisabled2fa = $request->query->get('alertDisabled2fa');

@@ -25,16 +25,22 @@ class QuestionRepository extends ServiceEntityRepository
     /**
      * @return Question[] Returns an array of Question objects
      */
-    public function findAllAskedOrderedByNewest(): QueryBuilder
+    public function findAllAskedOrderedByNewest(string $search = null): QueryBuilder
     {
-        return $this->addIsAskedQueryBuilder()
+
+        $queryBuilder = $this->addIsAskedQueryBuilder()
             ->orderBy('q.askedAt', 'DESC')
             ->leftJoin('q.questionTags', 'question_tag')
             ->innerJoin('question_tag.tag', 'tag')
-            ->innerJoin('q.answers', 'answers')
             ->innerJoin('q.owner', 'user')
-            ->addSelect(['question_tag', 'tag', 'answers', 'user'])
-            ;
+            ->addSelect(['question_tag', 'tag', 'user']);
+
+        if ($search) {
+            $queryBuilder->andWhere('q.name LIKE :searchTerm OR q.question LIKE :searchTerm')
+                ->setParameter('searchTerm', '%' . $search . '%');
+        }
+
+        return $queryBuilder;
     }
 
     private function addIsAskedQueryBuilder(QueryBuilder $qb = null): QueryBuilder

@@ -183,7 +183,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
         echo "                            </div>
                             <div class=\"q-display p-3\">
                                 <i class=\"fa fa-quote-left mr-3\"></i>
-                                <p class=\"d-inline\">";
+                                <p class=\"d-inline question_content\">";
         // line 45
         echo twig_escape_filter($this->env, twig_get_attribute($this->env, $this->source, (isset($context["question"]) || array_key_exists("question", $context) ? $context["question"] : (function () { throw new RuntimeError('Variable "question" does not exist.', 45, $this->source); })()), "question", [], "any", false, false, false, 45), "html", null, true);
         echo "</p>
@@ -344,6 +344,15 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
                 }
             }
             });
+
+        var question = \$('.question_content').text();
+        var result = question.indexOf(\"<\");
+        console.log(result);
+        if(result === 0){//that means are containing tags
+            var question_content = \$('.question_content').text();
+            \$('.question_content').html(question_content);
+        }
+
     </script>
 ";
         
@@ -415,7 +424,7 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
                             </div>
                             <div class=\"q-display p-3\">
                                 <i class=\"fa fa-quote-left mr-3\"></i>
-                                <p class=\"d-inline\">{{ question.question }}</p>
+                                <p class=\"d-inline question_content\">{{ question.question }}</p>
                                 <p class=\"pt-4\"><strong>--{{ question.owner.displayName }} ({{ question.owner.email }})</strong></p>
                             </div>
                         </div>
@@ -523,6 +532,15 @@ class __TwigTemplate_0ca8673967afbe9070e4e758a097e9b6b53a0dccbd12c3672e56fd0df81
                 }
             }
             });
+
+        var question = \$('.question_content').text();
+        var result = question.indexOf(\"<\");
+        console.log(result);
+        if(result === 0){//that means are containing tags
+            var question_content = \$('.question_content').text();
+            \$('.question_content').html(question_content);
+        }
+
     </script>
 {% endblock %}
 

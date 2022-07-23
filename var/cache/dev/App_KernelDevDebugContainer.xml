@@ -8091,6 +8091,15 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
+    <service id=".service_locator.DS3Bwlm" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="security" type="service_closure" id="security.helper"/>
+        <argument key="tagRepository" type="service_closure" id="App\Repository\TagRepository"/>
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
     <service id=".service_locator.7RBje4H" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8184,7 +8193,7 @@
         <argument key="questionRepository" type="service_closure" id="App\Repository\QuestionRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.FO_lFev" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.rJQVcyR" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.Wxf6IJb"/>
@@ -8194,6 +8203,7 @@
         <argument key="App\Controller\Homepage::donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage::success" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\PostCreatorController::getTextHTML" type="service_closure" id=".service_locator.DS3Bwlm"/>
         <argument key="App\Controller\PostCreatorController::postCreate" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\QuestionController::answerVote" type="service_closure" id=".service_locator.FbxAbe4"/>
         <argument key="App\Controller\QuestionController::edit" type="service_closure" id=".service_locator.t_C_3cc"/>
@@ -8224,6 +8234,7 @@
         <argument key="App\Controller\Homepage:donations" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:payment" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\Homepage:success" type="service_closure" id=".service_locator.l2QwsaZ"/>
+        <argument key="App\Controller\PostCreatorController:getTextHTML" type="service_closure" id=".service_locator.DS3Bwlm"/>
         <argument key="App\Controller\PostCreatorController:postCreate" type="service_closure" id=".service_locator.l2QwsaZ"/>
         <argument key="App\Controller\QuestionController:answerVote" type="service_closure" id=".service_locator.FbxAbe4"/>
         <argument key="App\Controller\QuestionController:edit" type="service_closure" id=".service_locator.t_C_3cc"/>
@@ -8765,12 +8776,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.FO_lFev"/>
+      <argument type="service" id=".service_locator.rJQVcyR"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.FO_lFev"/>
+      <argument type="service" id=".service_locator.rJQVcyR"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -9820,7 +9831,7 @@
     <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.FO_lFev"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.rJQVcyR"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9832,13 +9843,14 @@
     <service id=".service_locator.XDGmiR3" alias=".1_ServiceLocator~N8I26pl"/>
     <service id=".service_locator.0GV1BZZ" alias=".service_locator.gSv9zYw"/>
     <service id=".service_locator.MPSanjN" alias=".service_locator.HpwlquH"/>
+    <service id=".service_locator.Acddr1j" alias=".service_locator.DS3Bwlm"/>
     <service id=".service_locator.OnMixuo" alias=".service_locator.7RBje4H"/>
     <service id=".service_locator.ZrNQaix" alias=".service_locator.kd742lc"/>
     <service id=".service_locator.iRKXayk" alias=".service_locator.L1ESABr"/>
     <service id=".service_locator.kiizgfv" alias=".service_locator.LqAhyfd"/>
     <service id=".service_locator.u6BTu4b" alias=".service_locator.pKcF_sp"/>
     <service id=".service_locator.8k8dBlb" alias=".service_locator.tu31i1."/>
-    <service id=".service_locator.o71jofE" alias=".service_locator.FO_lFev"/>
+    <service id=".service_locator.E3YEhTH" alias=".service_locator.rJQVcyR"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
@@ -9873,6 +9885,7 @@
     <service id=".service_locator.PHdcih_" alias=".service_locator.HpwlquH"/>
     <service id=".service_locator.tRwM5e6" alias=".service_locator.OC2AG.K"/>
     <service id=".service_locator.Er0_7SX" alias=".service_locator.l2QwsaZ"/>
+    <service id=".service_locator.2ev_omO" alias=".service_locator.DS3Bwlm"/>
     <service id=".service_locator.jCLzCtU" alias=".service_locator.7RBje4H"/>
     <service id=".service_locator.s8QH.WS" alias=".service_locator.kd742lc"/>
     <service id=".service_locator.akP90b3" alias=".service_locator.t_C_3cc"/>

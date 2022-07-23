@@ -69,14 +69,12 @@ p[id^="activity-details"]{
     flex-wrap: wrap;
     display: inline-flex;
 }
-/*.card_preview_post_homepage {*/
-/*    height: 250px !important;*/
-/*    box-shadow: 2px 3px 9px 4px rgb(0 0 0 / 4%);*/
-/*    overflow: hidden;*/
-/*    text-overflow: ellipsis;*/
-/*}*/
 
-/*.container_content_hmp{*/
-/*    height: 154px;*/
-/*    overflow: hidden;*/
-/*}*/
+.title-text-post{
+    background: #ffecff;
+    border:none;
+    width: 100%;
+    box-shadow: 0 0 3.5px #b7b7b7;
+    height: 40px;
+    padding-left: 20px;
+}

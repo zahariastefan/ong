@@ -56,39 +56,37 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
         // line 8
         echo "        ";
         $this->displayBlock('stylesheets', $context, $blocks);
-        // line 16
-        echo "
-        ";
         // line 17
+        echo "        ";
         $this->displayBlock('javascripts', $context, $blocks);
-        // line 36
+        // line 38
         echo "        <title>Buy cool new product</title>
 
 
     </head>
     <body
             ";
-        // line 41
+        // line 43
         if ($this->extensions['Symfony\Bridge\Twig\Extension\SecurityExtension']->isGranted("IS_AUTHENTICATED_REMEMBERED")) {
-            // line 42
+            // line 44
             echo "                ";
             echo $this->extensions['Symfony\WebpackEncoreBundle\Twig\StimulusTwigExtension']->renderStimulusController($this->env, "user-api", ["url" => $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("app_user_api_me")]);
-            // line 44
+            // line 46
             echo "
             ";
         }
-        // line 46
+        // line 48
         echo "    >
     ";
-        // line 47
-        $this->loadTemplate("navbar.html.twig", "base.html.twig", 47)->display($context);
-        // line 48
-        echo "    ";
-        $this->displayBlock('body', $context, $blocks);
+        // line 49
+        $this->loadTemplate("navbar.html.twig", "base.html.twig", 49)->display($context);
         // line 50
         echo "    ";
-        $this->loadTemplate("footer.html.twig", "base.html.twig", 50)->display($context);
-        // line 51
+        $this->displayBlock('body', $context, $blocks);
+        // line 52
+        echo "    ";
+        $this->loadTemplate("footer.html.twig", "base.html.twig", 52)->display($context);
+        // line 53
         echo "    </body>
 </html>
 ";
@@ -139,6 +137,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 ";
         // line 13
         echo "            <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">
+            <link href=\"css/richText_editor.css\" rel=\"stylesheet\" />
 
         ";
         
@@ -176,6 +175,8 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 
             <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
             <script src=\"https://js.stripe.com/v3/\"></script>
+            <script src=\"js/richText_editor.js\"></script>
+
             <script>
 
                 \$('.dropdown-toggle').dropdown();
@@ -191,7 +192,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 
     }
 
-    // line 48
+    // line 50
     public function block_body($context, array $blocks = [])
     {
         $macros = $this->macros;
@@ -201,7 +202,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02 = $this->extensions["Symfony\\Bridge\\Twig\\Extension\\ProfilerExtension"];
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->enter($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof = new \Twig\Profiler\Profile($this->getTemplateName(), "block", "body"));
 
-        // line 49
+        // line 51
         echo "    ";
         
         $__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02->leave($__internal_319393461309892924ff6e74d6d6e64287df64b63545b994e100d4ab223aed02_prof);
@@ -223,7 +224,7 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 
     public function getDebugInfo()
     {
-        return array (  205 => 49,  195 => 48,  175 => 25,  171 => 22,  168 => 20,  163 => 18,  153 => 17,  141 => 13,  138 => 11,  133 => 9,  123 => 8,  104 => 5,  92 => 51,  89 => 50,  86 => 48,  84 => 47,  81 => 46,  77 => 44,  74 => 42,  72 => 41,  65 => 36,  63 => 17,  60 => 16,  57 => 8,  53 => 5,  47 => 1,);
+        return array (  206 => 51,  196 => 50,  174 => 25,  170 => 22,  167 => 20,  162 => 18,  152 => 17,  139 => 13,  136 => 11,  131 => 9,  121 => 8,  102 => 5,  90 => 53,  87 => 52,  84 => 50,  82 => 49,  79 => 48,  75 => 46,  72 => 44,  70 => 43,  63 => 38,  60 => 17,  57 => 8,  53 => 5,  47 => 1,);
     }
 
     public function getSourceContext()
@@ -241,9 +242,9 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
             <link rel=\"stylesheet\" href=\"https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css\">
 {#            bootstrap#}
             <link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css\" integrity=\"sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh\" crossorigin=\"anonymous\">
+            <link href=\"css/richText_editor.css\" rel=\"stylesheet\" />
 
         {% endblock %}
-
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
 {#            jquery#}
@@ -256,6 +257,8 @@ class __TwigTemplate_e5194394a0068849f95a0201b63a5fff365a8876ad82fc093705a50031a
 
             <script src=\"https://polyfill.io/v3/polyfill.min.js?version=3.52.1&features=fetch\"></script>
             <script src=\"https://js.stripe.com/v3/\"></script>
+            <script src=\"js/richText_editor.js\"></script>
+
             <script>
 
                 \$('.dropdown-toggle').dropdown();
