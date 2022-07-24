@@ -3,7 +3,7 @@
         {{ is_granted('ROLE_PREVIOUS_ADMIN') ? 'style="background-color: red !important"' }}
 >
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{ path('app_homepage') }}">
+        <a class="navbar-brand" href="{{ path('app_homepage', { page : 1}) }}">
             <p class="pl-2 d-inline font-weight-bold" style="color: #444;">
                 Stefan Zaharia Portfolio
             </p>

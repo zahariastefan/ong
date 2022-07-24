@@ -17,7 +17,7 @@ return [
         '/checkout' => [[['_route' => 'app_checkout', '_controller' => 'App\\Controller\\Homepage::payment'], null, null, null, false, false, null]],
         '/success' => [[['_route' => 'app_homepage_success', '_controller' => 'App\\Controller\\Homepage::success'], null, null, null, false, false, null]],
         '/cancel' => [[['_route' => 'app_homepage_cancel', '_controller' => 'App\\Controller\\Homepage::cancel'], null, null, null, false, false, null]],
-        '/boss' => [[['_route' => 'app_onlyforbests_new', '_controller' => 'App\\Controller\\OnlyForBestsController::new'], null, null, null, false, false, null]],
+        '/testapi' => [[['_route' => 'app_onlyforbests_new', '_controller' => 'App\\Controller\\OnlyForBestsController::new'], null, null, null, false, false, null]],
         '/create-post' => [[['_route' => 'app_post_create', '_controller' => 'App\\Controller\\PostCreatorController::loadPost'], null, null, null, false, false, null]],
         '/get-text-html' => [[['_route' => 'app_post_html', '_controller' => 'App\\Controller\\PostCreatorController::getTextHTML'], null, null, null, false, false, null]],
         '/load-post' => [[['_route' => 'app_load_post', '_controller' => 'App\\Controller\\PostCreatorController::postCreate'], null, null, null, false, false, null]],

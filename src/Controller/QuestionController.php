@@ -36,7 +36,7 @@ class QuestionController extends AbstractController
     /**
      * @Route("/{page<\d+>}", name="app_homepage")
      */
-public function homepage(Request $request, QuestionRepository $repository, int $page = 1,EntityManagerInterface $entityManager)
+public function homepage(Request $request, QuestionRepository $repository, int $page = 1)
     {
 
 //        dd($request->query->get('search_term'));

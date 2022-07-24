@@ -115,8 +115,8 @@
                 url: fullUrl,
                 data: {textHTML: textHTML, titleText:titleText},
                 complete: function (data) {
-                    // $('.blog_textEditorWrapper').empty();
-                    {#$('.blog_textEditorWrapper').append('<a href="{{ path('app_post_create') }}">Create an other post</a>');#}
+                    $('.blog_textEditorWrapper').empty();
+                    $('.blog_textEditorWrapper').append('<a href="{{ path('app_post_create') }}">Create an other post</a>');
                 }
             });
         });

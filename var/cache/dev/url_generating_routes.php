@@ -14,7 +14,7 @@ return [
     'app_checkout' => [[], ['_controller' => 'App\\Controller\\Homepage::payment'], [], [['text', '/checkout']], [], [], []],
     'app_homepage_success' => [[], ['_controller' => 'App\\Controller\\Homepage::success'], [], [['text', '/success']], [], [], []],
     'app_homepage_cancel' => [[], ['_controller' => 'App\\Controller\\Homepage::cancel'], [], [['text', '/cancel']], [], [], []],
-    'app_onlyforbests_new' => [[], ['_controller' => 'App\\Controller\\OnlyForBestsController::new'], [], [['text', '/boss']], [], [], []],
+    'app_onlyforbests_new' => [[], ['_controller' => 'App\\Controller\\OnlyForBestsController::new'], [], [['text', '/testapi']], [], [], []],
     'app_post_create' => [[], ['_controller' => 'App\\Controller\\PostCreatorController::loadPost'], [], [['text', '/create-post']], [], [], []],
     'app_post_html' => [[], ['_controller' => 'App\\Controller\\PostCreatorController::getTextHTML'], [], [['text', '/get-text-html']], [], [], []],
     'app_load_post' => [[], ['_controller' => 'App\\Controller\\PostCreatorController::postCreate'], [], [['text', '/load-post']], [], [], []],
