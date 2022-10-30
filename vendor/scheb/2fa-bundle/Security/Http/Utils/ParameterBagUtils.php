@@ -8,18 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\PropertyAccess\Exception\AccessException;
 use Symfony\Component\PropertyAccess\PropertyAccess;
 use Symfony\Component\PropertyAccess\PropertyAccessor;
+use function strpos;
+use function substr;
 
 /**
- * @final
- *
  * @internal Helper class analog to Symfony's ParameterBagUtils class
+ *
+ * @final
  */
 class ParameterBagUtils
 {
-    /**
-     * @var PropertyAccessor|null
-     */
-    private static $propertyAccessor;
+    private static ?PropertyAccessor $propertyAccessor = null;
 
     /**
      * @see \Symfony\Component\Security\Http\ParameterBagUtils
@@ -29,16 +28,16 @@ class ParameterBagUtils
      */
     public static function getRequestParameterValue(Request $request, string $path): ?string
     {
-        if (false === $pos = strpos($path, '[')) {
-            /** @psalm-suppress InternalMethod */
+        $pos = strpos($path, '[');
+        if (false === $pos) {
+            $value = ($request->query->all()[$path] ?? null) ?? ($request->request->all()[$path] ?? null);
 
-            return $request->get($path);
+            return null === $value ? null : (string) $value;
         }
 
         $root = substr($path, 0, $pos);
-
-        /** @psalm-suppress InternalMethod */
-        if (null === $value = $request->get($root)) {
+        $value = ($request->query->all()[$root] ?? null) ?? ($request->request->all()[$root] ?? null);
+        if (null === $value) {
             return null;
         }
 
@@ -48,7 +47,7 @@ class ParameterBagUtils
 
         try {
             return self::$propertyAccessor->getValue($value, substr($path, $pos));
-        } catch (AccessException $e) {
+        } catch (AccessException) {
             return null;
         }
     }

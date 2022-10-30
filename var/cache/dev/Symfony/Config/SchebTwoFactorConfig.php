@@ -2,6 +2,7 @@
 
 namespace Symfony\Config;
 
+require_once __DIR__.\DIRECTORY_SEPARATOR.'SchebTwoFactor'.\DIRECTORY_SEPARATOR.'GoogleConfig.php';
 require_once __DIR__.\DIRECTORY_SEPARATOR.'SchebTwoFactor'.\DIRECTORY_SEPARATOR.'TotpConfig.php';
 
 use Symfony\Component\Config\Loader\ParamConfigurator;
@@ -19,6 +20,7 @@ class SchebTwoFactorConfig implements \Symfony\Component\Config\Builder\ConfigBu
     private $ipWhitelistProvider;
     private $twoFactorTokenFactory;
     private $twoFactorCondition;
+    private $google;
     private $totp;
     private $_usedProperties = [];
 
@@ -112,6 +114,28 @@ class SchebTwoFactorConfig implements \Symfony\Component\Config\Builder\ConfigBu
     }
 
     /**
+     * @return \Symfony\Config\SchebTwoFactor\GoogleConfig|$this
+     */
+    public function google($value = [])
+    {
+        if (!\is_array($value)) {
+            $this->_usedProperties['google'] = true;
+            $this->google = $value;
+
+            return $this;
+        }
+
+        if (!$this->google instanceof \Symfony\Config\SchebTwoFactor\GoogleConfig) {
+            $this->_usedProperties['google'] = true;
+            $this->google = new \Symfony\Config\SchebTwoFactor\GoogleConfig($value);
+        } elseif (0 < \func_num_args()) {
+            throw new InvalidConfigurationException('The node created by "google()" has already been initialized. You cannot pass values the second time you call google().');
+        }
+
+        return $this->google;
+    }
+
+    /**
      * @return \Symfony\Config\SchebTwoFactor\TotpConfig|$this
      */
     public function totp($value = [])
@@ -182,6 +206,12 @@ class SchebTwoFactorConfig implements \Symfony\Component\Config\Builder\ConfigBu
             unset($value['two_factor_condition']);
         }
 
+        if (array_key_exists('google', $value)) {
+            $this->_usedProperties['google'] = true;
+            $this->google = \is_array($value['google']) ? new \Symfony\Config\SchebTwoFactor\GoogleConfig($value['google']) : $value['google'];
+            unset($value['google']);
+        }
+
         if (array_key_exists('totp', $value)) {
             $this->_usedProperties['totp'] = true;
             $this->totp = \is_array($value['totp']) ? new \Symfony\Config\SchebTwoFactor\TotpConfig($value['totp']) : $value['totp'];
@@ -216,6 +246,9 @@ class SchebTwoFactorConfig implements \Symfony\Component\Config\Builder\ConfigBu
         }
         if (isset($this->_usedProperties['twoFactorCondition'])) {
             $output['two_factor_condition'] = $this->twoFactorCondition;
+        }
+        if (isset($this->_usedProperties['google'])) {
+            $output['google'] = $this->google instanceof \Symfony\Config\SchebTwoFactor\GoogleConfig ? $this->google->toArray() : $this->google;
         }
         if (isset($this->_usedProperties['totp'])) {
             $output['totp'] = $this->totp instanceof \Symfony\Config\SchebTwoFactor\TotpConfig ? $this->totp->toArray() : $this->totp;

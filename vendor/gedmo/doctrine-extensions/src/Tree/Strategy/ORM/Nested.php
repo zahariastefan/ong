@@ -125,9 +125,7 @@ class Nested implements Strategy
         }
         if (isset($config['root']) && !$meta->hasAssociation($config['root']) && !isset($config['rootIdentifierMethod'])) {
             $meta->getReflectionProperty($config['root'])->setValue($node, 0);
-        } elseif (isset($config['rootIdentifierMethod']) && null === $meta->getReflectionProperty($config['root'])->getValue(
-                $node
-            )) {
+        } elseif (isset($config['rootIdentifierMethod']) && null === $meta->getReflectionProperty($config['root'])->getValue($node)) {
             $meta->getReflectionProperty($config['root'])->setValue($node, 0);
         }
     }
@@ -529,6 +527,8 @@ class Nested implements Strategy
      * @param string $class
      * @param int    $rootId
      *
+     * @phpstan-param class-string $class
+     *
      * @return int
      */
     public function max(EntityManagerInterface $em, $class, $rootId = 0)
@@ -555,10 +555,9 @@ class Nested implements Strategy
      * @param string     $class
      * @param int        $first
      * @param int        $delta
-     * @param string     $class
-     * @param int        $first
-     * @param int        $delta
      * @param int|string $root
+     *
+     * @phpstan-param class-string $class
      *
      * @return void
      */
@@ -633,6 +632,8 @@ class Nested implements Strategy
      * @param int|string $root
      * @param int|string $destRoot
      * @param int        $levelDelta
+     *
+     * @phpstan-param class-string $class
      *
      * @return void
      */

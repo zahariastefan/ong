@@ -15,36 +15,14 @@ use Symfony\Component\Security\Http\HttpUtils;
 class TwoFactorFirewallConfig
 {
     /**
-     * @var array
+     * @param array<string,mixed> $options
      */
-    private $options;
-
-    /**
-     * @var string
-     */
-    private $firewallName;
-
-    /**
-     * @var HttpUtils
-     */
-    private $httpUtils;
-
-    /**
-     * @var RequestDataReader
-     */
-    private $requestDataReader;
-
     public function __construct(
-        array $options,
-        string $firewallName,
-        HttpUtils $httpUtils,
-        ?RequestDataReader $requestDataReader = null
+        private array $options,
+        private string $firewallName,
+        private HttpUtils $httpUtils,
+        private RequestDataReader $requestDataReader,
     ) {
-        $this->options = $options;
-        $this->firewallName = $firewallName;
-        $this->httpUtils = $httpUtils;
-        // Compatibility for bundle version <= 5.4
-        $this->requestDataReader = $requestDataReader ?? new RequestDataReader();
     }
 
     public function getFirewallName(): string

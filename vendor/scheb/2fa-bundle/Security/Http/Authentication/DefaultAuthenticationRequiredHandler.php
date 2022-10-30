@@ -15,20 +15,10 @@ class DefaultAuthenticationRequiredHandler implements AuthenticationRequiredHand
 {
     use TargetPathTrait;
 
-    /**
-     * @var HttpUtils
-     */
-    private $httpUtils;
-
-    /**
-     * @var TwoFactorFirewallConfig
-     */
-    private $config;
-
-    public function __construct(HttpUtils $httpUtils, TwoFactorFirewallConfig $config)
-    {
-        $this->httpUtils = $httpUtils;
-        $this->config = $config;
+    public function __construct(
+        private HttpUtils $httpUtils,
+        private TwoFactorFirewallConfig $config,
+    ) {
     }
 
     public function onAuthenticationRequired(Request $request, TokenInterface $token): Response

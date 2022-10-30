@@ -205,8 +205,7 @@ class TranslatableListener extends MappedEventSubscriber
      */
     public function loadClassMetadata(EventArgs $eventArgs)
     {
-        $ea = $this->getEventAdapter($eventArgs);
-        $this->loadMetadataForObjectClass($ea->getObjectManager(), $eventArgs->getClassMetadata());
+        $this->loadMetadataForObjectClass($eventArgs->getObjectManager(), $eventArgs->getClassMetadata());
     }
 
     /**
@@ -214,8 +213,10 @@ class TranslatableListener extends MappedEventSubscriber
      * for the object $class
      *
      * @param string $class
+     * @phpstan-param class-string $class
      *
      * @return string
+     * @phpstan-return class-string
      */
     public function getTranslationClass(TranslatableAdapter $ea, $class)
     {

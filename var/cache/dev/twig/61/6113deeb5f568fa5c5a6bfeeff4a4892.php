@@ -54,87 +54,92 @@ class __TwigTemplate_a5f9252a26276e9d2deb922cd36586d3 extends Template
         echo "
 ";
         // line 12
-        echo "<p>";
-        echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("choose_provider", [], "SchebTwoFactorBundle"), "html", null, true);
-        echo ":
-    ";
-        // line 13
-        $context['_parent'] = $context;
-        $context['_seq'] = twig_ensure_traversable((isset($context["availableTwoFactorProviders"]) || array_key_exists("availableTwoFactorProviders", $context) ? $context["availableTwoFactorProviders"] : (function () { throw new RuntimeError('Variable "availableTwoFactorProviders" does not exist.', 13, $this->source); })()));
-        foreach ($context['_seq'] as $context["_key"] => $context["provider"]) {
+        if ((twig_length_filter($this->env, (isset($context["availableTwoFactorProviders"]) || array_key_exists("availableTwoFactorProviders", $context) ? $context["availableTwoFactorProviders"] : (function () { throw new RuntimeError('Variable "availableTwoFactorProviders" does not exist.', 12, $this->source); })())) > 1)) {
+            // line 13
+            echo "    <p>";
+            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("choose_provider", [], "SchebTwoFactorBundle"), "html", null, true);
+            echo ":
+        ";
             // line 14
-            echo "        <a href=\"";
-            echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("2fa_login", ["preferProvider" => $context["provider"]]), "html", null, true);
-            echo "\">";
-            echo twig_escape_filter($this->env, $context["provider"], "html", null, true);
-            echo "</a>
-    ";
-        }
-        $_parent = $context['_parent'];
-        unset($context['_seq'], $context['_iterated'], $context['_key'], $context['provider'], $context['_parent'], $context['loop']);
-        $context = array_intersect_key($context, $_parent) + $_parent;
-        // line 16
-        echo "</p>
-
+            $context['_parent'] = $context;
+            $context['_seq'] = twig_ensure_traversable((isset($context["availableTwoFactorProviders"]) || array_key_exists("availableTwoFactorProviders", $context) ? $context["availableTwoFactorProviders"] : (function () { throw new RuntimeError('Variable "availableTwoFactorProviders" does not exist.', 14, $this->source); })()));
+            foreach ($context['_seq'] as $context["_key"] => $context["provider"]) {
+                // line 15
+                echo "            <a href=\"";
+                echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath("2fa_login", ["preferProvider" => $context["provider"]]), "html", null, true);
+                echo "\">";
+                echo twig_escape_filter($this->env, $context["provider"], "html", null, true);
+                echo "</a>
+        ";
+            }
+            $_parent = $context['_parent'];
+            unset($context['_seq'], $context['_iterated'], $context['_key'], $context['provider'], $context['_parent'], $context['loop']);
+            $context = array_intersect_key($context, $_parent) + $_parent;
+            // line 17
+            echo "    </p>
 ";
+        }
         // line 19
+        echo "
+";
+        // line 21
         echo "<p class=\"label\"><label for=\"_auth_code\">";
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("auth_code", [], "SchebTwoFactorBundle"), "html", null, true);
         echo " ";
-        echo twig_escape_filter($this->env, (isset($context["twoFactorProvider"]) || array_key_exists("twoFactorProvider", $context) ? $context["twoFactorProvider"] : (function () { throw new RuntimeError('Variable "twoFactorProvider" does not exist.', 19, $this->source); })()), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["twoFactorProvider"]) || array_key_exists("twoFactorProvider", $context) ? $context["twoFactorProvider"] : (function () { throw new RuntimeError('Variable "twoFactorProvider" does not exist.', 21, $this->source); })()), "html", null, true);
         echo ":</label></p>
 
 <form class=\"form\" action=\"";
-        // line 21
-        (((isset($context["checkPathUrl"]) || array_key_exists("checkPathUrl", $context) ? $context["checkPathUrl"] : (function () { throw new RuntimeError('Variable "checkPathUrl" does not exist.', 21, $this->source); })())) ? (print (twig_escape_filter($this->env, (isset($context["checkPathUrl"]) || array_key_exists("checkPathUrl", $context) ? $context["checkPathUrl"] : (function () { throw new RuntimeError('Variable "checkPathUrl" does not exist.', 21, $this->source); })()), "html", null, true))) : (print ($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath((isset($context["checkPathRoute"]) || array_key_exists("checkPathRoute", $context) ? $context["checkPathRoute"] : (function () { throw new RuntimeError('Variable "checkPathRoute" does not exist.', 21, $this->source); })())))));
+        // line 23
+        (((isset($context["checkPathUrl"]) || array_key_exists("checkPathUrl", $context) ? $context["checkPathUrl"] : (function () { throw new RuntimeError('Variable "checkPathUrl" does not exist.', 23, $this->source); })())) ? (print (twig_escape_filter($this->env, (isset($context["checkPathUrl"]) || array_key_exists("checkPathUrl", $context) ? $context["checkPathUrl"] : (function () { throw new RuntimeError('Variable "checkPathUrl" does not exist.', 23, $this->source); })()), "html", null, true))) : (print ($this->extensions['Symfony\Bridge\Twig\Extension\RoutingExtension']->getPath((isset($context["checkPathRoute"]) || array_key_exists("checkPathRoute", $context) ? $context["checkPathRoute"] : (function () { throw new RuntimeError('Variable "checkPathRoute" does not exist.', 23, $this->source); })())))));
         echo "\" method=\"post\">
     <p class=\"widget\">
         <input
             id=\"_auth_code\"
             type=\"text\"
             name=\"";
-        // line 26
-        echo twig_escape_filter($this->env, (isset($context["authCodeParameterName"]) || array_key_exists("authCodeParameterName", $context) ? $context["authCodeParameterName"] : (function () { throw new RuntimeError('Variable "authCodeParameterName" does not exist.', 26, $this->source); })()), "html", null, true);
+        // line 28
+        echo twig_escape_filter($this->env, (isset($context["authCodeParameterName"]) || array_key_exists("authCodeParameterName", $context) ? $context["authCodeParameterName"] : (function () { throw new RuntimeError('Variable "authCodeParameterName" does not exist.', 28, $this->source); })()), "html", null, true);
         echo "\"
             autocomplete=\"one-time-code\"
             autofocus
             ";
-        // line 35
+        // line 37
         echo "        />
     </p>
 
     ";
-        // line 38
-        if ((isset($context["displayTrustedOption"]) || array_key_exists("displayTrustedOption", $context) ? $context["displayTrustedOption"] : (function () { throw new RuntimeError('Variable "displayTrustedOption" does not exist.', 38, $this->source); })())) {
-            // line 39
+        // line 40
+        if ((isset($context["displayTrustedOption"]) || array_key_exists("displayTrustedOption", $context) ? $context["displayTrustedOption"] : (function () { throw new RuntimeError('Variable "displayTrustedOption" does not exist.', 40, $this->source); })())) {
+            // line 41
             echo "        <p class=\"widget\"><label for=\"_trusted\"><input id=\"_trusted\" type=\"checkbox\" name=\"";
-            echo twig_escape_filter($this->env, (isset($context["trustedParameterName"]) || array_key_exists("trustedParameterName", $context) ? $context["trustedParameterName"] : (function () { throw new RuntimeError('Variable "trustedParameterName" does not exist.', 39, $this->source); })()), "html", null, true);
+            echo twig_escape_filter($this->env, (isset($context["trustedParameterName"]) || array_key_exists("trustedParameterName", $context) ? $context["trustedParameterName"] : (function () { throw new RuntimeError('Variable "trustedParameterName" does not exist.', 41, $this->source); })()), "html", null, true);
             echo "\" /> ";
             echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("trusted", [], "SchebTwoFactorBundle"), "html", null, true);
             echo "</label></p>
     ";
         }
-        // line 41
+        // line 43
         echo "    ";
-        if ((isset($context["isCsrfProtectionEnabled"]) || array_key_exists("isCsrfProtectionEnabled", $context) ? $context["isCsrfProtectionEnabled"] : (function () { throw new RuntimeError('Variable "isCsrfProtectionEnabled" does not exist.', 41, $this->source); })())) {
-            // line 42
+        if ((isset($context["isCsrfProtectionEnabled"]) || array_key_exists("isCsrfProtectionEnabled", $context) ? $context["isCsrfProtectionEnabled"] : (function () { throw new RuntimeError('Variable "isCsrfProtectionEnabled" does not exist.', 43, $this->source); })())) {
+            // line 44
             echo "        <input type=\"hidden\" name=\"";
-            echo twig_escape_filter($this->env, (isset($context["csrfParameterName"]) || array_key_exists("csrfParameterName", $context) ? $context["csrfParameterName"] : (function () { throw new RuntimeError('Variable "csrfParameterName" does not exist.', 42, $this->source); })()), "html", null, true);
+            echo twig_escape_filter($this->env, (isset($context["csrfParameterName"]) || array_key_exists("csrfParameterName", $context) ? $context["csrfParameterName"] : (function () { throw new RuntimeError('Variable "csrfParameterName" does not exist.', 44, $this->source); })()), "html", null, true);
             echo "\" value=\"";
-            echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken((isset($context["csrfTokenId"]) || array_key_exists("csrfTokenId", $context) ? $context["csrfTokenId"] : (function () { throw new RuntimeError('Variable "csrfTokenId" does not exist.', 42, $this->source); })())), "html", null, true);
+            echo twig_escape_filter($this->env, $this->env->getRuntime('Symfony\Component\Form\FormRenderer')->renderCsrfToken((isset($context["csrfTokenId"]) || array_key_exists("csrfTokenId", $context) ? $context["csrfTokenId"] : (function () { throw new RuntimeError('Variable "csrfTokenId" does not exist.', 44, $this->source); })())), "html", null, true);
             echo "\">
     ";
         }
-        // line 44
+        // line 46
         echo "    <p class=\"submit\"><input type=\"submit\" value=\"";
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("login", [], "SchebTwoFactorBundle"), "html", null, true);
         echo "\" /></p>
 </form>
 
 ";
-        // line 48
+        // line 50
         echo "<p class=\"cancel\"><a href=\"";
-        echo twig_escape_filter($this->env, (isset($context["logoutPath"]) || array_key_exists("logoutPath", $context) ? $context["logoutPath"] : (function () { throw new RuntimeError('Variable "logoutPath" does not exist.', 48, $this->source); })()), "html", null, true);
+        echo twig_escape_filter($this->env, (isset($context["logoutPath"]) || array_key_exists("logoutPath", $context) ? $context["logoutPath"] : (function () { throw new RuntimeError('Variable "logoutPath" does not exist.', 50, $this->source); })()), "html", null, true);
         echo "\">";
         echo twig_escape_filter($this->env, $this->extensions['Symfony\Bridge\Twig\Extension\TranslationExtension']->trans("cancel", [], "SchebTwoFactorBundle"), "html", null, true);
         echo "</a></p>
@@ -159,7 +164,7 @@ class __TwigTemplate_a5f9252a26276e9d2deb922cd36586d3 extends Template
 
     public function getDebugInfo()
     {
-        return array (  136 => 48,  129 => 44,  121 => 42,  118 => 41,  110 => 39,  108 => 38,  103 => 35,  97 => 26,  89 => 21,  81 => 19,  77 => 16,  66 => 14,  62 => 13,  57 => 12,  54 => 10,  48 => 8,  46 => 7,  43 => 5,);
+        return array (  141 => 50,  134 => 46,  126 => 44,  123 => 43,  115 => 41,  113 => 40,  108 => 37,  102 => 28,  94 => 23,  86 => 21,  83 => 19,  79 => 17,  68 => 15,  64 => 14,  59 => 13,  57 => 12,  54 => 10,  48 => 8,  46 => 7,  43 => 5,);
     }
 
     public function getSourceContext()
@@ -175,11 +180,13 @@ especially when you're using different route names than the ones used here.
 {% endif %}
 
 {# Let the user select the authentication method #}
-<p>{{ \"choose_provider\"|trans({}, 'SchebTwoFactorBundle') }}:
-    {% for provider in availableTwoFactorProviders %}
-        <a href=\"{{ path(\"2fa_login\", {\"preferProvider\": provider}) }}\">{{ provider }}</a>
-    {% endfor %}
-</p>
+{% if availableTwoFactorProviders|length > 1 %}
+    <p>{{ \"choose_provider\"|trans({}, 'SchebTwoFactorBundle') }}:
+        {% for provider in availableTwoFactorProviders %}
+            <a href=\"{{ path(\"2fa_login\", {\"preferProvider\": provider}) }}\">{{ provider }}</a>
+        {% endfor %}
+    </p>
+{% endif %}
 
 {# Display current two-factor provider #}
 <p class=\"label\"><label for=\"_auth_code\">{{ \"auth_code\"|trans({}, 'SchebTwoFactorBundle') }} {{ twoFactorProvider }}:</label></p>

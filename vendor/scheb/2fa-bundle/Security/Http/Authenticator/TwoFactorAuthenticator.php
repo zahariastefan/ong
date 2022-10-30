@@ -10,7 +10,6 @@ use Scheb\TwoFactorBundle\Security\Authentication\Token\TwoFactorTokenInterface;
 use Scheb\TwoFactorBundle\Security\Http\Authentication\AuthenticationRequiredHandlerInterface;
 use Scheb\TwoFactorBundle\Security\Http\Authenticator\Passport\Badge\TrustedDeviceBadge;
 use Scheb\TwoFactorBundle\Security\Http\Authenticator\Passport\Credentials\TwoFactorCodeCredentials;
-use Scheb\TwoFactorBundle\Security\Http\Authenticator\Passport\TwoFactorPassport;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorAuthenticationEvent;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorAuthenticationEvents;
 use Scheb\TwoFactorBundle\Security\TwoFactor\TwoFactorFirewallConfig;
@@ -21,14 +20,19 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationFailureHandlerInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationSuccessHandlerInterface;
 use Symfony\Component\Security\Http\Authenticator\AuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\InteractiveAuthenticatorInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\CsrfTokenBadge;
 use Symfony\Component\Security\Http\Authenticator\Passport\Badge\RememberMeBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Badge\UserBadge;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Authenticator\Passport\PassportInterface;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
+use function assert;
+use function class_exists;
 
 /**
  * @final
@@ -37,56 +41,17 @@ class TwoFactorAuthenticator implements AuthenticatorInterface, InteractiveAuthe
 {
     public const FLAG_2FA_COMPLETE = '2fa_complete';
 
-    /**
-     * @var TwoFactorFirewallConfig
-     */
-    private $twoFactorFirewallConfig;
-
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * @var AuthenticationSuccessHandlerInterface
-     */
-    private $successHandler;
-
-    /**
-     * @var AuthenticationFailureHandlerInterface
-     */
-    private $failureHandler;
-
-    /**
-     * @var AuthenticationRequiredHandlerInterface
-     */
-    private $authenticationRequiredHandler;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
+    private LoggerInterface $logger;
 
     public function __construct(
-        TwoFactorFirewallConfig $twoFactorFirewallConfig,
-        TokenStorageInterface $tokenStorage,
-        AuthenticationSuccessHandlerInterface $successHandler,
-        AuthenticationFailureHandlerInterface $failureHandler,
-        AuthenticationRequiredHandlerInterface $authenticationRequiredHandler,
-        EventDispatcherInterface $eventDispatcher,
+        private TwoFactorFirewallConfig $twoFactorFirewallConfig,
+        private TokenStorageInterface $tokenStorage,
+        private AuthenticationSuccessHandlerInterface $successHandler,
+        private AuthenticationFailureHandlerInterface $failureHandler,
+        private AuthenticationRequiredHandlerInterface $authenticationRequiredHandler,
+        private EventDispatcherInterface $eventDispatcher,
         ?LoggerInterface $logger = null
     ) {
-        $this->twoFactorFirewallConfig = $twoFactorFirewallConfig;
-        $this->tokenStorage = $tokenStorage;
-        $this->successHandler = $successHandler;
-        $this->failureHandler = $failureHandler;
-        $this->authenticationRequiredHandler = $authenticationRequiredHandler;
-        $this->eventDispatcher = $eventDispatcher;
         $this->logger = $logger ?? new NullLogger();
     }
 
@@ -95,10 +60,7 @@ class TwoFactorAuthenticator implements AuthenticatorInterface, InteractiveAuthe
         return $this->twoFactorFirewallConfig->isCheckPathRequest($request);
     }
 
-    /**
-     * @psalm-suppress InvalidReturnType
-     */
-    public function authenticate(Request $request): PassportInterface
+    public function authenticate(Request $request): Passport
     {
         // When the firewall is lazy, the token is not initialized in the "supports" stage, so this check does only work
         // within the "authenticate" stage.
@@ -111,8 +73,12 @@ class TwoFactorAuthenticator implements AuthenticatorInterface, InteractiveAuthe
 
         $this->dispatchTwoFactorAuthenticationEvent(TwoFactorAuthenticationEvents::ATTEMPT, $request, $currentToken);
 
-        $credentials = new TwoFactorCodeCredentials($this->twoFactorFirewallConfig->getAuthCodeFromRequest($request));
-        $passport = new TwoFactorPassport($currentToken, $credentials, []);
+        $credentials = new TwoFactorCodeCredentials($currentToken, $this->twoFactorFirewallConfig->getAuthCodeFromRequest($request));
+        $userLoader = static function () use ($currentToken): UserInterface {
+            return $currentToken->getUser();
+        };
+        $userBadge = new UserBadge(UsernameHelper::getTokenUsername($currentToken), $userLoader);
+        $passport = new Passport($userBadge, $credentials, []);
         if ($currentToken->hasAttribute(TwoFactorTokenInterface::ATTRIBUTE_NAME_USE_REMEMBER_ME)) {
             $rememberMeBadge = new RememberMeBadge();
             $rememberMeBadge->enable();
@@ -130,12 +96,10 @@ class TwoFactorAuthenticator implements AuthenticatorInterface, InteractiveAuthe
             $passport->addBadge(new TrustedDeviceBadge());
         }
 
-        /** @psalm-suppress InvalidReturnStatement */
-
         return $passport;
     }
 
-    private function shouldSetTrustedDevice(Request $request, TwoFactorPassport $passport): bool
+    private function shouldSetTrustedDevice(Request $request, Passport $passport): bool
     {
         return $this->twoFactorFirewallConfig->hasTrustedDeviceParameterInRequest($request)
             || (
@@ -144,10 +108,24 @@ class TwoFactorAuthenticator implements AuthenticatorInterface, InteractiveAuthe
             );
     }
 
+    /**
+     * Compatibility with Symfony < 6.0.
+     *
+     * @deprecated Use createToken() instead
+     *
+     * @psalm-suppress UndefinedClass
+     */
     public function createAuthenticatedToken(PassportInterface $passport, string $firewallName): TokenInterface
     {
-        /** @var TwoFactorPassport $passport */
-        $twoFactorToken = $passport->getTwoFactorToken();
+        /** @psalm-suppress InvalidArgument */
+        return $this->createToken($passport, $firewallName);
+    }
+
+    public function createToken(Passport $passport, string $firewallName): TokenInterface
+    {
+        $credentialsBadge = $passport->getBadge(TwoFactorCodeCredentials::class);
+        assert($credentialsBadge instanceof TwoFactorCodeCredentials);
+        $twoFactorToken = $credentialsBadge->getTwoFactorToken();
 
         if ($this->isAuthenticationComplete($twoFactorToken)) {
             $authenticatedToken = $twoFactorToken->getAuthenticatedToken(); // Authentication complete, unwrap the token
@@ -183,8 +161,8 @@ class TwoFactorAuthenticator implements AuthenticatorInterface, InteractiveAuthe
 
     public function onAuthenticationFailure(Request $request, AuthenticationException $exception): ?Response
     {
-        /** @var TwoFactorTokenInterface $currentToken */
         $currentToken = $this->tokenStorage->getToken();
+        assert($currentToken instanceof TwoFactorTokenInterface);
         $this->logger->info('Two-factor authentication request failed.', ['exception' => $exception]);
         $this->dispatchTwoFactorAuthenticationEvent(TwoFactorAuthenticationEvents::FAILURE, $request, $currentToken);
 

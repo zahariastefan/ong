@@ -3,11 +3,13 @@
 namespace Zenstruck\Assert;
 
 use Zenstruck\Assert;
+use Zenstruck\Assert\Assertion\ArraySubsetAssertion;
 use Zenstruck\Assert\Assertion\ComparisonAssertion;
 use Zenstruck\Assert\Assertion\ContainsAssertion;
 use Zenstruck\Assert\Assertion\CountAssertion;
 use Zenstruck\Assert\Assertion\EmptyAssertion;
 use Zenstruck\Assert\Assertion\ThrowsAssertion;
+use Zenstruck\Assert\Assertion\TypeAssertion;
 
 /**
  * @author Kevin Bond <kevinbond@gmail.com>
@@ -200,11 +202,19 @@ final class Expectation
     /**
      * Asserts the expectation value and $expected are "the same" using "===".
      *
-     * @param mixed       $expected
+     * If a {@see Type} object is passed as expected, asserts the type matches.
+     *
+     * @param mixed|Type  $expected
      * @param string|null $message  Available context: {expected}, {actual}
      */
     public function is($expected, ?string $message = null, array $context = []): self
     {
+        if ($expected instanceof Type) {
+            Assert::run(new TypeAssertion($this->value, $expected, $message, $context));
+
+            return $this;
+        }
+
         Assert::run(ComparisonAssertion::same($this->value, $expected, $message, $context));
 
         return $this;
@@ -213,11 +223,19 @@ final class Expectation
     /**
      * Asserts the expectation value and $expected are NOT "the same" using "!==".
      *
-     * @param mixed       $expected
+     * If a {@see Type} object is passed as expected, asserts the type DOES NOT matche.
+     *
+     * @param mixed|Type  $expected
      * @param string|null $message  Available context: {expected}, {actual}
      */
     public function isNot($expected, ?string $message = null, array $context = []): self
     {
+        if ($expected instanceof Type) {
+            Assert::not(new TypeAssertion($this->value, $expected, $message, $context));
+
+            return $this;
+        }
+
         Assert::not(ComparisonAssertion::same($this->value, $expected, $message, $context));
 
         return $this;
@@ -271,6 +289,50 @@ final class Expectation
     public function isLessThanOrEqualTo($expected, ?string $message = null, array $context = []): self
     {
         Assert::run(ComparisonAssertion::lessThanOrEqual($this->value, $expected, $message, $context));
+
+        return $this;
+    }
+
+    /**
+     * @param string|iterable $haystack
+     * @param string|null     $message  Available context: {needle}, {haystack}
+     */
+    public function isSubsetOf($haystack, ?string $message = null, array $context = []): self
+    {
+        Assert::run(ArraySubsetAssertion::isSubsetOf($this->value, $haystack, $message, $context));
+
+        return $this;
+    }
+
+    /**
+     * @param string|iterable $needle
+     * @param string|null     $message Available context: {needle}, {haystack}
+     */
+    public function hasSubset($needle, ?string $message = null, array $context = []): self
+    {
+        Assert::run(ArraySubsetAssertion::hasSubset($this->value, $needle, $message, $context));
+
+        return $this;
+    }
+
+    /**
+     * @param string|iterable $haystack
+     * @param string|null     $message  Available context: {needle}, {haystack}
+     */
+    public function isNotSubsetOf($haystack, ?string $message = null, array $context = []): self
+    {
+        Assert::not(ArraySubsetAssertion::isSubsetOf($this->value, $haystack, $message, $context));
+
+        return $this;
+    }
+
+    /**
+     * @param string|iterable $needle
+     * @param string|null     $message Available context: {needle}, {haystack}
+     */
+    public function notHasSubset($needle, ?string $message = null, array $context = []): self
+    {
+        Assert::not(ArraySubsetAssertion::hasSubset($this->value, $needle, $message, $context));
 
         return $this;
     }

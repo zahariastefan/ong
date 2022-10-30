@@ -6,45 +6,43 @@ namespace Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google;
 
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\AuthenticationContextInterface;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Exception\TwoFactorProviderLogicException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorFormRendererInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderInterface;
+use function strlen;
 
 /**
  * @final
  */
 class GoogleAuthenticatorTwoFactorProvider implements TwoFactorProviderInterface
 {
-    /**
-     * @var GoogleAuthenticatorInterface
-     */
-    private $authenticator;
-
-    /**
-     * @var TwoFactorFormRendererInterface
-     */
-    private $formRenderer;
-
-    public function __construct(GoogleAuthenticatorInterface $authenticator, TwoFactorFormRendererInterface $formRenderer)
-    {
-        $this->authenticator = $authenticator;
-        $this->formRenderer = $formRenderer;
+    public function __construct(
+        private GoogleAuthenticatorInterface $authenticator,
+        private TwoFactorFormRendererInterface $formRenderer,
+    ) {
     }
 
     public function beginAuthentication(AuthenticationContextInterface $context): bool
     {
-        // Check if user can do authentication with google authenticator
         $user = $context->getUser();
+        if (!($user instanceof TwoFactorInterface && $user->isGoogleAuthenticatorEnabled())) {
+            return false;
+        }
 
-        return $user instanceof TwoFactorInterface
-            && $user->isGoogleAuthenticatorEnabled()
-            && $user->getGoogleAuthenticatorSecret();
+        // Make sure there is a secret provided when enabled
+        $secret = $user->getGoogleAuthenticatorSecret();
+        if (null === $secret || 0 === strlen($secret)) {
+            throw new TwoFactorProviderLogicException('User has to provide a secret code for Google Authenticator authentication.');
+        }
+
+        return true;
     }
 
-    public function prepareAuthentication($user): void
+    public function prepareAuthentication(object $user): void
     {
     }
 
-    public function validateAuthenticationCode($user, string $authenticationCode): bool
+    public function validateAuthenticationCode(object $user, string $authenticationCode): bool
     {
         if (!($user instanceof TwoFactorInterface)) {
             return false;

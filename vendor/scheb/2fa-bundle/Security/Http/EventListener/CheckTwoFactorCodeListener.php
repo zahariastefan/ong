@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Scheb\TwoFactorBundle\Security\Http\EventListener;
 
+use InvalidArgumentException;
 use Scheb\TwoFactorBundle\Security\Authentication\Exception\InvalidTwoFactorCodeException;
 use Scheb\TwoFactorBundle\Security\Authentication\Exception\TwoFactorProviderNotFoundException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\PreparationRecorderInterface;
@@ -17,29 +18,21 @@ class CheckTwoFactorCodeListener extends AbstractCheckCodeListener
 {
     public const LISTENER_PRIORITY = 0;
 
-    /**
-     * @var TwoFactorProviderRegistry
-     */
-    private $providerRegistry;
-
     public function __construct(
         PreparationRecorderInterface $preparationRecorder,
-        TwoFactorProviderRegistry $providerRegistry
+        private TwoFactorProviderRegistry $providerRegistry
     ) {
         parent::__construct($preparationRecorder);
-        $this->providerRegistry = $providerRegistry;
     }
 
-    /**
-     * @param object|string $user
-     */
-    protected function isValidCode(string $providerName, $user, string $code): bool
+    protected function isValidCode(string $providerName, object $user, string $code): bool
     {
         try {
             $authenticationProvider = $this->providerRegistry->getProvider($providerName);
-        } catch (\InvalidArgumentException $e) {
+        } catch (InvalidArgumentException) {
             $exception = new TwoFactorProviderNotFoundException('Two-factor provider "'.$providerName.'" not found.');
             $exception->setProvider($providerName);
+
             throw $exception;
         }
 
@@ -50,6 +43,9 @@ class CheckTwoFactorCodeListener extends AbstractCheckCodeListener
         return true;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents(): array
     {
         return [CheckPassportEvent::class => ['checkPassport', self::LISTENER_PRIORITY]];

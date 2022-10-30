@@ -12,6 +12,7 @@ use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Http\Firewall\AbstractListener;
+use Symfony\Component\Security\Http\Firewall\FirewallListenerInterface;
 
 /**
  * Handles access control in the "2fa in progress" phase.
@@ -20,29 +21,11 @@ use Symfony\Component\Security\Http\Firewall\AbstractListener;
  */
 class TwoFactorAccessListener extends AbstractListener implements FirewallListenerInterface
 {
-    /**
-     * @var TwoFactorFirewallConfig
-     */
-    private $twoFactorFirewallConfig;
-
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * @var TwoFactorAccessDecider
-     */
-    private $twoFactorAccessDecider;
-
     public function __construct(
-        TwoFactorFirewallConfig $twoFactorFirewallConfig,
-        TokenStorageInterface $tokenStorage,
-        TwoFactorAccessDecider $twoFactorAccessDecider
+        private TwoFactorFirewallConfig $twoFactorFirewallConfig,
+        private TokenStorageInterface $tokenStorage,
+        private TwoFactorAccessDecider $twoFactorAccessDecider,
     ) {
-        $this->twoFactorFirewallConfig = $twoFactorFirewallConfig;
-        $this->tokenStorage = $tokenStorage;
-        $this->twoFactorAccessDecider = $twoFactorAccessDecider;
     }
 
     public function supports(Request $request): ?bool
@@ -62,8 +45,6 @@ class TwoFactorAccessListener extends AbstractListener implements FirewallListen
             return;
         }
 
-        /** @var TwoFactorTokenInterface $token */
-        $token = $this->tokenStorage->getToken();
         $request = $event->getRequest();
         if ($this->twoFactorFirewallConfig->isCheckPathRequest($request)) {
             return;

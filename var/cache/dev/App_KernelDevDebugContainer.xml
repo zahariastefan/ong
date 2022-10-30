@@ -279,7 +279,6 @@
     <parameter key="time.twig.extension.time.class">Knp\Bundle\TimeBundle\Twig\Extension\TimeExtension</parameter>
     <parameter key="babdev_pagerfanta.default_twig_template">@Pagerfanta/default.html.twig</parameter>
     <parameter key="babdev_pagerfanta.default_view">twitter_bootstrap5</parameter>
-    <parameter key="maker.compatible_check.doctrine.supports_attributes">true</parameter>
     <parameter key="data_collector.templates" type="collection">
       <parameter key="data_collector.request" type="collection">
         <parameter>request</parameter>
@@ -1897,6 +1896,7 @@
             <argument>C:\xampp\htdocs\ONG\ong5ultimate\vendor\symfony\validator/Resources/translations\validators.ca.xlf</argument>
             <argument>C:\xampp\htdocs\ONG\ong5ultimate\vendor\symfony\form/Resources/translations\validators.ca.xlf</argument>
             <argument>C:\xampp\htdocs\ONG\ong5ultimate\vendor\symfony\security-core/Resources/translations\security.ca.xlf</argument>
+            <argument>C:\xampp\htdocs\ONG\ong5ultimate\vendor\symfonycasts\verify-email-bundle\src/Resources/translations\VerifyEmailBundle.ca.xlf</argument>
             <argument>C:\xampp\htdocs\ONG\ong5ultimate\vendor\knplabs\knp-time-bundle/Resources/translations\time.ca.xliff</argument>
             <argument>C:\xampp\htdocs\ONG\ong5ultimate\vendor\babdev\pagerfanta-bundle/translations\pagerfanta.ca.xliff</argument>
           </argument>
@@ -3173,14 +3173,6 @@
         <argument>0</argument>
       </call>
       <call method="addListener">
-        <argument>security.authentication.success</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="scheb_two_factor.security.authentication_success_event_suppressor"/>
-          <argument>onLogin</argument>
-        </argument>
-        <argument>9223372036854775806</argument>
-      </call>
-      <call method="addListener">
         <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
         <argument type="collection">
           <argument type="service_closure" id="scheb_two_factor.security.listener.check_two_factor_code"/>
@@ -3195,6 +3187,14 @@
           <argument>onSuccessfulLogin</argument>
         </argument>
         <argument>-63</argument>
+      </call>
+      <call method="addListener">
+        <argument>security.authentication.success</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="scheb_two_factor.security.authentication_success_event_suppressor"/>
+          <argument>onLogin</argument>
+        </argument>
+        <argument>9223372036854775806</argument>
       </call>
       <call method="addListener">
         <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
@@ -6299,8 +6299,8 @@
       <argument type="service" id=".service_locator.XsyfP82"/>
       <argument type="collection">
         <argument key="main" type="collection">
-          <argument type="service" id="security.authenticator.form_login.main"/>
           <argument type="service" id="security.authenticator.two_factor.main"/>
+          <argument type="service" id="security.authenticator.form_login.main"/>
           <argument type="service" id="security.authenticator.remember_me.main"/>
         </argument>
       </argument>
@@ -6355,8 +6355,8 @@
       <argument type="collection">
         <argument>switch_user</argument>
         <argument>login_throttling</argument>
-        <argument>form_login</argument>
         <argument>two_factor</argument>
+        <argument>form_login</argument>
         <argument>remember_me</argument>
       </argument>
       <argument type="collection">
@@ -6531,14 +6531,6 @@
         <argument>9223372036854775807</argument>
       </call>
       <call method="addListener">
-        <argument>security.authentication.success</argument>
-        <argument type="collection">
-          <argument type="service_closure" id="scheb_two_factor.security.authentication_success_event_suppressor"/>
-          <argument>onLogin</argument>
-        </argument>
-        <argument>9223372036854775806</argument>
-      </call>
-      <call method="addListener">
         <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
         <argument type="collection">
           <argument type="service_closure" id="scheb_two_factor.security.listener.check_two_factor_code"/>
@@ -6553,6 +6545,14 @@
           <argument>onSuccessfulLogin</argument>
         </argument>
         <argument>-63</argument>
+      </call>
+      <call method="addListener">
+        <argument>security.authentication.success</argument>
+        <argument type="collection">
+          <argument type="service_closure" id="scheb_two_factor.security.authentication_success_event_suppressor"/>
+          <argument>onLogin</argument>
+        </argument>
+        <argument>9223372036854775806</argument>
       </call>
       <call method="addListener">
         <argument>Symfony\Component\Security\Http\Event\CheckPassportEvent</argument>
@@ -6645,6 +6645,90 @@
       <argument type="service" id="request_stack"/>
       <argument type="service" id="security.login_throttling.main.limiter"/>
     </service>
+    <service id="security.firewall_config.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\TwoFactorFirewallConfig">
+      <tag name="scheb_two_factor.firewall_config" firewall="main"/>
+      <argument type="collection">
+        <argument key="auth_form_path">2fa_login</argument>
+        <argument key="check_path">2fa_login_check</argument>
+        <argument key="post_only">true</argument>
+        <argument key="always_use_default_target_path">false</argument>
+        <argument key="default_target_path">/</argument>
+        <argument key="success_handler">null</argument>
+        <argument key="failure_handler">null</argument>
+        <argument key="authentication_required_handler">null</argument>
+        <argument key="auth_code_parameter_name">_auth_code</argument>
+        <argument key="trusted_parameter_name">_trusted</argument>
+        <argument key="remember_me_sets_trusted">false</argument>
+        <argument key="multi_factor">false</argument>
+        <argument key="prepare_on_login">false</argument>
+        <argument key="prepare_on_access_denied">false</argument>
+        <argument key="enable_csrf">false</argument>
+        <argument key="csrf_parameter">_csrf_token</argument>
+        <argument key="csrf_token_id">two_factor</argument>
+        <argument key="provider">null</argument>
+      </argument>
+      <argument>main</argument>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="service" id="scheb_two_factor.security.request_data_reader"/>
+    </service>
+    <service id="security.authentication.success_handler.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationSuccessHandler">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="service" id="security.firewall_config.two_factor.main"/>
+    </service>
+    <service id="security.authentication.failure_handler.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationFailureHandler">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="service" id="security.firewall_config.two_factor.main"/>
+    </service>
+    <service id="security.authentication.authentication_required_handler.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationRequiredHandler">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="service" id="security.firewall_config.two_factor.main"/>
+    </service>
+    <service id="security.authentication.kernel_exception_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Firewall\ExceptionListener">
+      <tag name="kernel.event_subscriber"/>
+      <argument>main</argument>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.authentication.authentication_required_handler.two_factor.main"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="security.authentication.access_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Firewall\TwoFactorAccessListener">
+      <argument type="service" id="security.firewall_config.two_factor.main"/>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="scheb_two_factor.security.access.access_decider"/>
+    </service>
+    <service id="security.authentication.form_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorFormListener">
+      <tag name="kernel.event_subscriber"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="security.firewall_config.two_factor.main"/>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="security.authentication.provider_preparation_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderPreparationListener">
+      <tag name="kernel.event_subscriber"/>
+      <tag name="container.hot_path"/>
+      <argument type="service" id="scheb_two_factor.provider_registry"/>
+      <argument type="service" id="scheb_two_factor.provider_preparation_recorder"/>
+      <argument type="service" id="logger" on-invalid="null"/>
+      <argument>main</argument>
+      <argument>false</argument>
+      <argument>false</argument>
+    </service>
+    <service id="security.authentication.token_created_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\AuthenticationTokenListener">
+      <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
+      <argument>main</argument>
+      <argument type="service" id="scheb_two_factor.condition_registry"/>
+      <argument type="service" id="scheb_two_factor.provider_initiator"/>
+      <argument type="service" id="scheb_two_factor.authentication_context_factory"/>
+      <argument type="service" id="request_stack"/>
+    </service>
+    <service id="security.authenticator.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authenticator\TwoFactorAuthenticator">
+      <argument type="service" id="security.firewall_config.two_factor.main"/>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="security.authentication.success_handler.two_factor.main"/>
+      <argument type="service" id="security.authentication.failure_handler.two_factor.main"/>
+      <argument type="service" id="security.authentication.authentication_required_handler.two_factor.main"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="logger" on-invalid="null"/>
+    </service>
     <service id="security.authenticator.form_login.main" class="Symfony\Component\Security\Http\Authenticator\FormLoginAuthenticator">
       <argument type="service" id="security.http_utils"/>
       <argument type="service" id="security.user.provider.concrete.app_user_provider"/>
@@ -6694,92 +6778,6 @@
           <argument key="failure_path_parameter">_failure_path</argument>
         </argument>
       </call>
-    </service>
-    <service id="security.firewall_config.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\TwoFactorFirewallConfig">
-      <tag name="scheb_two_factor.firewall_config" firewall="main"/>
-      <argument type="collection">
-        <argument key="auth_form_path">2fa_login</argument>
-        <argument key="check_path">2fa_login_check</argument>
-        <argument key="post_only">true</argument>
-        <argument key="always_use_default_target_path">false</argument>
-        <argument key="default_target_path">/</argument>
-        <argument key="success_handler">null</argument>
-        <argument key="failure_handler">null</argument>
-        <argument key="authentication_required_handler">null</argument>
-        <argument key="auth_code_parameter_name">_auth_code</argument>
-        <argument key="trusted_parameter_name">_trusted</argument>
-        <argument key="remember_me_sets_trusted">false</argument>
-        <argument key="multi_factor">false</argument>
-        <argument key="prepare_on_login">false</argument>
-        <argument key="prepare_on_access_denied">false</argument>
-        <argument key="enable_csrf">false</argument>
-        <argument key="csrf_parameter">_csrf_token</argument>
-        <argument key="csrf_token_id">two_factor</argument>
-        <argument key="provider">null</argument>
-      </argument>
-      <argument>main</argument>
-      <argument type="service" id="security.http_utils"/>
-      <argument type="service" id="scheb_two_factor.security.request_data_reader"/>
-    </service>
-    <service id="security.authentication.success_handler.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationSuccessHandler">
-      <argument type="service" id="security.http_utils"/>
-      <argument type="service" id="security.firewall_config.two_factor.main"/>
-      <argument type="collection"/>
-    </service>
-    <service id="security.authentication.failure_handler.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationFailureHandler">
-      <argument type="service" id="security.http_utils"/>
-      <argument type="service" id="security.firewall_config.two_factor.main"/>
-    </service>
-    <service id="security.authentication.authentication_required_handler.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationRequiredHandler">
-      <argument type="service" id="security.http_utils"/>
-      <argument type="service" id="security.firewall_config.two_factor.main"/>
-      <argument type="collection"/>
-    </service>
-    <service id="security.authentication.kernel_exception_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Firewall\ExceptionListener">
-      <tag name="kernel.event_subscriber"/>
-      <argument>main</argument>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="security.authentication.authentication_required_handler.two_factor.main"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-    </service>
-    <service id="security.authentication.access_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Firewall\TwoFactorAccessListener">
-      <tag name="scheb_two_factor.access_listener" firewall="main"/>
-      <argument type="service" id="security.firewall_config.two_factor.main"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="scheb_two_factor.security.access.access_decider"/>
-    </service>
-    <service id="security.authentication.form_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorFormListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <argument type="service" id="security.firewall_config.two_factor.main"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-    </service>
-    <service id="security.authentication.provider_preparation_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderPreparationListener">
-      <tag name="kernel.event_subscriber"/>
-      <tag name="container.hot_path"/>
-      <argument type="service" id="scheb_two_factor.provider_registry"/>
-      <argument type="service" id="scheb_two_factor.provider_preparation_recorder"/>
-      <argument type="service" id="logger" on-invalid="null"/>
-      <argument>main</argument>
-      <argument>false</argument>
-      <argument>false</argument>
-    </service>
-    <service id="security.authentication.token_created_listener.two_factor.main" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\AuthenticationTokenListener">
-      <tag name="kernel.event_subscriber" dispatcher="security.event_dispatcher.main"/>
-      <argument>main</argument>
-      <argument type="service" id="scheb_two_factor.condition_handler"/>
-      <argument type="service" id="scheb_two_factor.authentication_context_factory"/>
-      <argument type="service" id="request_stack"/>
-    </service>
-    <service id="security.authenticator.two_factor.main" class="Scheb\TwoFactorBundle\Security\Http\Authenticator\TwoFactorAuthenticator">
-      <argument type="service" id="security.firewall_config.two_factor.main"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="security.authentication.success_handler.two_factor.main"/>
-      <argument type="service" id="security.authentication.failure_handler.two_factor.main"/>
-      <argument type="service" id="security.authentication.authentication_required_handler.two_factor.main"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="security.authenticator.remember_me_signature_hasher" class="Symfony\Component\Security\Core\Signature\SignatureHasher">
       <argument type="service" id="property_accessor"/>
@@ -6889,8 +6887,8 @@
     <service id="security.authenticator.manager.main" class="Symfony\Component\Security\Http\Authentication\AuthenticatorManager">
       <tag name="monolog.logger" channel="security"/>
       <argument type="collection">
-        <argument type="service" id="security.authenticator.form_login.main"/>
         <argument type="service" id="security.authenticator.two_factor.main"/>
+        <argument type="service" id="security.authenticator.form_login.main"/>
         <argument type="service" id="security.authenticator.remember_me.main"/>
       </argument>
       <argument type="service" id="security.token_storage"/>
@@ -7018,9 +7016,7 @@
     </service>
     <service id="maker.doctrine_helper" class="Symfony\Bundle\MakerBundle\Doctrine\DoctrineHelper">
       <argument>App\Entity</argument>
-      <argument type="service" id="maker.php_compat_util"/>
       <argument type="service" id="doctrine" on-invalid="ignore"/>
-      <argument>true</argument>
       <argument type="collection">
         <argument key="default" type="collection">
           <argument type="collection">
@@ -7038,7 +7034,7 @@
     <service id="maker.generator" class="Symfony\Bundle\MakerBundle\Generator">
       <argument type="service" id="maker.file_manager"/>
       <argument>App</argument>
-      <argument type="service" id="maker.php_compat_util"/>
+      <argument>null</argument>
       <argument type="service" id="maker.template_component_generator"/>
     </service>
     <service id="maker.entity_class_generator" class="Symfony\Bundle\MakerBundle\Doctrine\EntityClassGenerator">
@@ -7050,15 +7046,11 @@
     <service id="maker.renderer.form_type_renderer" class="Symfony\Bundle\MakerBundle\Renderer\FormTypeRenderer">
       <argument type="service" id="maker.generator"/>
     </service>
-    <service id="maker.security_controller_builder" class="Symfony\Bundle\MakerBundle\Security\SecurityControllerBuilder">
-      <argument type="service" id="maker.php_compat_util"/>
-    </service>
+    <service id="maker.security_controller_builder" class="Symfony\Bundle\MakerBundle\Security\SecurityControllerBuilder"/>
     <service id="maker.php_compat_util" class="Symfony\Bundle\MakerBundle\Util\PhpCompatUtil">
       <argument type="service" id="maker.file_manager"/>
     </service>
-    <service id="maker.template_component_generator" class="Symfony\Bundle\MakerBundle\Util\TemplateComponentGenerator">
-      <argument type="service" id="maker.php_compat_util"/>
-    </service>
+    <service id="maker.template_component_generator" class="Symfony\Bundle\MakerBundle\Util\TemplateComponentGenerator"/>
     <service id="maker.maker.make_authenticator" class="Symfony\Bundle\MakerBundle\Maker\MakeAuthenticator">
       <tag name="maker.command"/>
       <argument type="service" id="maker.file_manager"/>
@@ -7323,18 +7315,15 @@
       <argument type="service" id="symfonycasts.verify_email.token_generator"/>
       <argument>3600</argument>
     </service>
-    <service id="scheb_two_factor.security.authentication.provider.decorator" class="Scheb\TwoFactorBundle\Security\Authentication\Provider\AuthenticationProviderDecorator" abstract="true">
-      <argument></argument>
-      <argument type="service" id="scheb_two_factor.condition_handler"/>
-      <argument type="service" id="scheb_two_factor.authentication_context_factory"/>
-      <argument type="service" id="security.firewall.map"/>
-      <argument type="service" id="request_stack"/>
-    </service>
-    <service id="scheb_two_factor.security.authentication.provider" class="Scheb\TwoFactorBundle\Security\Authentication\Provider\TwoFactorAuthenticationProvider" abstract="true">
-      <argument></argument>
-      <argument type="service" id="scheb_two_factor.provider_registry"/>
-      <argument type="service" id="scheb_two_factor.backup_code_manager" on-invalid="null"/>
-      <argument type="service" id="scheb_two_factor.provider_preparation_recorder"/>
+    <service id="scheb_two_factor.security.authenticator" class="Scheb\TwoFactorBundle\Security\Http\Authenticator\TwoFactorAuthenticator">
+      <tag name="monolog.logger" channel="security"/>
+      <argument type="abstract">Two-factor firewall config</argument>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="abstract">Authentication success handler</argument>
+      <argument type="abstract">Authentication failure handler</argument>
+      <argument type="abstract">Authentication required handler</argument>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="logger" on-invalid="null"/>
     </service>
     <service id="scheb_two_factor.security.authentication.trust_resolver" class="Scheb\TwoFactorBundle\Security\Authentication\AuthenticationTrustResolver">
       <argument type="service" id="scheb_two_factor.security.authentication.trust_resolver.inner"/>
@@ -7348,85 +7337,10 @@
       <argument type="service" id="security.http_utils"/>
       <argument type="service" id="security.logout_url_generator"/>
     </service>
-    <service id="scheb_two_factor.security.authentication.listener" class="Scheb\TwoFactorBundle\Security\Http\Firewall\TwoFactorListener" abstract="true">
-      <tag name="monolog.logger" channel="security"/>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="security.authentication.manager"/>
-      <argument></argument>
-      <argument></argument>
-      <argument></argument>
-      <argument></argument>
-      <argument></argument>
-      <argument type="service" id="scheb_two_factor.trusted_device_manager" on-invalid="null"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="scheb_two_factor.default_token_factory"/>
-      <argument type="service" id="logger" on-invalid="null"/>
-    </service>
-    <service id="scheb_two_factor.security.rememberme_services_decorator" class="Scheb\TwoFactorBundle\Security\Authentication\RememberMe\RememberMeServicesDecorator" abstract="true">
-      <argument></argument>
-    </service>
-    <service id="scheb_two_factor.security.provider_preparation_listener" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderPreparationListener" abstract="true">
-      <argument type="service" id="scheb_two_factor.provider_registry"/>
-      <argument type="service" id="scheb_two_factor.provider_preparation_recorder"/>
-      <argument type="service" id="logger" on-invalid="null"/>
-      <argument></argument>
-      <argument></argument>
-      <argument></argument>
-    </service>
-    <service id="scheb_two_factor.security.form_listener" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorFormListener" abstract="true">
-      <argument></argument>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="debug.event_dispatcher"/>
-    </service>
-    <service id="scheb_two_factor.security.authentication_success_event_suppressor" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\AuthenticationSuccessEventSuppressor">
-      <tag name="kernel.event_subscriber"/>
-    </service>
-    <service id="scheb_two_factor.security.kernel_exception_listener" class="Scheb\TwoFactorBundle\Security\Http\Firewall\ExceptionListener" abstract="true">
-      <argument></argument>
-      <argument type="service" id="security.token_storage"/>
-      <argument></argument>
-      <argument type="service" id="debug.event_dispatcher"/>
-    </service>
-    <service id="scheb_two_factor.security.access_listener" class="Scheb\TwoFactorBundle\Security\Http\Firewall\TwoFactorAccessListener" abstract="true">
-      <argument></argument>
-      <argument type="service" id="security.token_storage"/>
-      <argument type="service" id="scheb_two_factor.security.access.access_decider"/>
-    </service>
-    <service id="scheb_two_factor.security.authentication.success_handler" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationSuccessHandler" abstract="true">
-      <argument type="service" id="security.http_utils"/>
-      <argument></argument>
-      <argument type="collection"/>
-    </service>
-    <service id="scheb_two_factor.security.authentication.failure_handler" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationFailureHandler" abstract="true">
-      <argument type="service" id="security.http_utils"/>
-      <argument type="collection"/>
-    </service>
-    <service id="scheb_two_factor.security.authentication.authentication_required_handler" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationRequiredHandler" abstract="true">
-      <argument type="service" id="security.http_utils"/>
-      <argument></argument>
-      <argument type="collection"/>
-    </service>
-    <service id="scheb_two_factor.null_csrf_token_manager" class="Scheb\TwoFactorBundle\Security\TwoFactor\Csrf\NullCsrfTokenManager"/>
-    <service id="scheb_two_factor.security.firewall_config" class="Scheb\TwoFactorBundle\Security\TwoFactor\TwoFactorFirewallConfig" abstract="true">
-      <argument type="collection"/>
-      <argument></argument>
-      <argument type="service" id="security.http_utils"/>
-      <argument type="service" id="scheb_two_factor.security.request_data_reader"/>
-    </service>
-    <service id="scheb_two_factor.security.request_data_reader" class="Scheb\TwoFactorBundle\Security\Http\Utils\RequestDataReader"/>
-    <service id="scheb_two_factor.security.authenticator" class="Scheb\TwoFactorBundle\Security\Http\Authenticator\TwoFactorAuthenticator" abstract="true">
-      <tag name="monolog.logger" channel="security"/>
-      <argument></argument>
-      <argument type="service" id="security.token_storage"/>
-      <argument></argument>
-      <argument></argument>
-      <argument></argument>
-      <argument type="service" id="debug.event_dispatcher"/>
-      <argument type="service" id="logger" on-invalid="null"/>
-    </service>
-    <service id="scheb_two_factor.security.listener.token_created" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\AuthenticationTokenListener" abstract="true">
-      <argument></argument>
-      <argument type="service" id="scheb_two_factor.condition_handler"/>
+    <service id="scheb_two_factor.security.listener.token_created" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\AuthenticationTokenListener">
+      <argument type="abstract">Firewall name</argument>
+      <argument type="service" id="scheb_two_factor.condition_registry"/>
+      <argument type="service" id="scheb_two_factor.provider_initiator"/>
       <argument type="service" id="scheb_two_factor.authentication_context_factory"/>
       <argument type="service" id="request_stack"/>
     </service>
@@ -7438,6 +7352,53 @@
     <service id="scheb_two_factor.security.listener.suppress_remember_me" class="Scheb\TwoFactorBundle\Security\Http\EventListener\SuppressRememberMeListener">
       <tag name="kernel.event_subscriber"/>
     </service>
+    <service id="scheb_two_factor.security.provider_preparation_listener" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderPreparationListener">
+      <argument type="service" id="scheb_two_factor.provider_registry"/>
+      <argument type="service" id="scheb_two_factor.provider_preparation_recorder"/>
+      <argument type="service" id="logger" on-invalid="null"/>
+      <argument type="abstract">Firewall name</argument>
+      <argument>false</argument>
+      <argument>false</argument>
+    </service>
+    <service id="scheb_two_factor.security.form_listener" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorFormListener">
+      <argument type="abstract">Two-factor firewall config</argument>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="scheb_two_factor.security.authentication_success_event_suppressor" class="Scheb\TwoFactorBundle\Security\TwoFactor\Event\AuthenticationSuccessEventSuppressor">
+      <tag name="kernel.event_subscriber"/>
+    </service>
+    <service id="scheb_two_factor.security.kernel_exception_listener" class="Scheb\TwoFactorBundle\Security\Http\Firewall\ExceptionListener">
+      <argument type="abstract">Firewall name</argument>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="abstract">Authentication required handler</argument>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="scheb_two_factor.security.access_listener" class="Scheb\TwoFactorBundle\Security\Http\Firewall\TwoFactorAccessListener">
+      <argument type="abstract">Two-factor firewall config</argument>
+      <argument type="service" id="security.token_storage"/>
+      <argument type="service" id="scheb_two_factor.security.access.access_decider"/>
+    </service>
+    <service id="scheb_two_factor.security.authentication.success_handler" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationSuccessHandler">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="abstract">Two-factor firewall config</argument>
+    </service>
+    <service id="scheb_two_factor.security.authentication.failure_handler" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationFailureHandler">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="abstract">Two-factor firewall config</argument>
+    </service>
+    <service id="scheb_two_factor.security.authentication.authentication_required_handler" class="Scheb\TwoFactorBundle\Security\Http\Authentication\DefaultAuthenticationRequiredHandler">
+      <argument type="service" id="security.http_utils"/>
+      <argument type="abstract">Two-factor firewall config</argument>
+    </service>
+    <service id="scheb_two_factor.null_csrf_token_manager" class="Scheb\TwoFactorBundle\Security\TwoFactor\Csrf\NullCsrfTokenManager"/>
+    <service id="scheb_two_factor.security.firewall_config" class="Scheb\TwoFactorBundle\Security\TwoFactor\TwoFactorFirewallConfig">
+      <argument type="collection"/>
+      <argument type="abstract">Firewall name</argument>
+      <argument type="service" id="security.http_utils"/>
+      <argument type="service" id="scheb_two_factor.security.request_data_reader"/>
+    </service>
+    <service id="scheb_two_factor.security.request_data_reader" class="Scheb\TwoFactorBundle\Security\Http\Utils\RequestDataReader"/>
     <service id="scheb_two_factor.persister_factory.doctrine" class="Scheb\TwoFactorBundle\Model\Persister\DoctrinePersisterFactory">
       <argument type="service" id="doctrine" on-invalid="null"/>
       <argument>null</argument>
@@ -7454,23 +7415,22 @@
     <service id="scheb_two_factor.authentication_context_factory" class="Scheb\TwoFactorBundle\Security\TwoFactor\AuthenticationContextFactory">
       <argument>Scheb\TwoFactorBundle\Security\TwoFactor\AuthenticationContext</argument>
     </service>
-    <service id="scheb_two_factor.condition_handler" class="Scheb\TwoFactorBundle\Security\TwoFactor\Handler\ConditionAuthenticationHandler" lazy="true">
-      <argument type="service" id="scheb_two_factor.authenticated_token_handler"/>
-      <argument type="service" id="scheb_two_factor.default_handler_condition"/>
+    <service id="scheb_two_factor.condition_registry" class="Scheb\TwoFactorBundle\Security\TwoFactor\Condition\TwoFactorConditionRegistry" lazy="true">
+      <argument type="iterator">
+        <argument type="service" id="scheb_two_factor.authenticated_token_condition"/>
+        <argument type="service" id="scheb_two_factor.ip_whitelist_condition"/>
+      </argument>
     </service>
-    <service id="scheb_two_factor.default_handler_condition" class="Scheb\TwoFactorBundle\Security\TwoFactor\Condition\DefaultTwoFactorCondition"/>
-    <service id="scheb_two_factor.authenticated_token_handler" class="Scheb\TwoFactorBundle\Security\TwoFactor\Handler\AuthenticatedTokenHandler" lazy="true">
-      <argument type="service" id="scheb_two_factor.ip_whitelist_handler"/>
+    <service id="scheb_two_factor.authenticated_token_condition" class="Scheb\TwoFactorBundle\Security\TwoFactor\Condition\AuthenticatedTokenCondition" lazy="true">
       <argument>%scheb_two_factor.security_tokens%</argument>
     </service>
-    <service id="scheb_two_factor.ip_whitelist_handler" class="Scheb\TwoFactorBundle\Security\TwoFactor\Handler\IpWhitelistHandler" lazy="true">
-      <argument type="service" id="scheb_two_factor.provider_handler"/>
+    <service id="scheb_two_factor.ip_whitelist_condition" class="Scheb\TwoFactorBundle\Security\TwoFactor\Condition\IpWhitelistCondition" lazy="true">
       <argument type="service" id="scheb_two_factor.default_ip_whitelist_provider"/>
     </service>
     <service id="scheb_two_factor.default_ip_whitelist_provider" class="Scheb\TwoFactorBundle\Security\TwoFactor\IpWhitelist\DefaultIpWhitelistProvider">
       <argument type="collection"/>
     </service>
-    <service id="scheb_two_factor.provider_handler" class="Scheb\TwoFactorBundle\Security\TwoFactor\Handler\TwoFactorProviderHandler" lazy="true">
+    <service id="scheb_two_factor.provider_initiator" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderInitiator" lazy="true">
       <argument type="service" id="scheb_two_factor.provider_registry"/>
       <argument type="service" id="scheb_two_factor.default_token_factory"/>
     </service>
@@ -7493,10 +7453,6 @@
     <service id="scheb_two_factor.security.form_renderer" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\DefaultTwoFactorFormRenderer" lazy="true">
       <argument type="service" id="twig"/>
       <argument>@SchebTwoFactor/Authentication/form.html.twig</argument>
-    </service>
-    <service id="scheb_two_factor.qr_code_generator" class="Scheb\TwoFactorBundle\Security\TwoFactor\QrCode\QrCodeGenerator" public="true">
-      <argument>null</argument>
-      <argument type="service" id="scheb_two_factor.security.totp_authenticator" on-invalid="null"/>
     </service>
     <service id="scheb_two_factor.security.totp_factory" class="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpFactory" public="true">
       <argument>null</argument>
@@ -8171,10 +8127,11 @@
         <argument key="totpAuthenticator" type="service_closure" id="scheb_two_factor.security.totp_authenticator"/>
       </argument>
     </service>
-    <service id=".service_locator.ouFrzJA" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".errored.WCIsJYV" class="Scheb\TwoFactorBundle\Security\TwoFactor\QrCode\QrCodeGenerator"/>
+    <service id=".service_locator.7gW24Zw" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
-        <argument key="qrCodeGenerator" type="service_closure" id="scheb_two_factor.qr_code_generator"/>
+        <argument key="qrCodeGenerator" type="service_closure" id=".errored.WCIsJYV"/>
       </argument>
     </service>
     <service id=".service_locator.SxsyjTQ" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -8196,7 +8153,7 @@
         <argument key="questionRepository" type="service_closure" id="App\Repository\QuestionRepository"/>
       </argument>
     </service>
-    <service id=".service_locator.WfePlr8" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.heBLxUH" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Controller\AdminController::dashboard" type="service_closure" id=".service_locator.4TftXj6"/>
@@ -8216,7 +8173,7 @@
         <argument key="App\Controller\RegistrationController::register" type="service_closure" id=".service_locator.UpUxibw"/>
         <argument key="App\Controller\RegistrationController::verifyUserEmail" type="service_closure" id=".service_locator.m6Gvnlc"/>
         <argument key="App\Controller\SecurityController::disable2fa" type="service_closure" id=".service_locator.CA.GxLG"/>
-        <argument key="App\Controller\SecurityController::displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.ouFrzJA"/>
+        <argument key="App\Controller\SecurityController::displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.7gW24Zw"/>
         <argument key="App\Controller\SecurityController::enable2fa" type="service_closure" id=".service_locator.CA.GxLG"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.zFcJjKU"/>
         <argument key="App\Controller\SecurityController::logout" type="service_closure" id=".service_locator.zFcJjKU"/>
@@ -8247,7 +8204,7 @@
         <argument key="App\Controller\RegistrationController:register" type="service_closure" id=".service_locator.UpUxibw"/>
         <argument key="App\Controller\RegistrationController:verifyUserEmail" type="service_closure" id=".service_locator.m6Gvnlc"/>
         <argument key="App\Controller\SecurityController:disable2fa" type="service_closure" id=".service_locator.CA.GxLG"/>
-        <argument key="App\Controller\SecurityController:displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.ouFrzJA"/>
+        <argument key="App\Controller\SecurityController:displayGoogleAuthenticatorQrCode" type="service_closure" id=".service_locator.7gW24Zw"/>
         <argument key="App\Controller\SecurityController:enable2fa" type="service_closure" id=".service_locator.CA.GxLG"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.zFcJjKU"/>
         <argument key="App\Controller\SecurityController:logout" type="service_closure" id=".service_locator.zFcJjKU"/>
@@ -8779,12 +8736,12 @@
       <argument type="service" id="security.token_storage"/>
     </service>
     <service id="debug.argument_resolver.service.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
-      <argument type="service" id=".service_locator.WfePlr8"/>
+      <argument type="service" id=".service_locator.heBLxUH"/>
     </service>
     <service id="debug.argument_resolver.default.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver"/>
     <service id="debug.argument_resolver.variadic.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\VariadicValueResolver"/>
     <service id="debug.argument_resolver.not_tagged_controller.inner" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
-      <argument type="service" id=".service_locator.WfePlr8"/>
+      <argument type="service" id=".service_locator.heBLxUH"/>
     </service>
     <service id="debug.traced.messenger.bus.default.inner" class="Symfony\Component\Messenger\MessageBus">
       <argument type="iterator">
@@ -9816,15 +9773,12 @@
     <service id="Symfony\UX\Chartjs\Builder\ChartBuilderInterface" alias="chartjs.builder"/>
     <service id="SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface" alias="symfonycasts.verify_email.helper"/>
     <service id="scheb_two_factor.csrf_token_manager" alias="security.csrf.token_manager"/>
-    <service id="Scheb\TwoFactorBundle\Model\PersisterInterface" alias="scheb_two_factor.persister.doctrine" public="true"/>
-    <service id="scheb_two_factor.first_two_factor_handler" alias="scheb_two_factor.condition_handler"/>
-    <service id="scheb_two_factor.handler_condition" alias="scheb_two_factor.default_handler_condition"/>
-    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\TwoFactorFirewallContext" alias="scheb_two_factor.firewall_context" public="true"/>
-    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorFormRendererInterface" alias="scheb_two_factor.security.form_renderer" public="true"/>
-    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\QrCode\QrCodeGenerator" alias="scheb_two_factor.qr_code_generator" public="true"/>
+    <service id="Scheb\TwoFactorBundle\Model\PersisterInterface" alias="scheb_two_factor.persister.doctrine"/>
+    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\TwoFactorFirewallContext" alias="scheb_two_factor.firewall_context"/>
+    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorFormRendererInterface" alias="scheb_two_factor.security.form_renderer"/>
     <service id="scheb_two_factor.security.totp.form_renderer" alias="scheb_two_factor.security.totp.default_form_renderer"/>
-    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticatorInterface" alias="scheb_two_factor.security.totp_authenticator" public="true"/>
-    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticator" alias="scheb_two_factor.security.totp_authenticator" public="true"/>
+    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticatorInterface" alias="scheb_two_factor.security.totp_authenticator"/>
+    <service id="Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp\TotpAuthenticator" alias="scheb_two_factor.security.totp_authenticator"/>
     <service id="scheb_two_factor.persister" alias="scheb_two_factor.persister.doctrine"/>
     <service id="scheb_two_factor.ip_whitelist_provider" alias="scheb_two_factor.default_ip_whitelist_provider"/>
     <service id="scheb_two_factor.token_factory" alias="scheb_two_factor.default_token_factory"/>
@@ -9834,7 +9788,7 @@
     <service id="Pagerfanta\View\ViewFactoryInterface" alias="pagerfanta.view_factory"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.gSv9zYw" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.WfePlr8"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.heBLxUH"/>
     <service id="session" alias=".session.do-not-use" public="true">
       <deprecated package="symfony/framework-bundle" version="5.3">The "%alias_id%" service and "SessionInterface" alias are deprecated, use "$requestStack-&gt;getSession()" instead.</deprecated>
     </service>
@@ -9852,7 +9806,7 @@
     <service id=".service_locator.3SGNgb7" alias=".service_locator.m6Gvnlc"/>
     <service id=".service_locator.nXICEYY" alias=".service_locator.CA.GxLG"/>
     <service id=".service_locator.qcWs_1y" alias=".service_locator.nutZItx"/>
-    <service id=".service_locator.cP83sOW" alias=".service_locator.WfePlr8"/>
+    <service id=".service_locator.WVHrnf6" alias=".service_locator.heBLxUH"/>
     <service id=".service_locator.wKF4yn1" alias=".service_locator.19_mNxd"/>
     <service id=".service_locator.yj07qm_" alias=".service_locator.ZyXYEQR"/>
     <service id=".service_locator.nk0lT0X" alias=".service_locator.1kmbKC8"/>
@@ -9897,7 +9851,6 @@
     <service id=".service_locator.gLln9R4" alias=".service_locator.m6Gvnlc"/>
     <service id=".service_locator.URfgn8g" alias=".service_locator.zFcJjKU"/>
     <service id=".service_locator.BLW8skX" alias=".service_locator.CA.GxLG"/>
-    <service id=".service_locator.RAHY.to" alias=".service_locator.ouFrzJA"/>
     <service id=".service_locator.U3y8jTJ" alias=".service_locator.SxsyjTQ"/>
     <service id=".service_locator.CzGImeC" alias=".service_locator.nutZItx"/>
     <service id=".service_locator.vwSt5ox" alias=".service_locator.E4yxQnW"/>

@@ -7,31 +7,23 @@ namespace Scheb\TwoFactorBundle\Security\TwoFactor\Provider;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Twig\Environment;
+use function array_merge;
 
 class DefaultTwoFactorFormRenderer implements TwoFactorFormRendererInterface
 {
     /**
-     * @var Environment
+     * @param array<string,mixed> $templateVars
      */
-    private $twigEnvironment;
-
-    /**
-     * @var string
-     */
-    private $template;
-
-    /**
-     * @var array
-     */
-    private $templateVars;
-
-    public function __construct(Environment $twigRenderer, string $template, array $templateVars = [])
-    {
-        $this->template = $template;
-        $this->twigEnvironment = $twigRenderer;
-        $this->templateVars = $templateVars;
+    public function __construct(
+        private Environment $twigEnvironment,
+        private string $template,
+        private array $templateVars = [],
+    ) {
     }
 
+    /**
+     * @param array<string,mixed> $templateVars
+     */
     public function renderForm(Request $request, array $templateVars): Response
     {
         $content = $this->twigEnvironment->render($this->template, array_merge($this->templateVars, $templateVars));

@@ -6,44 +6,47 @@ namespace Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Totp;
 
 use Scheb\TwoFactorBundle\Model\Totp\TwoFactorInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\AuthenticationContextInterface;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Exception\TwoFactorProviderLogicException;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorFormRendererInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderInterface;
+use function strlen;
 
 /**
  * @final
  */
 class TotpAuthenticatorTwoFactorProvider implements TwoFactorProviderInterface
 {
-    /**
-     * @var TotpAuthenticatorInterface
-     */
-    private $authenticator;
-
-    /**
-     * @var TwoFactorFormRendererInterface
-     */
-    private $formRenderer;
-
-    public function __construct(TotpAuthenticatorInterface $authenticator, TwoFactorFormRendererInterface $formRenderer)
-    {
-        $this->authenticator = $authenticator;
-        $this->formRenderer = $formRenderer;
+    public function __construct(
+        private TotpAuthenticatorInterface $authenticator,
+        private TwoFactorFormRendererInterface $formRenderer,
+    ) {
     }
 
     public function beginAuthentication(AuthenticationContextInterface $context): bool
     {
         $user = $context->getUser();
+        if (!($user instanceof TwoFactorInterface && $user->isTotpAuthenticationEnabled())) {
+            return false;
+        }
 
-        return $user instanceof TwoFactorInterface
-            && $user->isTotpAuthenticationEnabled()
-            && $user->getTotpAuthenticationConfiguration();
+        $totpConfiguration = $user->getTotpAuthenticationConfiguration();
+        if (null === $totpConfiguration) {
+            throw new TwoFactorProviderLogicException('User has to provide a TotpAuthenticationConfiguration for TOTP authentication.');
+        }
+
+        $secret = $totpConfiguration->getSecret();
+        if (0 === strlen($secret)) {
+            throw new TwoFactorProviderLogicException('User has to provide a secret code for TOTP authentication.');
+        }
+
+        return true;
     }
 
-    public function prepareAuthentication($user): void
+    public function prepareAuthentication(object $user): void
     {
     }
 
-    public function validateAuthenticationCode($user, string $authenticationCode): bool
+    public function validateAuthenticationCode(object $user, string $authenticationCode): bool
     {
         if (!($user instanceof TwoFactorInterface)) {
             return false;

@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace Scheb\TwoFactorBundle\Model\Totp;
 
+use InvalidArgumentException;
+use function in_array;
+use function sprintf;
+
 class TotpConfiguration implements TotpConfigurationInterface
 {
     public const ALGORITHM_MD5 = 'md5';
@@ -11,25 +15,7 @@ class TotpConfiguration implements TotpConfigurationInterface
     public const ALGORITHM_SHA256 = 'sha256';
     public const ALGORITHM_SHA512 = 'sha512';
 
-    /**
-     * @var string
-     */
-    private $secret;
-
-    /**
-     * @var string
-     */
-    private $algorithm;
-
-    /**
-     * @var int
-     */
-    private $period;
-
-    /**
-     * @var int
-     */
-    private $digits;
+    private string $algorithm;
 
     /**
      * @param string $secret    Base32 encoded secret key
@@ -37,21 +23,22 @@ class TotpConfiguration implements TotpConfigurationInterface
      * @param int    $period    Period in seconds, when the one-time password changes
      * @param int    $digits    Number of digits of the one-time password
      */
-    public function __construct(string $secret, string $algorithm, int $period, int $digits)
-    {
+    public function __construct(
+        private string $secret,
+        string $algorithm,
+        private int $period,
+        private int $digits,
+    ) {
         if (!self::isValidAlgorithm($algorithm)) {
-            throw new \InvalidArgumentException(sprintf('The algorithm "%s" is not supported', $algorithm));
+            throw new InvalidArgumentException(sprintf('The algorithm "%s" is not supported', $algorithm));
         }
 
-        $this->secret = $secret;
         $this->algorithm = $algorithm;
-        $this->period = $period;
-        $this->digits = $digits;
     }
 
     private static function isValidAlgorithm(string $algorithm): bool
     {
-        return \in_array(
+        return in_array(
             $algorithm,
             [
                 self::ALGORITHM_MD5,

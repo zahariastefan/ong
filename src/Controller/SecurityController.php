@@ -81,6 +81,7 @@ class SecurityController extends BaseController
         // $qrCode is provided by the endroid/qr-code library. See the docs how to customize the look of the QR code:
         // https://github.com/endroid/qr-code
         $qrCode = $qrCodeGenerator->getTotpQrCode($this->getUser());
+        dd($qrCode);
         return new Response($qrCode->writeString(), 200, ['Content-Type' => 'image/png']);
     }
 }

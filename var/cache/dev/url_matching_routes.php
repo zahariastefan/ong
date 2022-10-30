@@ -70,6 +70,7 @@ return [
                         .'|(*:346)'
                     .')'
                 .')'
+                .'|/(*:357)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -86,8 +87,9 @@ return [
         303 => [[['_route' => '_profiler_router', '_controller' => 'web_profiler.controller.router::panelAction'], ['token'], null, null, false, false, null]],
         323 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         336 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
-        346 => [
-            [['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null],
+        346 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
+        357 => [
+            [['_route' => 'index', '_controller' => 'App\\Controller\\HomepageController::homepage'], [], null, null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

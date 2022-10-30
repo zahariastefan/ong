@@ -6,6 +6,7 @@
     "require": {
         "php": ">=8.1.5",
         "ext-ctype": "*",
+        "ext-curl": "*",
         "ext-iconv": "*",
         "ext-json": "*",
         "ext-openssl": "*",
@@ -15,15 +16,16 @@
         "doctrine/doctrine-fixtures-bundle": "^3.4",
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.12",
+        "endroid/qrcode": "^4.4",
         "gedmo/doctrine-extensions": "^3.7",
         "knplabs/knp-time-bundle": "^1.19",
         "pagerfanta/doctrine-orm-adapter": "^3.6",
         "pagerfanta/twig": "^3.6",
         "phpdocumentor/reflection-docblock": "^5.3",
         "phpstan/phpdoc-parser": "^1.6",
-        "scheb/2fa-bundle": "^5.13",
-        "scheb/2fa-qr-code": "^5.13",
-        "scheb/2fa-totp": "^5.13",
+        "scheb/2fa-bundle": "^v6.1.0",
+        "scheb/2fa-google-authenticator": "v6.1.0",
+        "scheb/2fa-totp": "^6.1",
         "sensio/framework-extra-bundle": "^6.1",
         "stripe/stripe-php": "^8.6",
         "symfony/apache-pack": "^1.0",
@@ -59,8 +61,7 @@
         "symfonycasts/verify-email-bundle": "^1.10",
         "twig/extra-bundle": "^2.12|^3.0",
         "twig/string-extra": "^3.4",
-        "twig/twig": "^2.12|^3.0",
-        "ext-curl": "*"
+        "twig/twig": "^2.12|^3.0"
     },
     "config": {
         "allow-plugins": {

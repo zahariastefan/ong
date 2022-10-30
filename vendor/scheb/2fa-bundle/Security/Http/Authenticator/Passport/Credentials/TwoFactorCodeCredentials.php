@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Scheb\TwoFactorBundle\Security\Http\Authenticator\Passport\Credentials;
 
+use LogicException;
+use Scheb\TwoFactorBundle\Security\Authentication\Token\TwoFactorTokenInterface;
 use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\CredentialsInterface;
 
 /**
@@ -11,25 +13,23 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\Credentia
  */
 class TwoFactorCodeCredentials implements CredentialsInterface
 {
-    /**
-     * @var string|null
-     */
-    private $code;
+    private bool $resolved = false;
 
-    /**
-     * @var bool
-     */
-    private $resolved = false;
+    public function __construct(
+        private TwoFactorTokenInterface $twoFactorToken,
+        private ?string $code,
+    ) {
+    }
 
-    public function __construct(string $code)
+    public function getTwoFactorToken(): TwoFactorTokenInterface
     {
-        $this->code = $code;
+        return $this->twoFactorToken;
     }
 
     public function getCode(): string
     {
         if (null === $this->code) {
-            throw new \LogicException('The credentials are erased as another listener already verified these credentials.');
+            throw new LogicException('The credentials are erased as another listener already verified these credentials.');
         }
 
         return $this->code;

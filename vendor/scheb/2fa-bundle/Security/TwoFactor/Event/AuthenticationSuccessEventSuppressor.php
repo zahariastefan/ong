@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Event\AuthenticationEvent;
 class AuthenticationSuccessEventSuppressor implements EventSubscriberInterface
 {
     // Must trigger after TwoFactorProviderPreparationListener::onLogin to stop event propagation immediately
-    public const LISTENER_PRIORITY = TwoFactorProviderPreparationListener::LISTENER_PRIORITY - 1;
+    public const LISTENER_PRIORITY = TwoFactorProviderPreparationListener::AUTHENTICATION_SUCCESS_LISTENER_PRIORITY - 1;
 
     public function onLogin(AuthenticationEvent $event): void
     {
@@ -24,12 +24,17 @@ class AuthenticationSuccessEventSuppressor implements EventSubscriberInterface
 
         // We have a TwoFactorToken, make sure the security.authentication.success is not propagated to other
         // listeners, since we do not have a successful login (yet)
-        if ($token instanceof TwoFactorTokenInterface) {
-            $event->stopPropagation();
+        if (!($token instanceof TwoFactorTokenInterface)) {
+            return;
         }
+
+        $event->stopPropagation();
     }
 
-    public static function getSubscribedEvents()
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents(): array
     {
         return [
             AuthenticationEvents::AUTHENTICATION_SUCCESS => ['onLogin', self::LISTENER_PRIORITY],

@@ -17,29 +17,11 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
  */
 class TwoFactorFormListener implements EventSubscriberInterface
 {
-    /**
-     * @var TwoFactorFirewallConfig
-     */
-    private $twoFactorFirewallConfig;
-
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * @var EventDispatcherInterface
-     */
-    private $eventDispatcher;
-
     public function __construct(
-        TwoFactorFirewallConfig $twoFactorFirewallConfig,
-        TokenStorageInterface $tokenStorage,
-        EventDispatcherInterface $eventDispatcher
+        private TwoFactorFirewallConfig $twoFactorFirewallConfig,
+        private TokenStorageInterface $tokenStorage,
+        private EventDispatcherInterface $eventDispatcher,
     ) {
-        $this->twoFactorFirewallConfig = $twoFactorFirewallConfig;
-        $this->tokenStorage = $tokenStorage;
-        $this->eventDispatcher = $eventDispatcher;
     }
 
     public function onKernelRequest(RequestEvent $requestEvent): void
@@ -62,10 +44,11 @@ class TwoFactorFormListener implements EventSubscriberInterface
         }
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents(): array
     {
-        return [
-            KernelEvents::REQUEST => 'onKernelRequest',
-        ];
+        return [KernelEvents::REQUEST => 'onKernelRequest'];
     }
 }

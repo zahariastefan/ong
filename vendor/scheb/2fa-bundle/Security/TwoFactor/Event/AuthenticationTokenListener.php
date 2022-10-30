@@ -4,10 +4,12 @@ declare(strict_types=1);
 
 namespace Scheb\TwoFactorBundle\Security\TwoFactor\Event;
 
+use RuntimeException;
 use Scheb\TwoFactorBundle\Security\Authentication\Token\TwoFactorTokenInterface;
 use Scheb\TwoFactorBundle\Security\Http\Authenticator\TwoFactorAuthenticator;
 use Scheb\TwoFactorBundle\Security\TwoFactor\AuthenticationContextFactoryInterface;
-use Scheb\TwoFactorBundle\Security\TwoFactor\Handler\AuthenticationHandlerInterface;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Condition\TwoFactorConditionRegistry;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\TwoFactorProviderInitiator;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -18,36 +20,13 @@ use Symfony\Component\Security\Http\Event\AuthenticationTokenCreatedEvent;
  */
 class AuthenticationTokenListener implements EventSubscriberInterface
 {
-    /**
-     * @var string
-     */
-    private $firewallName;
-
-    /**
-     * @var AuthenticationHandlerInterface
-     */
-    private $twoFactorAuthenticationHandler;
-
-    /**
-     * @var AuthenticationContextFactoryInterface
-     */
-    private $authenticationContextFactory;
-
-    /**
-     * @var RequestStack
-     */
-    private $requestStack;
-
     public function __construct(
-        string $firewallName,
-        AuthenticationHandlerInterface $twoFactorAuthenticationHandler,
-        AuthenticationContextFactoryInterface $authenticationContextFactory,
-        RequestStack $requestStack
+        private string $firewallName,
+        private TwoFactorConditionRegistry $twoFactorConditionRegistry,
+        private TwoFactorProviderInitiator $twoFactorProviderInitiator,
+        private AuthenticationContextFactoryInterface $authenticationContextFactory,
+        private RequestStack $requestStack
     ) {
-        $this->twoFactorAuthenticationHandler = $twoFactorAuthenticationHandler;
-        $this->authenticationContextFactory = $authenticationContextFactory;
-        $this->requestStack = $requestStack;
-        $this->firewallName = $firewallName;
     }
 
     public function onAuthenticationTokenCreated(AuthenticationTokenCreatedEvent $event): void
@@ -65,33 +44,36 @@ class AuthenticationTokenListener implements EventSubscriberInterface
         }
 
         $request = $this->getRequest();
-        $context = $this->authenticationContextFactory->create($request, $token, $this->firewallName);
+        $passport = $event->getPassport();
+        $context = $this->authenticationContextFactory->create($request, $token, $passport, $this->firewallName);
 
-        $newToken = $this->twoFactorAuthenticationHandler->beginTwoFactorAuthentication($context);
-        if ($newToken !== $token) {
-            $event->setAuthenticatedToken($newToken);
+        if (!$this->twoFactorConditionRegistry->shouldPerformTwoFactorAuthentication($context)) {
+            return;
         }
+
+        $newToken = $this->twoFactorProviderInitiator->beginTwoFactorAuthentication($context);
+        if (null === $newToken) {
+            return;
+        }
+
+        $event->setAuthenticatedToken($newToken);
     }
 
     private function getRequest(): Request
     {
-        // Compatibility for Symfony >= 5.3
-        if (method_exists(RequestStack::class, 'getMainRequest')) {
-            $request = $this->requestStack->getMainRequest();
-        } else {
-            $request = $this->requestStack->getMasterRequest();
-        }
+        $request = $this->requestStack->getMainRequest();
         if (null === $request) {
-            throw new \RuntimeException('No request available');
+            throw new RuntimeException('No request available');
         }
 
         return $request;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function getSubscribedEvents(): array
     {
-        return [
-            AuthenticationTokenCreatedEvent::class => 'onAuthenticationTokenCreated',
-        ];
+        return [AuthenticationTokenCreatedEvent::class => 'onAuthenticationTokenCreated'];
     }
 }

@@ -18,53 +18,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Logout\LogoutUrlGenerator;
+use function count;
+use function str_contains;
 
 class FormController
 {
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    /**
-     * @var TwoFactorProviderRegistry
-     */
-    private $providerRegistry;
-
-    /**
-     * @var TwoFactorFirewallContext
-     */
-    private $twoFactorFirewallContext;
-
-    /**
-     * @var LogoutUrlGenerator
-     */
-    private $logoutUrlGenerator;
-
-    /**
-     * @var TrustedDeviceManagerInterface|null
-     */
-    private $trustedDeviceManager;
-
-    /**
-     * @var bool
-     */
-    private $trustedFeatureEnabled;
-
     public function __construct(
-        TokenStorageInterface $tokenStorage,
-        TwoFactorProviderRegistry $providerRegistry,
-        TwoFactorFirewallContext $twoFactorFirewallContext,
-        LogoutUrlGenerator $logoutUrlGenerator,
-        ?TrustedDeviceManagerInterface $trustedDeviceManager,
-        bool $trustedFeatureEnabled
+        private TokenStorageInterface $tokenStorage,
+        private TwoFactorProviderRegistry $providerRegistry,
+        private TwoFactorFirewallContext $twoFactorFirewallContext,
+        private LogoutUrlGenerator $logoutUrlGenerator,
+        private ?TrustedDeviceManagerInterface $trustedDeviceManager,
+        private bool $trustedFeatureEnabled,
     ) {
-        $this->tokenStorage = $tokenStorage;
-        $this->providerRegistry = $providerRegistry;
-        $this->twoFactorFirewallContext = $twoFactorFirewallContext;
-        $this->logoutUrlGenerator = $logoutUrlGenerator;
-        $this->trustedDeviceManager = $trustedDeviceManager;
-        $this->trustedFeatureEnabled = $trustedFeatureEnabled;
     }
 
     public function form(Request $request): Response
@@ -92,25 +58,29 @@ class FormController
 
     protected function setPreferredProvider(Request $request, TwoFactorTokenInterface $token): void
     {
-        /** @psalm-suppress InternalMethod */
-        $preferredProvider = $request->get('preferProvider');
-        if ($preferredProvider) {
-            try {
-                $token->preferTwoFactorProvider($preferredProvider);
-            } catch (UnknownTwoFactorProviderException $e) {
-                // Bad user input
-            }
+        $preferredProvider = (string) $request->query->get('preferProvider');
+        if (!$preferredProvider) {
+            return;
+        }
+
+        try {
+            $token->preferTwoFactorProvider($preferredProvider);
+        } catch (UnknownTwoFactorProviderException) {
+            // Bad user input
         }
     }
 
+    /**
+     * @return array<string,mixed>
+     */
     protected function getTemplateVars(Request $request, TwoFactorTokenInterface $token): array
     {
-        $config = $this->twoFactorFirewallContext->getFirewallConfig($token->getProviderKey(true));
+        $config = $this->twoFactorFirewallContext->getFirewallConfig($token->getFirewallName());
         $pendingTwoFactorProviders = $token->getTwoFactorProviders();
         $displayTrustedOption = $this->canSetTrustedDevice($token, $request, $config);
         $authenticationException = $this->getLastAuthenticationException($request->getSession());
         $checkPath = $config->getCheckPath();
-        $isRoute = false === strpos($checkPath, '/');
+        $isRoute = !str_contains($checkPath, '/');
 
         return [
             'twoFactorProvider' => $token->getCurrentTwoFactorProvider(),
@@ -154,6 +124,6 @@ class FormController
         return $this->trustedFeatureEnabled
             && $this->trustedDeviceManager
             && $this->trustedDeviceManager->canSetTrustedDevice($token->getUser(), $request, $config->getFirewallName())
-            && (!$config->isMultiFactor() || 1 === \count($token->getTwoFactorProviders()));
+            && (!$config->isMultiFactor() || 1 === count($token->getTwoFactorProviders()));
     }
 }

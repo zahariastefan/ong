@@ -7,29 +7,17 @@ namespace Scheb\TwoFactorBundle\Security\TwoFactor;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 
 class AuthenticationContext implements AuthenticationContextInterface
 {
-    /**
-     * @var Request
-     */
-    private $request;
-
-    /**
-     * @var TokenInterface
-     */
-    private $token;
-
-    /**
-     * @var string
-     */
-    private $firewallName;
-
-    public function __construct(Request $request, TokenInterface $token, string $firewallName)
-    {
-        $this->request = $request;
-        $this->token = $token;
-        $this->firewallName = $firewallName;
+    public function __construct(
+        private Request $request,
+        private TokenInterface $token,
+        private Passport $passport,
+        private string $firewallName
+    ) {
     }
 
     public function getToken(): TokenInterface
@@ -37,13 +25,14 @@ class AuthenticationContext implements AuthenticationContextInterface
         return $this->token;
     }
 
-    public function getUser()
+    public function getPassport(): Passport
     {
-        if (\is_object($user = $this->token->getUser())) {
-            return $user;
-        }
+        return $this->passport;
+    }
 
-        return null;
+    public function getUser(): UserInterface
+    {
+        return $this->passport->getUser();
     }
 
     public function getRequest(): Request

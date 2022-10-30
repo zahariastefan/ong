@@ -11,12 +11,14 @@ use Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorAuthenticationEvent;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Event\TwoFactorAuthenticationEvents;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Exception\UnexpectedTokenException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\HttpKernel\Event\KernelEvent;
 use Symfony\Component\HttpKernel\Event\ResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\AuthenticationEvents;
 use Symfony\Component\Security\Core\Event\AuthenticationEvent;
+use function assert;
+use function sprintf;
+use const PHP_INT_MAX;
 
 /**
  * @final
@@ -29,101 +31,60 @@ class TwoFactorProviderPreparationListener implements EventSubscriberInterface
     // Execute right before ContextListener, which is serializing the security token into the session
     public const RESPONSE_LISTENER_PRIORITY = 1;
 
-    /** @deprecated */
-    public const LISTENER_PRIORITY = self::AUTHENTICATION_SUCCESS_LISTENER_PRIORITY;
-
-    /**
-     * @var TwoFactorProviderRegistry
-     */
-    private $providerRegistry;
-
-    /**
-     * @var PreparationRecorderInterface
-     */
-    private $preparationRecorder;
-
-    /**
-     * @var TwoFactorTokenInterface|null
-     */
-    private $twoFactorToken;
-
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
-
-    /**
-     * @var string
-     */
-    private $firewallName;
-
-    /**
-     * @var bool
-     */
-    private $prepareOnLogin;
-
-    /**
-     * @var bool
-     */
-    private $prepareOnAccessDenied;
+    private ?TwoFactorTokenInterface $twoFactorToken = null;
+    private LoggerInterface $logger;
 
     public function __construct(
-        TwoFactorProviderRegistry $providerRegistry,
-        PreparationRecorderInterface $preparationRecorder,
+        private TwoFactorProviderRegistry $providerRegistry,
+        private PreparationRecorderInterface $preparationRecorder,
         ?LoggerInterface $logger,
-        string $firewallName,
-        bool $prepareOnLogin,
-        bool $prepareOnAccessDenied
+        private string $firewallName,
+        private bool $prepareOnLogin,
+        private bool $prepareOnAccessDenied
     ) {
-        $this->providerRegistry = $providerRegistry;
-        $this->preparationRecorder = $preparationRecorder;
         $this->logger = $logger ?? new NullLogger();
-        $this->firewallName = $firewallName;
-        $this->prepareOnLogin = $prepareOnLogin;
-        $this->prepareOnAccessDenied = $prepareOnAccessDenied;
     }
 
     public function onLogin(AuthenticationEvent $event): void
     {
         $token = $event->getAuthenticationToken();
-        if ($this->prepareOnLogin && $this->supports($token)) {
-            /** @var TwoFactorTokenInterface $token */
-            // After login, when the token is a TwoFactorTokenInterface, execute preparation
-            $this->twoFactorToken = $token;
+        if (!$this->prepareOnLogin || !$this->supports($token)) {
+            return;
         }
+
+        // After login, when the token is a TwoFactorTokenInterface, execute preparation
+        assert($token instanceof TwoFactorTokenInterface);
+        $this->twoFactorToken = $token;
     }
 
     public function onAccessDenied(TwoFactorAuthenticationEvent $event): void
     {
         $token = $event->getToken();
-        if ($this->prepareOnAccessDenied && $this->supports($token)) {
-            /** @var TwoFactorTokenInterface $token */
-            // Whenever two-factor authentication is required, execute preparation
-            $this->twoFactorToken = $token;
+        if (!$this->prepareOnAccessDenied || !$this->supports($token)) {
+            return;
         }
+
+        // Whenever two-factor authentication is required, execute preparation
+        assert($token instanceof TwoFactorTokenInterface);
+        $this->twoFactorToken = $token;
     }
 
     public function onTwoFactorForm(TwoFactorAuthenticationEvent $event): void
     {
         $token = $event->getToken();
-        if ($this->supports($token)) {
-            /** @var TwoFactorTokenInterface $token */
-            // Whenever two-factor authentication form is shown, execute preparation
-            $this->twoFactorToken = $token;
+        if (!$this->supports($token)) {
+            return;
         }
+
+        // Whenever two-factor authentication form is shown, execute preparation
+        assert($token instanceof TwoFactorTokenInterface);
+        $this->twoFactorToken = $token;
     }
 
     public function onKernelResponse(ResponseEvent $event): void
     {
-        // Compatibility for Symfony >= 5.3
-        if (method_exists(KernelEvent::class, 'isMainRequest')) {
-            if (!$event->isMainRequest()) {
-                return;
-            }
-        } else {
-            if (!$event->isMasterRequest()) {
-                return;
-            }
+        if (!$event->isMainRequest()) {
+            return;
         }
 
         // Unset the token from context. This is important for environments where this instance of the class is reused
@@ -140,7 +101,7 @@ class TwoFactorProviderPreparationListener implements EventSubscriberInterface
             return;
         }
 
-        $firewallName = $twoFactorToken->getProviderKey(true);
+        $firewallName = $twoFactorToken->getFirewallName();
 
         try {
             if ($this->preparationRecorder->isTwoFactorProviderPrepared($firewallName, $providerName)) {
@@ -153,17 +114,20 @@ class TwoFactorProviderPreparationListener implements EventSubscriberInterface
             $this->providerRegistry->getProvider($providerName)->prepareAuthentication($user);
             $this->preparationRecorder->setTwoFactorProviderPrepared($firewallName, $providerName);
             $this->logger->info(sprintf('Two-factor provider "%s" prepared.', $providerName));
-        } catch (UnexpectedTokenException $e) {
+        } catch (UnexpectedTokenException) {
             $this->logger->info(sprintf('Two-factor provider "%s" was not prepared, security token was change within the request.', $providerName));
         }
     }
 
     private function supports(TokenInterface $token): bool
     {
-        return $token instanceof TwoFactorTokenInterface && $token->getProviderKey(true) === $this->firewallName;
+        return $token instanceof TwoFactorTokenInterface && $token->getFirewallName() === $this->firewallName;
     }
 
-    public static function getSubscribedEvents()
+    /**
+     * {@inheritdoc}
+     */
+    public static function getSubscribedEvents(): array
     {
         return [
             AuthenticationEvents::AUTHENTICATION_SUCCESS => ['onLogin', self::AUTHENTICATION_SUCCESS_LISTENER_PRIORITY],

@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace Scheb\TwoFactorBundle\Security\TwoFactor\Provider;
 
+use LogicException;
 use Scheb\TwoFactorBundle\Security\Authentication\Token\TwoFactorTokenInterface;
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Exception\UnexpectedTokenException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use function sprintf;
 
 /**
  * Uses the security token to store if a two-factor provider has been prepared.
@@ -15,14 +17,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class TokenPreparationRecorder implements PreparationRecorderInterface
 {
-    /**
-     * @var TokenStorageInterface
-     */
-    private $tokenStorage;
-
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(private TokenStorageInterface $tokenStorage)
     {
-        $this->tokenStorage = $tokenStorage;
     }
 
     public function isTwoFactorProviderPrepared(string $firewallName, string $providerName): bool
@@ -32,9 +28,9 @@ class TokenPreparationRecorder implements PreparationRecorderInterface
             throw new UnexpectedTokenException('The security token has to be an instance of TwoFactorTokenInterface.');
         }
 
-        $providerKey = $token->getProviderKey(true);
+        $providerKey = $token->getFirewallName();
         if ($providerKey !== $firewallName) {
-            throw new \LogicException(sprintf('Cannot store preparation state for firewall "%s" in a TwoFactorToken belonging to "%s".', $firewallName, $providerKey));
+            throw new LogicException(sprintf('Cannot store preparation state for firewall "%s" in a TwoFactorToken belonging to "%s".', $firewallName, $providerKey));
         }
 
         return $token->isTwoFactorProviderPrepared($providerName);
@@ -47,9 +43,9 @@ class TokenPreparationRecorder implements PreparationRecorderInterface
             throw new UnexpectedTokenException('The security token has to be an instance of TwoFactorTokenInterface.');
         }
 
-        $providerKey = $token->getProviderKey(true);
+        $providerKey = $token->getFirewallName();
         if ($providerKey !== $firewallName) {
-            throw new \LogicException(sprintf('Cannot store preparation state for firewall "%s" in a TwoFactorToken belonging to "%s".', $firewallName, $providerKey));
+            throw new LogicException(sprintf('Cannot store preparation state for firewall "%s" in a TwoFactorToken belonging to "%s".', $firewallName, $providerKey));
         }
 
         $token->setTwoFactorProviderPrepared($providerName);

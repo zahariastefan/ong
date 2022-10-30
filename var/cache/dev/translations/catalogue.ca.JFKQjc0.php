@@ -161,6 +161,17 @@ $catalogue = new MessageCatalogue('ca', array (
     'Too many failed login attempts, please try again in %minutes% minute.' => 'Massa intents d\'inici de sessió fallits, torneu-ho a provar en %minutes% minut.',
     'Too many failed login attempts, please try again in %minutes% minutes.' => 'Massa intents d\'inici de sessió fallits, torneu-ho a provar en %minutes% minuts.',
   ),
+  'VerifyEmailBundle' => 
+  array (
+    '%count% year|%count% years' => '%count% any|%count% anys',
+    '%count% month|%count% months' => '%count% mes|%count% mesos',
+    '%count% day|%count% days' => '%count% dia|%count% dies',
+    '%count% hour|%count% hours' => '%count% hora|%count% hores',
+    '%count% minute|%count% minutes' => '%count% minut|%count% minuts',
+    'The link to verify your email has expired. Please request a new link.' => 'L\'enllaç per verificar el vostre correu electrònic ha caducat. Sol·liciteu un enllaç nou.',
+    'The link to verify your email is invalid. Please request a new link.' => 'L\'enllaç per verificar el vostre correu electrònic no és vàlid. Sol·liciteu un enllaç nou.',
+    'The link to verify your email appears to be for a different account or email. Please request a new link.' => 'L\'enllaç per verificar el vostre correu electrònic sembla ser per a un altre compte o correu electrònic. Sol·liciteu un enllaç nou.',
+  ),
   'time' => 
   array (
     'diff.ago.year' => 'fa 1 any|fa %count% anys',
@@ -360,7 +371,7 @@ $catalogueEn = new MessageCatalogue('en', array (
     'choose_provider' => 'Switch authentication method',
     'login' => 'Login',
     'code_invalid' => 'The verification code is not valid.',
-    'trusted' => 'I\'m on a trusted computer',
+    'trusted' => 'I\'m on a trusted device',
     'cancel' => 'Cancel',
   ),
   'time' => 

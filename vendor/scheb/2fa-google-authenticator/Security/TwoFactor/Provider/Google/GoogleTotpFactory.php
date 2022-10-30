@@ -7,37 +7,29 @@ namespace Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google;
 use OTPHP\TOTP;
 use OTPHP\TOTPInterface;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
+use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Exception\TwoFactorProviderLogicException;
+use function strlen;
 
 /**
  * @final
  */
 class GoogleTotpFactory
 {
-    /**
-     * @var string|null
-     */
-    private $server;
-
-    /**
-     * @var string|null
-     */
-    private $issuer;
-
-    /**
-     * @var int
-     */
-    private $digits;
-
-    public function __construct(?string $server, ?string $issuer, int $digits)
-    {
-        $this->server = $server;
-        $this->issuer = $issuer;
-        $this->digits = $digits;
+    public function __construct(
+        private ?string $server,
+        private ?string $issuer,
+        private int $digits,
+    ) {
     }
 
     public function createTotpForUser(TwoFactorInterface $user): TOTPInterface
     {
-        $totp = TOTP::create($user->getGoogleAuthenticatorSecret(), 30, 'sha1', $this->digits);
+        $secret = $user->getGoogleAuthenticatorSecret();
+        if (null === $secret || 0 === strlen($secret)) {
+            throw new TwoFactorProviderLogicException('Cannot initialize TOTP, no secret code provided.');
+        }
+
+        $totp = TOTP::create($secret, 30, 'sha1', $this->digits);
 
         $userAndHost = $user->getGoogleAuthenticatorUsername().($this->server ? '@'.$this->server : '');
         $totp->setLabel($userAndHost);

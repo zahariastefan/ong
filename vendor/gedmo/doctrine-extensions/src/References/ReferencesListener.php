@@ -46,9 +46,8 @@ class ReferencesListener extends MappedEventSubscriber
      */
     public function loadClassMetadata(EventArgs $eventArgs)
     {
-        $ea = $this->getEventAdapter($eventArgs);
         $this->loadMetadataForObjectClass(
-            $ea->getObjectManager(), $eventArgs->getClassMetadata()
+            $eventArgs->getObjectManager(), $eventArgs->getClassMetadata()
         );
     }
 
@@ -106,7 +105,7 @@ class ReferencesListener extends MappedEventSubscriber
                                             $identifier => $id,
                                         ]);
 
-                                    return new ArrayCollection((is_array($results) ? $results : $results->toArray()));
+                                    return new ArrayCollection(is_array($results) ? $results : $results->toArray());
                                 }
                             )
                         );
@@ -203,7 +202,7 @@ class ReferencesListener extends MappedEventSubscriber
                                     $identifier => $id,
                                 ]);
 
-                            return new ArrayCollection((is_array($results) ? $results : $results->toArray()));
+                            return new ArrayCollection(is_array($results) ? $results : $results->toArray());
                         }
                     )
                 );

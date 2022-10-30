@@ -6,30 +6,25 @@ namespace Scheb\TwoFactorBundle\Security\TwoFactor;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
+use function assert;
 
 /**
  * @final
  */
 class AuthenticationContextFactory implements AuthenticationContextFactoryInterface
 {
-    /**
-     * @var string
-     */
-    private $authenticationContextClass;
-
-    public function __construct(string $authenticationContextClass)
+    public function __construct(private string $authenticationContextClass)
     {
-        $this->authenticationContextClass = $authenticationContextClass;
     }
 
-    public function create(Request $request, TokenInterface $token, string $firewallName): AuthenticationContextInterface
+    public function create(Request $request, TokenInterface $token, Passport $passport, string $firewallName): AuthenticationContextInterface
     {
         /**
          * @psalm-suppress InvalidStringClass
-         *
-         * @var AuthenticationContextInterface $authenticationContext
          */
-        $authenticationContext = new $this->authenticationContextClass($request, $token, $firewallName);
+        $authenticationContext = new $this->authenticationContextClass($request, $token, $passport, $firewallName);
+        assert($authenticationContext instanceof AuthenticationContextInterface);
 
         return $authenticationContext;
     }

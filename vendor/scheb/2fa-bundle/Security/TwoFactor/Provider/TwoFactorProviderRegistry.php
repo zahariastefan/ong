@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Scheb\TwoFactorBundle\Security\TwoFactor\Provider;
 
 use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Exception\UnknownTwoFactorProviderException;
+use function sprintf;
 
 /**
  * @final
@@ -12,17 +13,14 @@ use Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Exception\UnknownTwoFactor
 class TwoFactorProviderRegistry
 {
     /**
-     * @var iterable|TwoFactorProviderInterface[]
+     * @param iterable<string,TwoFactorProviderInterface> $providers
      */
-    private $providers;
-
-    public function __construct(iterable $providers)
+    public function __construct(private iterable $providers)
     {
-        $this->providers = $providers;
     }
 
     /**
-     * @return iterable|TwoFactorProviderInterface[]
+     * @return iterable<string,TwoFactorProviderInterface>
      */
     public function getAllProviders(): iterable
     {

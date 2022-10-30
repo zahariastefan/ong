@@ -178,7 +178,7 @@ $catalogue = new MessageCatalogue('fr', array (
     'choose_provider' => 'Changer de méthode d\'authentification',
     'login' => 'Connexion',
     'code_invalid' => 'Le code de vérification n\'est pas valide.',
-    'trusted' => 'Je suis sur un ordinateur de confiance',
+    'trusted' => 'Je suis sur un appareil de confiance',
     'cancel' => 'Annuler',
   ),
   'time' => 
@@ -380,7 +380,7 @@ $catalogueEn = new MessageCatalogue('en', array (
     'choose_provider' => 'Switch authentication method',
     'login' => 'Login',
     'code_invalid' => 'The verification code is not valid.',
-    'trusted' => 'I\'m on a trusted computer',
+    'trusted' => 'I\'m on a trusted device',
     'cancel' => 'Cancel',
   ),
   'time' => 

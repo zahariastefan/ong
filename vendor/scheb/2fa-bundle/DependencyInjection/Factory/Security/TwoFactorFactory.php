@@ -4,18 +4,20 @@ declare(strict_types=1);
 
 namespace Scheb\TwoFactorBundle\DependencyInjection\Factory\Security;
 
-use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\SecurityFactoryInterface;
-use Symfony\Component\Config\Definition\Builder\ArrayNodeDefinition;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\AuthenticatorFactoryInterface;
+use Symfony\Bundle\SecurityBundle\DependencyInjection\Security\Factory\FirewallListenerFactoryInterface;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
+use Symfony\Component\Config\Definition\Builder\ParentNodeDefinitionInterface;
 use Symfony\Component\DependencyInjection\ChildDefinition;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Exception\RuntimeException;
 use Symfony\Component\DependencyInjection\Reference;
-use Symfony\Component\Security\Http\RememberMe\RememberMeHandlerInterface;
+use function assert;
 
 /**
- * @internal Technically this class is final, but the compatibility layer needs to extend it
+ * @final
  */
-class TwoFactorFactory implements SecurityFactoryInterface, FirewallListenerFactoryInterface
+class TwoFactorFactory implements FirewallListenerFactoryInterface, AuthenticatorFactoryInterface
 {
     public const AUTHENTICATION_PROVIDER_KEY = 'two_factor';
 
@@ -36,8 +38,6 @@ class TwoFactorFactory implements SecurityFactoryInterface, FirewallListenerFact
 
     public const AUTHENTICATOR_ID_PREFIX = 'security.authenticator.two_factor.';
     public const AUTHENTICATION_TOKEN_CREATED_LISTENER_ID_PREFIX = 'security.authentication.token_created_listener.two_factor.';
-    public const PROVIDER_ID_PREFIX = 'security.authentication.provider.two_factor.';
-    public const LISTENER_ID_PREFIX = 'security.authentication.listener.two_factor.';
     public const SUCCESS_HANDLER_ID_PREFIX = 'security.authentication.success_handler.two_factor.';
     public const FAILURE_HANDLER_ID_PREFIX = 'security.authentication.failure_handler.two_factor.';
     public const AUTHENTICATION_REQUIRED_HANDLER_ID_PREFIX = 'security.authentication.authentication_required_handler.two_factor.';
@@ -49,8 +49,6 @@ class TwoFactorFactory implements SecurityFactoryInterface, FirewallListenerFact
 
     public const AUTHENTICATOR_DEFINITION_ID = 'scheb_two_factor.security.authenticator';
     public const AUTHENTICATION_TOKEN_CREATED_LISTENER_DEFINITION_ID = 'scheb_two_factor.security.listener.token_created';
-    public const PROVIDER_DEFINITION_ID = 'scheb_two_factor.security.authentication.provider';
-    public const LISTENER_DEFINITION_ID = 'scheb_two_factor.security.authentication.listener';
     public const SUCCESS_HANDLER_DEFINITION_ID = 'scheb_two_factor.security.authentication.success_handler';
     public const FAILURE_HANDLER_DEFINITION_ID = 'scheb_two_factor.security.authentication.failure_handler';
     public const AUTHENTICATION_REQUIRED_HANDLER_DEFINITION_ID = 'scheb_two_factor.security.authentication.authentication_required_handler';
@@ -60,20 +58,15 @@ class TwoFactorFactory implements SecurityFactoryInterface, FirewallListenerFact
     public const KERNEL_ACCESS_LISTENER_DEFINITION_ID = 'scheb_two_factor.security.access_listener';
     public const FORM_LISTENER_DEFINITION_ID = 'scheb_two_factor.security.form_listener';
 
-    /**
-     * @var TwoFactorServicesFactory
-     */
-    private $twoFactorServicesFactory;
-
-    public function __construct(TwoFactorServicesFactory $twoFactorServicesFactory)
+    public function __construct(private TwoFactorServicesFactory $twoFactorServicesFactory)
     {
-        $this->twoFactorServicesFactory = $twoFactorServicesFactory;
     }
 
     public function addConfiguration(NodeDefinition $builder): void
     {
+        assert($builder instanceof ParentNodeDefinitionInterface);
+
         /**
-         * @var ArrayNodeDefinition $builder
          * @psalm-suppress PossiblyNullReference
          * @psalm-suppress PossiblyUndefinedMethod
          */
@@ -98,48 +91,14 @@ class TwoFactorFactory implements SecurityFactoryInterface, FirewallListenerFact
                 ->scalarNode('csrf_token_id')->defaultValue(self::DEFAULT_CSRF_TOKEN_ID)->end()
                 // Fake node for SecurityExtension, which requires a provider to be set when multiple user providers are registered
                 ->scalarNode('provider')->defaultNull()->end()
-            ->end()
-        ;
+            ->end();
     }
 
     /**
-     * @param string $id
-     * @param array $config
-     * @param string $userProviderId
-     * @param string|null $defaultEntryPointId
+     * {@inheritdoc}
      */
-    public function create(ContainerBuilder $container, $id, $config, $userProviderId, $defaultEntryPointId): array
-    {
-        $csrfTokenManagerId = $this->twoFactorServicesFactory->getCsrfTokenManagerId($config);
-        $twoFactorFirewallConfigId = $this->twoFactorServicesFactory->createTwoFactorFirewallConfig($container, $id, $config);
-        $successHandlerId = $this->twoFactorServicesFactory->createSuccessHandler($container, $id, $config, $twoFactorFirewallConfigId);
-        $failureHandlerId = $this->twoFactorServicesFactory->createFailureHandler($container, $id, $config, $twoFactorFirewallConfigId);
-        $authRequiredHandlerId = $this->twoFactorServicesFactory->createAuthenticationRequiredHandler($container, $id, $config, $twoFactorFirewallConfigId);
-        $this->twoFactorServicesFactory->createKernelExceptionListener($container, $id, $authRequiredHandlerId);
-        $this->twoFactorServicesFactory->createAccessListener($container, $id, $twoFactorFirewallConfigId);
-        $this->twoFactorServicesFactory->createFormListener($container, $id, $twoFactorFirewallConfigId);
-        $this->twoFactorServicesFactory->createProviderPreparationListener($container, $id, $config);
-
-        $providerId = $this->createAuthenticationProvider($container, $id, $twoFactorFirewallConfigId);
-        $listenerId = $this->createAuthenticationListener(
-            $container,
-            $id,
-            $twoFactorFirewallConfigId,
-            $successHandlerId,
-            $failureHandlerId,
-            $authRequiredHandlerId,
-            $csrfTokenManagerId
-        );
-
-        return [$providerId, $listenerId, $defaultEntryPointId];
-    }
-
     public function createAuthenticator(ContainerBuilder $container, string $firewallName, array $config, string $userProviderId): string
     {
-        if (!interface_exists(RememberMeHandlerInterface::class)) {
-            throw new \LogicException('Using the authenticator security system with scheb/2fa-bundle requires symfony/security version 5.3 or higher. Either disable "enable_authenticator_manager" or upgrade Symfony.');
-        }
-
         $twoFactorFirewallConfigId = $this->twoFactorServicesFactory->createTwoFactorFirewallConfig($container, $firewallName, $config);
         $successHandlerId = $this->twoFactorServicesFactory->createSuccessHandler($container, $firewallName, $config, $twoFactorFirewallConfigId);
         $failureHandlerId = $this->twoFactorServicesFactory->createFailureHandler($container, $firewallName, $config, $twoFactorFirewallConfigId);
@@ -189,42 +148,12 @@ class TwoFactorFactory implements SecurityFactoryInterface, FirewallListenerFact
             ->addTag('kernel.event_subscriber', ['dispatcher' => 'security.event_dispatcher.'.$firewallName]);
     }
 
-    private function createAuthenticationProvider(ContainerBuilder $container, string $firewallName, string $twoFactorFirewallConfigId): string
-    {
-        $providerId = self::PROVIDER_ID_PREFIX.$firewallName;
-        $container
-            ->setDefinition($providerId, new ChildDefinition(self::PROVIDER_DEFINITION_ID))
-            ->replaceArgument(0, new Reference($twoFactorFirewallConfigId));
-
-        return $providerId;
-    }
-
-    private function createAuthenticationListener(
-        ContainerBuilder $container,
-        string $firewallName,
-        string $twoFactorFirewallConfigId,
-        string $successHandlerId,
-        string $failureHandlerId,
-        string $authRequiredHandlerId,
-        string $csrfTokenManagerId
-    ): string {
-        $listenerId = self::LISTENER_ID_PREFIX.$firewallName;
-        $container
-            ->setDefinition($listenerId, new ChildDefinition(self::LISTENER_DEFINITION_ID))
-            ->replaceArgument(2, new Reference($twoFactorFirewallConfigId))
-            ->replaceArgument(3, new Reference($successHandlerId))
-            ->replaceArgument(4, new Reference($failureHandlerId))
-            ->replaceArgument(5, new Reference($authRequiredHandlerId))
-            ->replaceArgument(6, new Reference($csrfTokenManagerId));
-
-        return $listenerId;
-    }
-
-    // Compatibility for Symfony >= 5.2
-    // Uses this interface to inject TwoFactorAccessListener, instead of using the compiler pass.
+    /**
+     * {@inheritdoc}
+     */
     public function createListeners(ContainerBuilder $container, string $firewallName, array $config): array
     {
-        $accessListenerId = TwoFactorFactory::KERNEL_ACCESS_LISTENER_ID_PREFIX.$firewallName;
+        $accessListenerId = self::KERNEL_ACCESS_LISTENER_ID_PREFIX.$firewallName;
 
         return [$accessListenerId];
     }
@@ -237,5 +166,18 @@ class TwoFactorFactory implements SecurityFactoryInterface, FirewallListenerFact
     public function getKey(): string
     {
         return self::AUTHENTICATION_PROVIDER_KEY;
+    }
+
+    public function getPriority(): int
+    {
+        return 0;
+    }
+
+    /**
+     * This method is invoked when the old security system is used.
+     */
+    public function create(): void
+    {
+        throw new RuntimeException('This version of scheb/2fa-bundle requires the authenticator-based security system to be used. Please enable "enable_authenticator_manager" in your security configuration or downgrade to scheb/2fa-bundle version 5.');
     }
 }

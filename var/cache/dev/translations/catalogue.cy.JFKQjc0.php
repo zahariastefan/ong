@@ -266,7 +266,7 @@ $catalogueEn = new MessageCatalogue('en', array (
     'choose_provider' => 'Switch authentication method',
     'login' => 'Login',
     'code_invalid' => 'The verification code is not valid.',
-    'trusted' => 'I\'m on a trusted computer',
+    'trusted' => 'I\'m on a trusted device',
     'cancel' => 'Cancel',
   ),
   'time' => 

@@ -109,8 +109,7 @@ class LoggableListener extends MappedEventSubscriber
      */
     public function loadClassMetadata(EventArgs $eventArgs)
     {
-        $ea = $this->getEventAdapter($eventArgs);
-        $this->loadMetadataForObjectClass($ea->getObjectManager(), $eventArgs->getClassMetadata());
+        $this->loadMetadataForObjectClass($eventArgs->getObjectManager(), $eventArgs->getClassMetadata());
     }
 
     /**
@@ -187,8 +186,10 @@ class LoggableListener extends MappedEventSubscriber
      * Get the LogEntry class
      *
      * @param string $class
+     * @phpstan-param class-string $class
      *
      * @return string
+     * @phpstan-return class-string
      */
     protected function getLogEntryClass(LoggableAdapter $ea, $class)
     {

@@ -6,26 +6,18 @@ namespace Scheb\TwoFactorBundle\Security\TwoFactor\Provider\Google;
 
 use ParagonIE\ConstantTime\Base32;
 use Scheb\TwoFactorBundle\Model\Google\TwoFactorInterface;
+use function random_bytes;
+use function str_replace;
 
 /**
  * @final
  */
 class GoogleAuthenticator implements GoogleAuthenticatorInterface
 {
-    /**
-     * @var GoogleTotpFactory
-     */
-    private $totpFactory;
-
-    /**
-     * @var int
-     */
-    private $window;
-
-    public function __construct(GoogleTotpFactory $totpFactory, int $window)
-    {
-        $this->totpFactory = $totpFactory;
-        $this->window = $window;
+    public function __construct(
+        private GoogleTotpFactory $totpFactory,
+        private int $window,
+    ) {
     }
 
     public function checkCode(TwoFactorInterface $user, string $code): bool

@@ -4,40 +4,31 @@ declare(strict_types=1);
 
 namespace Scheb\TwoFactorBundle\Model\Persister;
 
-use Doctrine\Common\Persistence\ManagerRegistry as LegacyManagerRegistry;
 use Doctrine\Persistence\ManagerRegistry;
+use InvalidArgumentException;
 use Scheb\TwoFactorBundle\Model\PersisterInterface;
 
 /**
- * @final
- *
  * @internal For the DIC to construct a DoctrinePersister instance
+ *
+ * @final
  */
 class DoctrinePersisterFactory
 {
-    /**
-     * @var ManagerRegistry|LegacyManagerRegistry
-     */
-    private $managerRegistry;
+    private ManagerRegistry $managerRegistry;
 
-    /**
-     * @var string|null
-     */
-    private $objectManagerName;
-
-    /**
-     * @param ManagerRegistry|LegacyManagerRegistry|null $managerRegistry
-     */
-    public function __construct($managerRegistry, ?string $objectManagerName)
-    {
-        if (!$managerRegistry) {
+    public function __construct(
+        ?ManagerRegistry $managerRegistry,
+        private ?string $objectManagerName,
+    ) {
+        if (null === $managerRegistry) {
             $msg = 'scheb/2fa-bundle requires Doctrine to manage the user entity. If you don\'t want something else ';
             $msg .= 'for persistence, implement your own persister service and configure it in scheb_two_factor.persister.';
-            throw new \InvalidArgumentException($msg);
+
+            throw new InvalidArgumentException($msg);
         }
 
         $this->managerRegistry = $managerRegistry;
-        $this->objectManagerName = $objectManagerName;
     }
 
     public function getPersister(): PersisterInterface
